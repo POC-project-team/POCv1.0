@@ -1,4 +1,0 @@
-#Wed Oct 13 10:26:13 NOVT 2021
-base.0=/Users/alexandersartakov/Proger/POC/Real POC/Temp/gradleOut/launcher/build/intermediates/dex/release/mergeDexRelease/classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
