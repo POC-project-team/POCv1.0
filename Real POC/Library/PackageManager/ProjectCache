@@ -5,7 +5,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637696917180000000
+      ticks: 637696927740000000
     m_Hash: 1860606031
   m_LockFileStatus:
     m_FilePath: /Users/alexandersartakov/Proger/POC/Real POC/Packages/packages-lock.json
@@ -13,7 +13,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637696917180000000
+      ticks: 637696927740000000
     m_Hash: 1307731283
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
