@@ -4,6 +4,7 @@ ScriptsOnlyBuild:
     - CardZoom
     - DragDrop
     - DrawCards
+    - PlayerManager
     Mirror.Components.dll:
     - Mirror.NetworkTransform
     Mirror.dll:
@@ -98,6 +99,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 18254}
     - Class: 114
       Script: {instanceID: 18484}
+    - Class: 114
+      Script: {instanceID: 25224}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -387,7 +390,7 @@ ScriptsOnlyBuild:
     className: TextContainer
   - hash:
       serializedVersion: 2
-      Hash: de00113d7819349bcbd6d33c48ea106b
+      Hash: cce7b3b8e451dd2aab6c0d8f5d7ea3a5
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DragDrop
@@ -609,7 +612,7 @@ ScriptsOnlyBuild:
     className: TMP_ScrollbarEventHandler
   - hash:
       serializedVersion: 2
-      Hash: 13c2d45aacfcf960662f5901489ef7fd
+      Hash: ec0dd865a06b258fdadaaa60bcccb43f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DrawCards
@@ -1117,6 +1120,12 @@ ScriptsOnlyBuild:
     assemblyName: Mirror.dll
     namespaceName: Mirror
     className: NetworkManager
+  - hash:
+      serializedVersion: 2
+      Hash: 3ad6382617c540dc3fbe58f63d4c1b7a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerManager
   platform: 2
   scenePathNames:
   - Assets/Scenes/SampleScene.unity

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4403837967784771490}
   - component: {fileID: 4739802196944161993}
   - component: {fileID: 1195570351924410906}
+  - component: {fileID: 8241277752959034172}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -78,3 +79,22 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!114 &8241277752959034172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3369368906792630279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68804f4f5e081401e8da0d2e076a808a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  Card1: {fileID: 899477730175060555, guid: 4db84f35a8b2a471eba125edb90cbff7, type: 3}
+  Card2: {fileID: 106047874305804687, guid: 32802b829eb554714908f440a08a6320, type: 3}
+  PlayerArea: {fileID: 5490500289105560443, guid: f2be56eb22b494bdba58b2fa7744b5ad, type: 3}
+  EnemyArea: {fileID: 3289489666527502179, guid: 35106c80f6e4145c4a60fcbdb13f0e04, type: 3}
+  DropZone: {fileID: 882424011819941277, guid: 54438a3d9e51c4b01bbcdfde27a2264a, type: 3}
