@@ -31,7 +31,7 @@
     <!-- /Yandex.Metrika counter -->
 
     <meta name="csrf-param" content="_csrf">
-<meta name="csrf-token" content="7TrhwAPYaY80KJZIEp7CgEYPa2IOs5iEt4tc9WBAS6-CDqWUcJ8G7FhO53t0p4DlE0RaEmSHwvSE0Wy9DgYF2Q==">
+<meta name="csrf-token" content="zm2zFgYP0b7X7A22nTECkdCW3hACMMgotMojet23EwSFL8NRSTyWx-_fYM77VmDwk8a4QXdJj1rGrg5Di98mdA==">
     <title>Экзамены группы 20214 | Расписание занятий НГУ</title>
     <link href="/assets/fd8474ca/css/bootstrap.css" rel="stylesheet">
 <link href="/css/exam.css" rel="stylesheet">
@@ -56,7 +56,7 @@
             </div>
             <div class="text-update">
 
-                Дата последнего обновления<div class="date-update">Вчера в 17:31</div>
+                Дата последнего обновления<div class="date-update">Сегодня в 12:31</div>
                 <div class="remember">
                     
                                             </div>

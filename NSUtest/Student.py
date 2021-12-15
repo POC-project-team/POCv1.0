@@ -16,6 +16,8 @@ class Student:
     '''
     def get_schedule(self):
         html = requests.get(f"https://table.nsu.ru/group/{self.group}")
+        if html.status_code != 200:
+            raise KeyError
         self.schedule = html.text
         print("Schedule")
 
@@ -28,6 +30,7 @@ class Student:
             self.schedule = json.loads(file.read())
 
         print(type(self.schedule))
+
 
         # Wanted to parse it with
         '''    
@@ -47,6 +50,7 @@ class Student:
         print(f"The second pair information is\n"
               f"{self.schedule[self.schedule.index('<td>10:50</td>'):self.schedule.index('<td>12:40</td>')]}")
         '''
+        return self.schedule
 
     def get_exams(self):
         html = requests.get(f"https://table.nsu.ru/exam/{self.group}")
