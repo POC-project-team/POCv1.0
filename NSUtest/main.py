@@ -1,19 +1,17 @@
 import requests
-import re
-import json
+from decouple import config
 from Student import Student
 
 
 def main():
     # name = input("Tell me you name:\n")
     # group = int(input("Tell me your group number:\n"))
-    name = "Sasha"
-    group = 20214
-
+    name = config("NAME")
+    group = config("GROUP")
     try:
         student = Student(name, group)
-        student.login = "a.sartakov1"
-        student.password = "qH!6$f5J"
+        student.login = config("LOGIN")
+        student.password = config("PASSWORD")
 
         if requests.get(f"https://table.nsu.ru/group/{group}").status_code != 200:
             print("No such group")
