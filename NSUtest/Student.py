@@ -24,19 +24,20 @@ class Student:
         # It has strange encoding
         with open("Schedule.txt", "w", encoding='utf8') as file:
             file.write(html.text)
-
+        '''
         # Wanna store it as dictionary to make a list of lessons
         with open("Schedule.txt", "r", encoding='utf8') as file:
             self.schedule = json.loads(file.read())
 
         print(type(self.schedule))
+        '''
 
 
         # Wanted to parse it with
-        '''    
+
         # Todo it 7 times, there's gonna be a way for this, but it's a draft
         with open("Schedule.txt", "r", encoding='utf8') as file:
-            self.schedule = file
+            self.schedule = file.read()
             
         # Finding within the information 
         start_first = self.schedule.index("<td>9:00</td>")
@@ -45,7 +46,7 @@ class Student:
         print(f"The first pair information is \n{self.schedule[start_first:end_first]}")
 
         #print(re.findall(self.schedule[start_first:end_first], '<div class="cell">'))
-        '''
+
         '''
         print(f"The second pair information is\n"
               f"{self.schedule[self.schedule.index('<td>10:50</td>'):self.schedule.index('<td>12:40</td>')]}")

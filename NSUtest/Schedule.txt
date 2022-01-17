@@ -31,7 +31,7 @@
     <!-- /Yandex.Metrika counter -->
 
     <meta name="csrf-param" content="_csrf">
-<meta name="csrf-token" content="GckddbhS3PNrRKcHMIfUVrq1uPiAwsl-RKxbzyy2vrNXk3Y_9za6xT0Cxl5xv6wmyPPtj-T1qzYe2jW-dvzX8Q==">
+<meta name="csrf-token" content="8rnqiaDl4emz4WuXEeXRtCVs9GPCK1-8HeW0rgj33hW23aHY4qLQ3MaRNPZa1uX1dhS-DvRDEftXq8X0TJmSRQ==">
     <title>Группа 20214 | Расписание занятий НГУ</title>
     <link href="/assets/fd8474ca/css/bootstrap.css" rel="stylesheet">
 <link href="/css/group.css" rel="stylesheet">
