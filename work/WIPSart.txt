@@ -1,0 +1,4 @@
+9.02.2022:
+    First of all, init this file
+    Started working on back-end part (server + DB + API)
+    Learning into django

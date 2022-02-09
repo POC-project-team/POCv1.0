@@ -1,409 +1,0 @@
-<!DOCTYPE html>
-<html lang="ru-RU">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="/favicon.ico">
-
-    <meta property="og:title" content="Расписание занятий | Новосибирский государственный университет">
-    <meta property="og:url" content="http://table.nsu.ru/">
-    <meta property="og:type" content="website">
-    <meta property="og:description" name="description"
-          content="Расписание занятий Новосибирского государственного университета">
-    <meta property="og:image" content="http://table.nsu.ru/img/opengraf.jpg">
-
-
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript" >
-        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-            m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-        ym(45734154, "init", {
-            clickmap:true,
-            trackLinks:true,
-            accurateTrackBounce:true,
-            trackHash:true
-        });
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/45734154" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
-
-    <meta name="csrf-param" content="_csrf">
-<meta name="csrf-token" content="8rnqiaDl4emz4WuXEeXRtCVs9GPCK1-8HeW0rgj33hW23aHY4qLQ3MaRNPZa1uX1dhS-DvRDEftXq8X0TJmSRQ==">
-    <title>Группа 20214 | Расписание занятий НГУ</title>
-    <link href="/assets/fd8474ca/css/bootstrap.css" rel="stylesheet">
-<link href="/css/group.css" rel="stylesheet">
-<link href="/css/map-room.css" rel="stylesheet">
-<link href="/css/print.css" rel="stylesheet" media="print">
-<link href="/css/style.css" rel="stylesheet">
-<link href="/css/footer.css" rel="stylesheet"></head>
-<body>
-
-<header>
-    <div class="container">
-        <div class="container-header">
-            <div>
-                <a href="https://www.nsu.ru/" class="logo-nsu" target="_blank"></a>
-            </div>
-            <div class="title">
-
-                <a class="text" href="/">РАСПИСАНИЕ&nbsp;ЗАНЯТИЙ&nbsp;НГУ</a>                <div class="parity">
-                    Четная неделя
-                </div>
-
-            </div>
-            <div class="text-update">
-
-                Дата последнего обновления<div class="date-update">Сегодня в 12:31</div>
-                <div class="remember">
-                    
-                            <div>
-                    <div class='info-remember'>
-                    Запомнить это расписание</div>
-                    <a class="btn-remember" href="/remember" title="Установить данное расписание по умолчанию. При следующем посещении сайта расписание отобразится автоматически." data-toggle="tooltip" data-placement="bottom"></a>                </div>
-                                            </div>
-            </div>
-        </div>
-    </div>
-</header>
-<div class="container-nav">
-    <div class="container">
-        <div class="col-xs-6">
-            <ul id="w0" class="nav navbar-nav navbar-nsu"><li><a href="/faculties">Факультеты</a></li>
-<li><a href="/teacher">Преподаватели</a></li>
-<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Аудитории <span class="caret"></span></a><ul id="w1" class="dropdown-menu"><li><a href="/room" tabindex="-1">Все аудитории</a></li>
-<li><a href="/classes" tabindex="-1">Компьютерные классы</a></li></ul></li></ul>        </div>
-        <div class="col-xs-6">
-            <div class="container-search pull-right">
-                <form id="w2" action="/search" method="get"><input type="text" name="r" placeholder="Поиск..." required></form>            </div>
-            <div class="btn-group pull-right ring">
-                <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                   aria-expanded="false">
-                    <div class="icon-ring"></div>
-                    <span>Расписание звонков</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <table>
-                        <tr>
-                            <td><b>1 пара</b></td>
-                            <td>9:00-9:45<br>9:50-10:35</td>
-                        </tr>
-                        <tr>
-                            <td><b>2 пара</b></td>
-                            <td>10:50-11:35<br>11:40-12:25</td>
-                        </tr>
-                        <tr>
-                            <td><b>3 пара</b></td>
-                            <td>12:40-13:25<br>13:30-14:15</td>
-                        </tr>
-                        <tr>
-                            <td><b>4 пара</b></td>
-                            <td>14:30-15:15<br>15:20-16:05</td>
-                        </tr>
-                        <tr>
-                            <td><b>5 пара</b></td>
-                            <td>16:20-17:05<br>17:10-17:55</td>
-                        </tr>
-                        <tr>
-                            <td><b>6 пара</b></td>
-                            <td>18:10-18:55<br>19:00-19:45</td>
-                        </tr>
-                        <tr>
-                            <td><b>7 пара</b></td>
-                            <td>20:00-20:45<br>20:50-21:35</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="container">
-    <div class="info-schedule">
-        Уважаемые преподаватели и студенты! В расписании возможны изменения. Просьба следить за обновлениями.
-    </div>
-    <ul class="breadcrumb"><li><a href="/">Главная</a></li>
-<li><a href="/">Расписание</a></li>
-<li><a href="/faculties">Расписание по факультетам</a></li>
-<li><a href="/faculty/fit">Факультет информационных технологий</a></li>
-<li class="active">Группа 20214</li>
-</ul>    <div class="main_head">
-
-        <a class="button" href="/faculty/fit"><div><span>◀</span> Назад</div></a>
-        <div class="nav-print">
-            <!--<div class="icon-print"></div>
-            <a id="print">Распечатать расписание</a>
-            <br>
-            <div class="text-right">
-                            </div>-->
-        </div>
-
-        <h1>Группа 20214</h1>
-
-    </div>
-
-    <table class="time-table" cellspacing="0">
-        <col class="col1">
-        <col span="6" class="coln">
-        <tr>
-            <th>Время</th>
-            <th>Понедельник</th>
-            <th>Вторник</th>
-            <th>Среда</th>
-            <th>Четверг</th>
-            <th>Пятница</th>
-            <th>Суббота</th>
-        </tr>
-                    <tr>
-                <td>9:00</td>
-                                    <td>
-                                                                                    <div class="cell">            <span class='type lab' data-toggle='tooltip' data-placement='right'              title='лабораторное занятие'>лаб</span>        <div class='subject' data-toggle='tooltip' data-placement='top' title='Операционные системы'>        Операц. системы    </div>    <div class='room'>                    <a href="#" onclick="return room_view(&#039;nk&#039;,2,876,254)">т2266</a>            </div>            <a class="tutor" href="/teacher/8e991fdb-dee1-11eb-8100-0050568bc8ee">Горпинченко Д.Н.</a>        </div>                                                                        </td>
-                                    <td>
-                                                                                    <div class="cell">            <span class='type lek' data-toggle='tooltip' data-placement='right'              title='лекция'>лек</span>        <div class='subject' data-toggle='tooltip' data-placement='top' title='Дифференциальные уравнения и теория функций комплексного переменного'>        Диф. уравн. и ТФКП    </div>    <div class='room'>                    <a href="#" onclick="return room_view(&#039;nk&#039;,2,131,2207)">2128</a>            </div>            <a class="tutor" href="/teacher/002272">Васкевич В.Л.</a>        </div>                                                                        </td>
-                                    <td>
-                                                                                    <div class="cell">            <span class='type lek' data-toggle='tooltip' data-placement='right'              title='лекция'>лек</span>        <div class='subject' data-toggle='tooltip' data-placement='top' title='Разработка программно-аппаратного комплекса для решения научных и прикладных задач (групповой проект'>        Разработка ПАК    </div>    <div class='room'>                    <a href="#" onclick="return room_view(&#039;nk&#039;,2,131,2207)">2128</a>            </div>            <a class="tutor" href="/teacher/002664">Власов А.А.</a>                            <div class='week'> Нечетная</div>            </div>                                                            <div class="cell">            <span class='type pr' data-toggle='tooltip' data-placement='right'              title='практическое занятие'>пр</span>        <div class='subject' data-toggle='tooltip' data-placement='top' title='Разработка программно-аппаратного комплекса для решения научных и прикладных задач (групповой проект'>        Разработка ПАК    </div>    <div class='room'>                    Ауд. Аудитория            </div>            <a class="tutor" href="/teacher/433d8421-db1b-11eb-8100-0050568bc8ee">Литвинов В.С.</a>                            <div class='week'> Четная</div>            </div>                                                                        </td>
-                                    <td>
-                                                                                    <div class="cell">            <span class='type lek' data-toggle='tooltip' data-placement='right'              title='лекция'>лек</span>        <div class='subject' data-toggle='tooltip' data-placement='top' title='Объектно-ориентированное программирование'>        ООП    </div>    <div class='room'>                    <a href="#" onclick="return room_view(&#039;nk&#039;,2,131,2207)">2128</a>            </div>            <a class="tutor" href="/teacher/002664">Власов А.А.</a>        </div>                                                                        </td>
-                                    <td>
-                                            </td>
-                                    <td>
-                                            </td>
-                            </tr>
-                    <tr>
-                <td>10:50</td>
-                                    <td>
-                                                                                    <div class="cell">            <span class='type lek' data-toggle='tooltip' data-placement='right'              title='лекция'>лек</span>        <div class='subject' data-toggle='tooltip' data-placement='top' title='Теория вероятностей и математическая статистика'>        ТВ и МС    </div>    <div class='room'>                    <a href="#" onclick="return room_view(&#039;nk&#039;,2,131,2207)">2128</a>            </div>            <a class="tutor" href="/teacher/979042">Постовалов С.Н.</a>        </div>                                                                        </td>
-                                    <td>
-                                                                                    <div class="cell">            <span class='type pr' data-toggle='tooltip' data-placement='right'              title='практическое занятие'>пр</span>        <div class='subject' data-toggle='tooltip' data-placement='top' title='Введение в искусственный интеллект'>        Введ. в искус. интел    </div>    <div class='room'>                    <a href="#" onclick="return room_view(&#039;nk&#039;,4,262,1335)">т4213</a>            </div>            <a class="tutor" href="/teacher/096097">Серый А.С.</a>        </div>                                                                        </td>
-                                    <td>
-                                                                                    <div class="cell">            <span class='type pr' data-toggle='tooltip' data-placement='right'              title='практическое занятие'>пр</span>        <div class='subject' data-toggle='tooltip' data-placement='top' title='Разработка программно-аппаратного комплекса для решения научных и прикладных задач (групповой проект'>        Разработка ПАК    </div>    <div class='room'>                    Ауд. Аудитория            </div>            <a class="tutor" href="/teacher/433d8421-db1b-11eb-8100-0050568bc8ee">Литвинов В.С.</a>        </div>                                                                        </td>
-                                    <td>
-                                                                                    <div class="cell">            <span class='type lek' data-toggle='tooltip' data-placement='right'              title='лекция'>лек</span>        <div class='subject' data-toggle='tooltip' data-placement='top' title='Модели вычислений'>        Модели вычислений    </div>    <div class='room'>                    <a href="#" onclick="return room_view(&#039;nk&#039;,2,131,2207)">2128</a>            </div>            <a class="tutor" href="/teacher/011499">Пузаренко В.Г.</a>        </div>                                                                        </td>
-                                    <td>
-                                                                                    <div class="cell">            <span class='type lek' data-toggle='tooltip' data-placement='right'              title='лекция'>лек</span>        <div class='subject' data-toggle='tooltip' data-placement='top' title='Введение в искусственный интеллект'>        Введ. в искус. интел    </div>    <div class='room'>                    <a href="#" onclick="return room_view(&#039;nk&#039;,2,131,2207)">2128</a>            </div>            <a class="tutor" href="/teacher/011058">Загорулько Ю.А.</a>        </div>                                                                        </td>
-                                    <td>
-                                            </td>
-                            </tr>
-                    <tr>
-                <td>12:40</td>
-                                    <td>
-                                                                                    <div class="cell">            <span class='type pr' data-toggle='tooltip' data-placement='right'              title='практическое занятие'>пр</span>        <div class='subject' data-toggle='tooltip' data-placement='top' title='Иностранный язык'>        Ин. яз.    </div>    <div class='room'>                    <a href="#" onclick="return room_view(&#039;nk&#039;,1,264,1612)">1154</a>            </div>            <a class="tutor" href="/teacher/010753">Хоцкина О.В.</a>        </div>                                                                        </td>
-                                    <td>
-                                            </td>
-                                    <td>
-                                            </td>
-                                    <td>
-                                                                                    <div class="cell">            <span class='type pr' data-toggle='tooltip' data-placement='right'              title='практическое занятие'>пр</span>        <div class='subject' data-toggle='tooltip' data-placement='top' title='Дифференциальные уравнения и теория функций комплексного переменного'>        Диф. уравн. и ТФКП    </div>    <div class='room'>                    <a href="#" onclick="return room_view(&#039;nk&#039;,3,364,2132)">3151</a>            </div>            <a class="tutor" href="/teacher/002899">Шваб И.В.</a>        </div>                                                                        </td>
-                                    <td>
-                                                                                    <div class="cell">            <span class='type pr' data-toggle='tooltip' data-placement='right'              title='практическое занятие'>пр</span>        <div class='subject' data-toggle='tooltip' data-placement='top' title='Теория вероятностей и математическая статистика'>        ТВ и МС    </div>    <div class='room'>                    <a href="#" onclick="return room_view(&#039;gk&#039;,4,458,911)">411 ГК</a>            </div>            <a class="tutor" href="/teacher/030277">Рогазинский С.В.</a>        </div>                                                                        </td>
-                                    <td>
-                                            </td>
-                            </tr>
-                    <tr>
-                <td>14:30</td>
-                                    <td>
-                                                                                    <div class="cell">            <span class='type lek' data-toggle='tooltip' data-placement='right'              title='лекция'>лек</span>        <div class='subject' data-toggle='tooltip' data-placement='top' title='Операционные системы'>        Операц. системы    </div>    <div class='room'>                    <a href="#" onclick="return room_view(&#039;au&#039;,1,562,1042)">118а ЛК</a>            </div>            <a class="tutor" href="/teacher/001208">Иртегов Д.В.</a>        </div>                                                                        </td>
-                                    <td>
-                                                                                    <div class="cell">            <span class='type lab' data-toggle='tooltip' data-placement='right'              title='лабораторное занятие'>лаб</span>        <div class='subject' data-toggle='tooltip' data-placement='top' title='Объектно-ориентированное программирование'>        ООП    </div>    <div class='room'>                    <a href="#" onclick="return room_view(&#039;nk&#039;,4,110,1159)">т4218</a>            </div>            <a class="tutor" href="/teacher/70bd63d8-db19-11eb-8100-0050568bc8ee">Райш А.В.</a>        </div>                                                                        </td>
-                                    <td>
-                                                                                    <div class="cell">            <span class='type lek' data-toggle='tooltip' data-placement='right'              title='лекция'>лек</span>        <div class='subject' data-toggle='tooltip' data-placement='top' title='Теория вероятностей и математическая статистика'>        ТВ и МС    </div>    <div class='room'>                    <a href="#" onclick="return room_view(&#039;nk&#039;,2,131,2207)">2128</a>            </div>            <a class="tutor" href="/teacher/979042">Постовалов С.Н.</a>                            <div class='week'> Нечетная</div>            </div>                                                            <div class="cell">            <span class='type pr' data-toggle='tooltip' data-placement='right'              title='практическое занятие'>пр</span>        <div class='subject' data-toggle='tooltip' data-placement='top' title='Теория вероятностей и математическая статистика'>        ТВ и МС    </div>    <div class='room'>                    <a href="#" onclick="return room_view(&#039;nk&#039;,1,264,1612)">1154</a>            </div>            <a class="tutor" href="/teacher/030277">Рогазинский С.В.</a>                            <div class='week'> Четная</div>            </div>                                                                        </td>
-                                    <td>
-                                                                                    <div class="cell">            <span class='type pr' data-toggle='tooltip' data-placement='right'              title='практическое занятие'>пр</span>        <div class='subject' data-toggle='tooltip' data-placement='top' title='Модели вычислений'>        Модели вычислений    </div>    <div class='room'>                    <a href="#" onclick="return room_view(&#039;nk&#039;,3,135,2107)">3123</a>            </div>            <a class="tutor" href="/teacher/090981">Авдеев Р.Р.</a>        </div>                                                                        </td>
-                                    <td>
-                                            </td>
-                                    <td>
-                                            </td>
-                            </tr>
-                    <tr>
-                <td>16:20</td>
-                                    <td>
-                                            </td>
-                                    <td>
-                                                                                    <div class="cell">            <span class='type pr' data-toggle='tooltip' data-placement='right'              title='практическое занятие'>пр</span>        <div class='subject' data-toggle='tooltip' data-placement='top' title='Физическая культура и спорт'>        Физкультура и спорт    </div>    <div class='room'>                    Ауд. Спортивный комплекс            </div>        </div>                                                                        </td>
-                                    <td>
-                                            </td>
-                                    <td>
-                                            </td>
-                                    <td>
-                                                                                    <div class="cell">            <span class='type pr' data-toggle='tooltip' data-placement='right'              title='практическое занятие'>пр</span>        <div class='subject' data-toggle='tooltip' data-placement='top' title='Физическая культура и спорт'>        Физкультура и спорт    </div>    <div class='room'>                    Ауд. Спортивный комплекс            </div>        </div>                                                                        </td>
-                                    <td>
-                                            </td>
-                            </tr>
-                    <tr>
-                <td>18:10</td>
-                                    <td>
-                                            </td>
-                                    <td>
-                                            </td>
-                                    <td>
-                                            </td>
-                                    <td>
-                                            </td>
-                                    <td>
-                                            </td>
-                                    <td>
-                                            </td>
-                            </tr>
-                    <tr>
-                <td>20:00</td>
-                                    <td>
-                                            </td>
-                                    <td>
-                                            </td>
-                                    <td>
-                                            </td>
-                                    <td>
-                                            </td>
-                                    <td>
-                                            </td>
-                                    <td>
-                                            </td>
-                            </tr>
-            </table>
-
-<div class="modal fade modal-room" tabindex="-1" role="dialog" aria-labelledby="modal-room">    <div class="modal-dialog modal-lg modal-map" role="document">        <div class="resizer">            <a href="#" class="plus" onclick="return resizerPlus()" ondblclick="return resizerMax()">+</a>            <a href="#" class="minus" onclick="return resizerMinus()" ondblclick="return resizerMin()">-</a>        </div>        <div class="modal-content">            <div id="container-canvas" class="dragscroll">                <canvas id="canvas" ondblclick="return resizerImg()"></canvas>            </div>        </div>    </div></div></div>
-<footer class="footer">
-    <div class="footer-menu-wrap">
-        <div class="container">
-            <nav class="navbar navbar-nsu">
-                <ul class="nav navbar-nav relative">
-                    <li>
-                        <a href="http://antiplagiat.nsu.ru/" target="_blank">Антиплагиат</a>
-                    </li>
-                    <li>
-                        <a href="http://rector.nsu.ru" target="_blank">Интернет-приемная ректора</a>
-                    </li>
-                    <li>
-                        <a href="http://libra.nsu.ru/" target="_blank">Научная библиотека НГУ</a>
-                    </li>
-                    <li>
-                        <a href="https://www.youtube.com/channel/UC0BLvoH8-8_1e43cWQOwjMA" target="_blank">Видеоканал
-                            NSU.LIFE</a>
-                    </li>
-                    <li>
-                        <a href="https://nsu.ru/n/fighting-crime/" target="_blank">Борьба с правонарушениями</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-
-    <div class="footer-wrap">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-6">
-                    <div class="row">
-                        <div class="col-xs-4">
-                        <span class="icon footer-logo">
-                            <img src="/img/logo-white-green.svg" height="60px" alt="">
-                        </span>
-                        </div>
-                        <div class="col-xs-8">
-                            <p class="mt-3">
-                                630090, Новосибирск, ул. Пирогова, 1
-                            </p>
-                            <p>
-                                <a href="https://www.nsu.ru/n/contacts/" target="_blank">Контакты</a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row copyright-wrap">
-                        <div class="col-xs-12">
-                            <div class="copyright-line"></div>
-                        </div>
-                        <div class="col-xs-12">
-                            <p>© 2021&nbsp;Новосибирский государственный университет</p>
-                        </div>
-                        <div class="col-xs-12">
-                            <p class="errorMessage">Чтобы сообщить об ошибке на сайте, выделите текст ошибки и нажмите
-                                CTRL+ENTER </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-1 col-xs-offset-2 footer-organization-info">
-                                        <p><a href="https://nsu.ru/n/sveden/common/">Сведения&nbsp;об образовательной организации</a></p>
-                    <!--<p><a href="#">Карта&nbsp;сайта</a></p>-->
-                    <!--<p><a href="#">Карта&nbsp;кампуса</a></p>-->
-                </div>
-                <div class="col-xs-3">
-                    <div class="social-header text-right">Мы в соцсетях</div>
-                    <div class="social-icons clearfix margin-bottom-30">
-                        <div class="float-right">
-                            <a href="https://vk.com/nsu24" class="icon vk" target="_blank"></a>
-                            <a href="https://www.facebook.com/NovosibirskUniversity" class="icon fb"
-                               target="_blank"></a>
-                            <a href="https://www.youtube.com/channel/UC0BLvoH8-8_1e43cWQOwjMA" class="icon yt"
-                               target="_blank"></a>
-                            <a href="https://instagram.com/nsuniversity" class="icon ig" target="_blank"></a>
-                            <a href="https://english.nsu.ru/news-events/news/rss/" class="icon rss" target="_blank"></a>
-                        </div>
-                    </div>
-                    <div class="app-header text-right">Приложения</div>
-                    <div class="app-icons clearfix margin-bottom-30">
-                        <table>
-                            <tr>
-                                <td>
-                                    <a href="https://appmetrica.yandex.com/serve/673003597859934701"
-                                       class="icon google-play" target="_blank"></a>
-                                </td>
-                                <td>
-                                    <a href="https://appmetrica.yandex.com/serve/673003597859934701" target="_blank">Google
-                                        Play</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="https://appmetrica.yandex.com/serve/24485252021927636"
-                                       class="icon app-store" target="_blank"></a>
-                                </td>
-                                <td>
-                                    <a href="https://appmetrica.yandex.com/serve/24485252021927636" target="_blank">App
-                                        Store</a>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript" >
-        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-            m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-        ym(45734154, "init", {
-            clickmap:true,
-            trackLinks:true,
-            accurateTrackBounce:true,
-            trackHash:true
-        });
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/45734154" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-78886880-2"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-78886880-2');
-    </script>
-<script src="/assets/24847563/jquery.js"></script>
-<script src="/assets/fd8474ca/js/bootstrap.js"></script>
-<script src="/js/group.js"></script>
-<script src="/js/map-room.js"></script>
-<script src="/js/msg-error.js"></script>
-<script src="/assets/8597a7e9/yii.js"></script>
-<script src="/assets/8597a7e9/yii.activeForm.js"></script>
-<script>jQuery(function ($) {
-jQuery('#w2').yiiActiveForm([], []);
-});</script></body>
-</html>
