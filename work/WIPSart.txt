@@ -2,3 +2,19 @@
     First of all, init this file
     Started working on back-end part (server + DB + API)
     Learning into django
+
+10.02.2022:
+    Learning about REST
+
+11.02.2022:
+    Learning about REST and SOLID
+    thinking about the structure
+
+12.02.2022:
+    Literally doing nothing
+
+13.02.2022:
+    Django is harder and simpler than it seems
+    
+15.02.2022:
+    Writing docs
