@@ -18,30 +18,33 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-
 
 public class MainActivity extends AppCompatActivity {
     private static final String ERROR_DETECTED = "No NFC tag";
     private static final String SUCCESS = "Successfully added";
     private static final String ERROR_WRITING = "Error during writing";
+    private static final String CLICKED = "CLICKED";
     private NfcAdapter nfcAdapter;
     private PendingIntent pendingIntent;
     private IntentFilter[] intentFilter;
     private boolean writeMode;
-    private Tag tag;
+    public Tag tag;
     private Context context;
     private TextView textView;
     private TextView nfc;
     private Button button;
 
+    // не отрабатывает метод
     @Override
     protected void onNewIntent(Intent intent) {
+        Toast.makeText(this, "ON NEW INTENT", Toast.LENGTH_SHORT).show();
         super.onNewIntent(intent);
+        tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         setIntent(intent);
         readFromIntent(intent);
-        tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         Toast.makeText(this, "TAG DISCOVERED", Toast.LENGTH_LONG).show();
     }
 
@@ -53,27 +56,30 @@ public class MainActivity extends AppCompatActivity {
         nfc = (TextView) findViewById(R.id.content);
         button = findViewById(R.id.button);
         context = this;
-
+        analDisaster(getIntent());
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //BUG: tag is always equals null
-                if (tag == null) {
-                    Toast.makeText(context, ERROR_DETECTED, Toast.LENGTH_LONG).show();
-                } else {
-                    write(textView.getText().toString(), tag);
-                    Toast.makeText(context, SUCCESS, Toast.LENGTH_LONG).show();
-                }
+                {
+                    Toast.makeText(context, CLICKED, Toast.LENGTH_SHORT).show();
+                    //BUG: tag is always equals null
+                    if (tag == null) {
+                        Toast.makeText(context, "Tag == null", Toast.LENGTH_SHORT).show();
+                    } else {
+                        write(textView.getText().toString(), tag);
+                        Toast.makeText(context, "Wrote successfully", Toast.LENGTH_SHORT).show();
+                    }
 
+                }
             }
         });
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (nfcAdapter == null) {
-            Toast.makeText(this, "No NFC chip", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "No NFC chip", Toast.LENGTH_SHORT).show();
             finish();
         }
-        if (nfcAdapter.isEnabled()){
-            Toast.makeText(this, "NFC is enabled", Toast.LENGTH_LONG).show();
+        if (nfcAdapter.isEnabled()) {
+            Toast.makeText(this, "NFC is enabled", Toast.LENGTH_SHORT).show();
         }
 
         readFromIntent(getIntent());
@@ -159,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onPause() {
         super.onPause();
@@ -180,5 +185,16 @@ public class MainActivity extends AppCompatActivity {
     private void writeModeOn() {
         writeMode = false;
         nfcAdapter.disableForegroundDispatch(this);
+    }
+
+    /*
+     * new method
+     * */
+    private void analDisaster(Intent intent) {
+        Toast.makeText(this, "STARTING ANAL DISASTER", Toast.LENGTH_SHORT).show();
+        String action = intent.getAction();
+        if (action.equals(NfcAdapter.ACTION_TAG_DISCOVERED) || action.equals(NfcAdapter.ACTION_TECH_DISCOVERED)) {
+            tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        }
     }
 }
