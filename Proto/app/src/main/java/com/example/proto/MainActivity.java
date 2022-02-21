@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
@@ -55,20 +56,21 @@ public class MainActivity extends AppCompatActivity {
         nfc = (TextView) findViewById(R.id.content);
         button = findViewById(R.id.button);
         context = this;
-
+        analDisaster(getIntent());
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {{
-                Toast.makeText(context, CLICKED, Toast.LENGTH_SHORT).show();
-                //BUG: tag is always equals null
-                if (tag == null) {
-                    Toast.makeText(context, "Tag == null", Toast.LENGTH_SHORT).show();
-                } else {
-                    write(textView.getText().toString(), tag);
-                    Toast.makeText(context, "Wrote successfully", Toast.LENGTH_SHORT).show();
-                }
+            public void onClick(View v) {
+                {
+                    Toast.makeText(context, CLICKED, Toast.LENGTH_SHORT).show();
+                    //BUG: tag is always equals null
+                    if (tag == null) {
+                        Toast.makeText(context, "Tag == null", Toast.LENGTH_SHORT).show();
+                    } else {
+                        write(textView.getText().toString(), tag);
+                        Toast.makeText(context, "Wrote successfully", Toast.LENGTH_SHORT).show();
+                    }
 
-            }
+                }
             }
         });
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
@@ -76,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "No NFC chip", Toast.LENGTH_SHORT).show();
             finish();
         }
-        if (nfcAdapter.isEnabled()){
-            Toast.makeText(this, "NFC is enabled", Toast.LENGTH_SHORT ).show();
+        if (nfcAdapter.isEnabled()) {
+            Toast.makeText(this, "NFC is enabled", Toast.LENGTH_SHORT).show();
         }
 
         readFromIntent(getIntent());
@@ -163,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onPause() {
         super.onPause();
@@ -184,5 +185,16 @@ public class MainActivity extends AppCompatActivity {
     private void writeModeOn() {
         writeMode = false;
         nfcAdapter.disableForegroundDispatch(this);
+    }
+
+    /*
+     * new method
+     * */
+    private void analDisaster(Intent intent) {
+        Toast.makeText(this, "STARTING ANAL DISASTER", Toast.LENGTH_SHORT).show();
+        String action = intent.getAction();
+        if (action.equals(NfcAdapter.ACTION_TAG_DISCOVERED) || action.equals(NfcAdapter.ACTION_TECH_DISCOVERED)) {
+            tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        }
     }
 }
