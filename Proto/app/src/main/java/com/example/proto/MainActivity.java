@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         nfc = (TextView) findViewById(R.id.content);
         button = findViewById(R.id.button);
         context = this;
-        analDisaster(getIntent());
+        writingOnCreate(getIntent());
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,11 +190,13 @@ public class MainActivity extends AppCompatActivity {
     /*
      * new method
      * */
-    private void analDisaster(Intent intent) {
+    private void writingOnCreate(Intent intent) {
         Toast.makeText(this, "STARTING ANAL DISASTER", Toast.LENGTH_SHORT).show();
         String action = intent.getAction();
-        if (action.equals(NfcAdapter.ACTION_TAG_DISCOVERED) || action.equals(NfcAdapter.ACTION_TECH_DISCOVERED)) {
+        if (action.equals(NfcAdapter.ACTION_TAG_DISCOVERED) || action.equals(NfcAdapter.ACTION_TECH_DISCOVERED) || action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED)) {
             tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         }
+        setIntent(intent);
+        readFromIntent(intent);
     }
 }
