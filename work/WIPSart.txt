@@ -18,3 +18,12 @@
     
 15.02.2022:
     Writing docs
+
+18.02.2022:
+    First get request
+
+23.02.2022:
+    First put request... Need to work faster
+
+28.02.2022:
+    Writing docs
