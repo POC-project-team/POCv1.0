@@ -9,7 +9,13 @@ type NoteData struct {
 	NoteTime time.Time
 }
 
-// AddNote constructor for struct note
+// NewNote constructor for struct note
 func NewNote(note string) NoteData {
 	return NoteData{note, time.Now()}
+}
+
+func (n *NoteData) ToString() string {
+	var result string
+	result += "Data: " + n.NoteTime.String() + "\nNote: " + string(n.Note)
+	return result
 }

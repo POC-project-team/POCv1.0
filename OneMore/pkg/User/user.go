@@ -9,8 +9,8 @@ import (
 )
 
 type User struct {
-	UserID string        `json:"userID"`
-	Tags   map[int32]Tag `json:"tagID"`
+	UserID string         `json:"userID"`
+	Tags   map[int32]*Tag `json:"tagID"`
 }
 
 func (u *User) ToString() string {
@@ -19,13 +19,6 @@ func (u *User) ToString() string {
 		result += tag.ToString()
 	}
 	return result
-}
-
-func (u *User) NewTagID() int32 {
-	var id int32
-	for _, ok := u.Tags[id]; ok == true; id = rand.Int31() {
-	}
-	return id
 }
 
 func NewHashUser() string {
@@ -37,8 +30,16 @@ func NewUser() *User {
 	return &User{NewHashUser(), nil}
 }
 
-func (u *User) NewTag() {
-	id := u.NewTagID()
+func (u *User) NewTag() int32 {
+	if u.Tags == nil {
+		u.Tags = make(map[int32]*Tag)
+	}
+	var id int32
+	for _, ok := u.Tags[id]; ok; {
+		id = rand.Int31()
+	}
 	log.Info("New id: ", id, " was generated")
-	u.Tags[id] = *TagInit(id)
+	u.Tags[id] = TagInit(id)
+
+	return id
 }

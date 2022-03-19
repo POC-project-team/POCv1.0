@@ -1,6 +1,9 @@
 package user
 
-import "strconv"
+import (
+	"strconv"
+	"strings"
+)
 
 // struct for tag and working with it
 
@@ -25,4 +28,13 @@ func (t *Tag) AddNoteTag(note string) {
 
 func (t *Tag) ToString() string {
 	return strconv.Itoa(int(t.TagID))
+}
+
+func (t Tag) GetNotes() string {
+	result := ""
+	for _, note := range t.Notes {
+		result += note.ToString() + "\n\n"
+	}
+	result = strings.TrimSuffix(result, "\n\n")
+	return result
 }
