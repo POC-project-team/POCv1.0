@@ -4,6 +4,7 @@ package user
 import (
 	"crypto/sha1"
 	"encoding/hex"
+	log "github.com/sirupsen/logrus"
 	"math/rand"
 )
 
@@ -22,7 +23,8 @@ func (u *User) ToString() string {
 
 func (u *User) NewTagID() int32 {
 	var id int32
-	for _, ok := u.Tags[id]; ok == true; id = rand.Int31() {}
+	for _, ok := u.Tags[id]; ok == true; id = rand.Int31() {
+	}
 	return id
 }
 
@@ -37,5 +39,6 @@ func NewUser() *User {
 
 func (u *User) NewTag() {
 	id := u.NewTagID()
+	log.Info("New id: ", id, " was generated")
 	u.Tags[id] = *TagInit(id)
 }

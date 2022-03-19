@@ -14,9 +14,9 @@ import (
 
 // struct to parse the request from user
 type request struct {
-	UserID int32 `json:"target_id"`
-	TagID int32 `json:"tag_id"`
-	Note string `json:"note"`
+	UserID int32  `json:"target_id"`
+	TagID  int32  `json:"tag_id"`
+	Note   string `json:"note"`
 }
 
 type service struct {
@@ -91,6 +91,25 @@ func (s *service) CreateUser(w http.ResponseWriter, r *http.Request) {
 	log.Info("New user: ", id)
 	w.WriteHeader(http.StatusCreated)
 	w.Write([]byte("\nnew User was created\nid:" + strconv.Itoa(int(id)) + "\n"))
+}
+
+func (s *service) AddTag(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	vars := mux.Vars(r)
+	tmp, _ := strconv.Atoi(vars["user_id"])
+	user_id := int32(tmp)
+
+	if _, ok := s.store[user_id]; !ok {
+		w.Write([]byte("No such user"))
+		return
+	}
+
+	s.store[user_id].NewTag()
+	w.WriteHeader(http.StatusCreated)
 }
 
 // AddNote of specific user

@@ -5,6 +5,7 @@ import (
 	"net/http"
 	s "user/pkg/service"
 )
+
 // The entry point
 
 func main() {
@@ -13,7 +14,8 @@ func main() {
 
 	router.HandleFunc("/getUsers", srv.GetAllUsers)
 	router.HandleFunc("/createUser", srv.CreateUser)
-	router.HandleFunc("/{user_id:[0-9]+}/add_note/{tag_id:[0-9]+}", srv.AddNote)
+	router.HandleFunc("/{user_id:[0-9]+}/createTag", srv.AddTag)
+	router.HandleFunc("/{user_id:[0-9]+}/addNote/{tag_id:[0-9]+}", srv.AddNote)
 	http.Handle("/", router)
 
 	http.ListenAndServe("localhost:8080", nil)
