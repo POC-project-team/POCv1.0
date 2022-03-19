@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
+	"io"
 	"io/ioutil"
 	"math/rand"
 	"net/http"
@@ -56,7 +57,10 @@ func (s *service) GetAllUsers(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	for id, user := range s.store {
-		w.Write([]byte("id: " + strconv.Itoa(int(id)) + "\nUser: " + user.ToString() + "\n"))
+		_, err := w.Write([]byte("id: " + strconv.Itoa(int(id)) + "\nUser: " + user.ToString() + "\n"))
+		if err != nil {
+			return
+		}
 	}
 }
 
@@ -70,11 +74,19 @@ func (s *service) CreateUser(w http.ResponseWriter, r *http.Request) {
 	// wanted to make post one
 	if r.Method == "POST" {
 		content, err := ioutil.ReadAll(r.Body)
-		defer r.Body.Close()
+		defer func(Body io.ReadCloser) {
+			err := Body.Close()
+			if err != nil {
+				log.Error("Cannot close the file while creating user")
+			}
+		}(r.Body)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			log.Error("Cannot read the data from request")
-			w.Write([]byte(err.Error()))
+			_, err := w.Write([]byte(err.Error()))
+			if err != nil {
+				return
+			}
 			return
 		}
 
@@ -82,7 +94,10 @@ func (s *service) CreateUser(w http.ResponseWriter, r *http.Request) {
 
 		if err := json.Unmarshal(content, &tmpUser); err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(err.Error()))
+			_, err := w.Write([]byte(err.Error()))
+			if err != nil {
+				return
+			}
 			log.Error("Cannot parse data from json")
 			return
 		}
@@ -93,7 +108,10 @@ func (s *service) CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	log.Info("New user: ", id)
 	w.WriteHeader(http.StatusCreated)
-	w.Write([]byte("new User was created\nid:" + strconv.Itoa(int(id)) + "\n"))
+	_, err := w.Write([]byte("new User was created\nid:" + strconv.Itoa(int(id)) + "\n"))
+	if err != nil {
+		return
+	}
 }
 
 func (s *service) AddTag(w http.ResponseWriter, r *http.Request) {
@@ -107,13 +125,19 @@ func (s *service) AddTag(w http.ResponseWriter, r *http.Request) {
 	userId := int32(tmp)
 
 	if _, ok := s.store[userId]; !ok {
-		w.Write([]byte("No such user"))
+		_, err := w.Write([]byte("No such user"))
+		if err != nil {
+			return
+		}
 		return
 	}
 
 	id := s.store[userId].NewTag()
 	w.WriteHeader(http.StatusCreated)
-	w.Write([]byte("New Tag id:" + strconv.Itoa(int(id)) + " was created\n"))
+	_, err := w.Write([]byte("New Tag id:" + strconv.Itoa(int(id)) + " was created\n"))
+	if err != nil {
+		return
+	}
 }
 
 func (s *service) GetNotes(w http.ResponseWriter, r *http.Request) {
@@ -126,7 +150,10 @@ func (s *service) GetNotes(w http.ResponseWriter, r *http.Request) {
 	userId := int32(tmp)
 
 	if _, ok := s.store[userId]; !ok {
-		w.Write([]byte("No such user"))
+		_, err := w.Write([]byte("No such user"))
+		if err != nil {
+			return
+		}
 		return
 	}
 
@@ -134,10 +161,16 @@ func (s *service) GetNotes(w http.ResponseWriter, r *http.Request) {
 	tagId := int32(tmp)
 
 	if _, ok := s.store[userId].Tags[tagId]; !ok {
-		w.Write([]byte("No such tag"))
+		_, err := w.Write([]byte("No such tag"))
+		if err != nil {
+			return
+		}
 	}
 
-	w.Write([]byte(s.store[userId].Tags[tagId].GetNotes() + "\n"))
+	_, err := w.Write([]byte(s.store[userId].Tags[tagId].GetNotes() + "\n"))
+	if err != nil {
+		return
+	}
 
 }
 
@@ -149,17 +182,28 @@ func (s *service) AddNote(w http.ResponseWriter, r *http.Request) {
 	}
 
 	content, err := ioutil.ReadAll(r.Body)
-	defer r.Body.Close()
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+			log.Error("Error while closing file after reading note")
+		}
+	}(r.Body)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Error("Cannot read the data from request")
-		w.Write([]byte(err.Error()))
+		_, err := w.Write([]byte(err.Error()))
+		if err != nil {
+			return
+		}
 		return
 	}
 	var req request
 	if err := json.Unmarshal(content, &req); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(err.Error()))
+		_, err := w.Write([]byte(err.Error()))
+		if err != nil {
+			return
+		}
 		log.Error("Cannot parse data from json")
 		return
 	}
@@ -169,7 +213,10 @@ func (s *service) AddNote(w http.ResponseWriter, r *http.Request) {
 	userId := int32(tmp)
 
 	if _, ok := s.store[userId]; !ok {
-		w.Write([]byte("No such user"))
+		_, err := w.Write([]byte("No such user"))
+		if err != nil {
+			return
+		}
 		return
 	}
 
@@ -177,12 +224,18 @@ func (s *service) AddNote(w http.ResponseWriter, r *http.Request) {
 	tagId := int32(tmp)
 
 	if _, ok := s.store[userId].Tags[tagId]; !ok {
-		w.Write([]byte("No such tag"))
+		_, err := w.Write([]byte("No such tag"))
+		if err != nil {
+			return
+		}
 	}
 
 	s.store[userId].Tags[tagId].AddNoteTag(req.Note)
 
 	log.Info("New note was created")
 
-	w.Write([]byte("Note was successfully created\n"))
+	_, err = w.Write([]byte("Note was successfully created\n"))
+	if err != nil {
+		return
+	}
 }

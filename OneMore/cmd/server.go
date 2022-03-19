@@ -19,5 +19,8 @@ func main() {
 	router.HandleFunc("/{user_id:[0-9]+}/{tag_id:[0-9]+}/addNote", srv.AddNote)
 	http.Handle("/", router)
 
-	http.ListenAndServe("localhost:8080", nil)
+	err := http.ListenAndServe("localhost:8080", nil)
+	if err != nil {
+		return
+	}
 }

@@ -16,6 +16,6 @@ func NewNote(note string) NoteData {
 
 func (n *NoteData) ToString() string {
 	var result string
-	result += "Data: " + n.NoteTime.String() + "\nNote: " + string(n.Note)
+	result += "Data: " + n.NoteTime.String() + "\nNote: " + n.Note
 	return result
 }
