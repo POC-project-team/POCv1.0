@@ -15,6 +15,7 @@ func main() {
 	router.HandleFunc("/getUsers", srv.GetAllUsers)
 	router.HandleFunc("/createUser", srv.CreateUser)
 	router.HandleFunc("/{user_id:[0-9]+}/createTag", srv.AddTag)
+	router.HandleFunc("/{user_id:[0-9]+}/getTags", srv.GetAllTags)
 	router.HandleFunc("/{user_id:[0-9]+}/{tag_id:[0-9]+}/getNotes", srv.GetNotes)
 	router.HandleFunc("/{user_id:[0-9]+}/{tag_id:[0-9]+}/addNote", srv.AddNote)
 	http.Handle("/", router)

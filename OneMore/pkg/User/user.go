@@ -35,7 +35,7 @@ func (u *User) NewTag() int32 {
 		u.Tags = make(map[int32]*Tag)
 	}
 	var id int32
-	for _, ok := u.Tags[id]; ok; {
+	for u.Tags[id] != nil {
 		id = rand.Int31()
 	}
 	log.Info("New id: ", id, " was generated")

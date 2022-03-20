@@ -108,8 +108,36 @@ func (s *service) CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	log.Info("New user: ", id)
 	w.WriteHeader(http.StatusCreated)
-	_, err := w.Write([]byte("new User was created\nid:" + strconv.Itoa(int(id)) + "\n"))
-	if err != nil {
+	if _, err := w.Write([]byte("new User was created\nid:" + strconv.Itoa(int(id)) + "\n")); err != nil {
+		log.Error("Cannot write data to CreateUser")
+	}
+	return
+}
+
+func (s *service) GetAllTags(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	vars := mux.Vars(r)
+	tmp, _ := strconv.Atoi(vars["user_id"])
+	userId := int32(tmp)
+
+	if _, ok := s.store[userId]; !ok {
+		if _, err := w.Write([]byte("No such user")); err != nil {
+			return
+		}
+		return
+	}
+
+	var result string
+	for _, tag := range s.store[userId].Tags {
+		result += "tag_id: " + tag.ToString() + "\n"
+	}
+	w.WriteHeader(http.StatusCreated)
+	if _, err := w.Write([]byte("Tags of user_id: " + strconv.Itoa(int(userId)) + " " + result)); err != nil {
+		log.Error("Cannot write data to user from Printing tags")
 		return
 	}
 }
@@ -134,8 +162,8 @@ func (s *service) AddTag(w http.ResponseWriter, r *http.Request) {
 
 	id := s.store[userId].NewTag()
 	w.WriteHeader(http.StatusCreated)
-	_, err := w.Write([]byte("New Tag id:" + strconv.Itoa(int(id)) + " was created\n"))
-	if err != nil {
+	if _, err := w.Write([]byte("New Tag id:" + strconv.Itoa(int(id)) + " was created\n")); err != nil {
+		log.Error("Cannot write the data from adding tag")
 		return
 	}
 }
