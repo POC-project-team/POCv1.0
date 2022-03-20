@@ -27,3 +27,9 @@
 
 28.02.2022:
     Writing docs
+
+5.03.2022:
+    don't know where I'm wasting my time
+
+12-20.03.2022:
+    Building up a server in Golang
