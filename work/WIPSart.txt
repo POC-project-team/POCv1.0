@@ -33,3 +33,9 @@
 
 12-20.03.2022:
     Building up a server in Golang
+
+20.03.2022:
+    Implement JSON support
+
+21.03.2022:
+    Saving data when exiting
