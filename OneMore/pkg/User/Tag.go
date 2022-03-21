@@ -8,21 +8,13 @@ import (
 // struct for tag and working with it
 
 type Tag struct {
-	TagID int32
-	Notes []NoteData
+	TagID int        `json:"tagID"`
+	Notes []NoteData `json:"userNotes"`
 }
 
-func TagInit(TagID int32) *Tag {
+func TagInit(TagID int) *Tag {
 	return &Tag{TagID: TagID}
 }
-
-/*
-func TagInitNote(TagID int32, note string) *Tag {
-	tag := TagInit(TagID)
-	tag.AddNoteTag(note)
-	return tag
-}
-*/
 
 func (t *Tag) AddNoteTag(note string) {
 	t.Notes = append(t.Notes, NewNote(note))

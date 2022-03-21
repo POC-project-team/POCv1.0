@@ -5,8 +5,8 @@ import (
 )
 
 type NoteData struct {
-	Note     string
-	NoteTime time.Time
+	Note     string    `json:"note"`
+	NoteTime time.Time `json:"time"`
 }
 
 // NewNote constructor for struct note
