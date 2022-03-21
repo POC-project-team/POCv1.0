@@ -18,3 +18,24 @@
     
 15.02.2022:
     Writing docs
+
+18.02.2022:
+    First get request
+
+23.02.2022:
+    First put request... Need to work faster
+
+28.02.2022:
+    Writing docs
+
+5.03.2022:
+    don't know where I'm wasting my time
+
+12-20.03.2022:
+    Building up a server in Golang
+
+20.03.2022:
+    Implement JSON support
+
+21.03.2022:
+    Saving data when exiting
