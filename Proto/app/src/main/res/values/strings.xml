@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">Proto</string>
-    <string name="read_that_shit">Read that shit</string>
-    <string name="type_here_name">Type here name...</string>
-    <string name="click_me">click me</string>
-    <string name="write_nfc">write NFC</string>
-    <string name="poc_poc_poc">POC POC POC :</string>
-    <string name="enter_name">Enter name...</string>
-</resources>
