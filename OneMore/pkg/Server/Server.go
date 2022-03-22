@@ -63,7 +63,7 @@ func (myRouter *myServer) WaitShutdown() {
 	//Wait interrupt or shutdown request through /shutdown
 	select {
 	case sig := <-irqSig:
-		log.Info("Shutdown request (signal: %v)", sig)
+		log.Info("Shutdown request (signal: ", sig, ")")
 	case sig := <-myRouter.shutdownReq:
 		log.Info("Shutdown request (/shutdown %v)", sig)
 	}
