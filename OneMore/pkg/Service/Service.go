@@ -1,5 +1,5 @@
 // Package service /*
-package service
+package user
 
 import (
 	"encoding/json"
