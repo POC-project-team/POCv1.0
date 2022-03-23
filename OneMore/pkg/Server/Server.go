@@ -79,26 +79,3 @@ func (myRouter *myServer) WaitShutdown() {
 		log.Error("Error on shutdown", err)
 	}
 }
-
-func foo() {
-	srv := s.NewService()
-	router := mux.NewRouter()
-
-	// todo: use methods
-	// just for testing the
-	userRouter := router.PathPrefix("/getUsers").Subrouter()
-	userRouter.HandleFunc("", srv.GetAllUsers).Methods("GET")
-
-	//router.HandleFunc("/getUsers", srv.GetAllUsers).Methods("GET")
-	router.HandleFunc("/createUser", srv.CreateUser).Methods("GET")
-	// todo: one func -> two things
-	router.HandleFunc("/{user_id:[0-9]+}/createTag", srv.AddTag).Methods("GET")
-	router.HandleFunc("/{user_id:[0-9]+}/getTags", srv.GetAllTags).Methods("GET")
-	router.HandleFunc("/{user_id:[0-9]+}/{tag_id:[0-9]+}/getNotes", srv.GetNotes).Methods("GET")
-	router.HandleFunc("/{user_id:[0-9]+}/{tag_id:[0-9]+}/addNote", srv.AddNote).Methods("POST")
-	http.Handle("/", router)
-
-	if err := http.ListenAndServe(":60494", nil); err != nil {
-		log.Error("The server is not listening")
-	}
-}

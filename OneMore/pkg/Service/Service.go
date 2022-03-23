@@ -11,7 +11,7 @@ import (
 	"net/http"
 	"strconv"
 	"user/pkg/APIerror"
-	u "user/pkg/user"
+	u "user/pkg/User"
 )
 
 /*
