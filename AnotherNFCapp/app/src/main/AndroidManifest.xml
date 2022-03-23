@@ -36,8 +36,10 @@
                 <action android:name="android.nfc.action.TAG_DISCOVERED"/>
             </intent-filter>
         </activity>
-        <activity android:name=".GetScreen"></activity>
 
+        <activity android:name=".GetScreen" />
+
+        <activity android:name=".RegisterUser" />
 
     </application>
 
