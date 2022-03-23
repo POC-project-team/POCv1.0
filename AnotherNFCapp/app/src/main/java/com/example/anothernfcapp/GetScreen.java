@@ -49,39 +49,23 @@ public class GetScreen extends Activity {
         asyncHttpClient = new AsyncHttpClient();
         String urlToGet = serverUrl + "1/0/getNotes";
         Log.d("GET", urlToGet);
-        /*
-        asyncHttpClient.get(urlToGet, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String res) {
-                Log.d("GET", "onSuccess");
-                textView.setText(res);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String res, Throwable error) {
-                Log.d("GET", "Can't connect to the server. Connecting to google");
-                asyncHttpClient.get("https://www.google.com", new JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, String res) {
-                        Log.d("GET", "Connected to Google");
-                        textView.setText(res);
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String res, Throwable error) {
-                        Log.e("GET", "Status code " + statusCode);
-                    }
-                });
-            }
-        });
-        */
         asyncHttpClient.get(urlToGet, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.e("GET", "Failure to connect to the server");
+                asyncHttpClient.get("https://google.com", new TextHttpResponseHandler() {
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        Log.e("GET", "Connection error. Status code: " + statusCode);
+                    }
 
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                        Log.d("GET", "Connected to Google");
+                    }
+                });
 
             }
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 Log.d("GET", "onSuccess");
