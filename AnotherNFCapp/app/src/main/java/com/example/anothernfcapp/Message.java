@@ -5,4 +5,6 @@ public class Message {
     Message(String value){
         note = value;
     }
+
+    
 }

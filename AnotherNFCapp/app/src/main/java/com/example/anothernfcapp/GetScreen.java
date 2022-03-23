@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.TextHttpResponseHandler;
 
 import java.util.Arrays;
 
@@ -19,7 +21,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class GetScreen extends Activity {
     AsyncHttpClient asyncHttpClient;
-    private String serverUrl = "https://172.20.10.12:60494/";
+    private String serverUrl = "http://172.20.10.12:60494/";
     TextView textView;
     Button button;
 
@@ -47,28 +49,43 @@ public class GetScreen extends Activity {
         asyncHttpClient = new AsyncHttpClient();
         String urlToGet = serverUrl + "1/0/getNotes";
         Log.d("GET", urlToGet);
-        asyncHttpClient.get(urlToGet, new AsyncHttpResponseHandler() {
+        /*
+        asyncHttpClient.get(urlToGet, new JsonHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+            public void onSuccess(int statusCode, Header[] headers, String res) {
                 Log.d("GET", "onSuccess");
-                textView.setText(responseBody.toString());
+                textView.setText(res);
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+            public void onFailure(int statusCode, Header[] headers, String res, Throwable error) {
                 Log.d("GET", "Can't connect to the server. Connecting to google");
-                asyncHttpClient.get("https://www.google.com", new AsyncHttpResponseHandler() {
+                asyncHttpClient.get("https://www.google.com", new JsonHttpResponseHandler() {
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                    public void onSuccess(int statusCode, Header[] headers, String res) {
                         Log.d("GET", "Connected to Google");
-                        textView.setText(responseBody.toString());
+                        textView.setText(res);
                     }
 
                     @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                    public void onFailure(int statusCode, Header[] headers, String res, Throwable error) {
                         Log.e("GET", "Status code " + statusCode);
                     }
                 });
+            }
+        });
+        */
+        asyncHttpClient.get(urlToGet, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+
+
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                Log.d("GET", "onSuccess");
+                textView.setText(responseString);
             }
         });
 

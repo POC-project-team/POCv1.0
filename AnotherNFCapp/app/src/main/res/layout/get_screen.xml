@@ -13,7 +13,7 @@
 
         android:hint="Value from server"
         android:text=""
-        android:textSize="24sp" />
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/goBackButton"

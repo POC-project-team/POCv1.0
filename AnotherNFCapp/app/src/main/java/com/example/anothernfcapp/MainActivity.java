@@ -25,10 +25,13 @@ import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.TextHttpResponseHandler;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class MainActivity extends AppCompatActivity {
     boolean mWriteMode = false;
@@ -36,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private PendingIntent nfcPendingIntent;
     AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
     String value;
-    private String serverUrl = "https://172.20.10.12:60494/";
+    private String serverUrl = "http://172.20.10.12:60494/";
     private int FLAG = -1;
     GetScreen getScreen;
     @Override
@@ -102,7 +105,12 @@ public class MainActivity extends AppCompatActivity {
             value = ((TextView)findViewById(R.id.valueFromServer)).getText().toString();
             NdefRecord record = NdefRecord.createMime( "text/plain", ((TextView)findViewById(R.id.valueFromServer)).getText().toString().getBytes());
             NdefMessage message = new NdefMessage(new NdefRecord[] { record });
-            if (FLAG == 0 && writeTag(message, detectedTag, value)) {
+            if (FLAG == 0) {
+                try {
+                    postMessage(value);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
                 Toast.makeText(this, "Success: POCED THIS TAG", Toast.LENGTH_LONG).show();
             }
             if (FLAG == 1){
@@ -111,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 
     private boolean writeTag(NdefMessage message, Tag detectedTag, String value) {
         Log.d("POST", "writeTag");
@@ -165,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(getScreen);
     }
 
-    private void postMessage(String text) {
+    private void postMessage(String text) throws UnsupportedEncodingException {
         JsonFactory jsonFactory = new JsonFactory();
         String msg = jsonFactory.makeJsonMessage(text);
         String urlToPost = serverUrl + "1/0/addNote";
@@ -174,7 +183,8 @@ public class MainActivity extends AppCompatActivity {
         RequestParams params = new RequestParams();
         params.put("param1", msg);
         Log.d("POST", params.toString());
-        asyncHttpClient.post(urlToPost, params, new AsyncHttpResponseHandler() {
+        StringEntity stringEntity = new StringEntity(msg);
+        /*asyncHttpClient.post(urlToPost, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Log.d("POST", "onSuccess");
@@ -194,6 +204,29 @@ public class MainActivity extends AppCompatActivity {
                         Log.e("POST", "Status code: " + statusCode);
                     }
                 });
+            }
+        });*/
+        asyncHttpClient.post(this, urlToPost, stringEntity, msg, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.d("POST", "Can't connect to the server. Connecting to google");
+                Log.e("POST", "Status code: " + statusCode);
+                asyncHttpClient.post("https://www.google.com", params, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        Log.d("POST", "Connected to Google");
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        Log.e("POST", "Status code: " + statusCode);
+                    }
+                });
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                Log.d("POST", "onSuccess");
             }
         });
     }
