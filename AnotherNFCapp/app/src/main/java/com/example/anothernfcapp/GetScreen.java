@@ -41,7 +41,7 @@ public class GetScreen extends Activity {
     }
 
     private void backButton(){
-        Intent getScreen = new Intent(this, MainActivity.class);
+        Intent getScreen = new Intent(this, MainScreen.class);
         startActivity(getScreen);
     }
 
