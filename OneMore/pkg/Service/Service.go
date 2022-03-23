@@ -204,6 +204,7 @@ func (s *Service) AddNote(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var req request
+
 	if err := json.Unmarshal(content, &req); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		_, err := w.Write([]byte(err.Error()))
