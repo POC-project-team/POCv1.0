@@ -3,23 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".GetScreen" >
+    tools:context=".WriteScreen" >
 
 
-    <TextView
-        android:id="@+id/valueFromServer"
-        android:layout_width="fill_parent"
-        android:layout_height="680dp"
-        android:hint="Value from server"
-        android:text=""
-        android:textSize="14sp"
-        android:verticalScrollbarPosition="right" />
-
-    <Button
-        android:id="@+id/goBackButton"
+    <EditText
+        android:id="@+id/getTextValue"
+        android:hint="Value"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Back" />
+        android:text="POC POC POC POC" />
 
+    <Button
+        android:id="@+id/sendValue"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="WRITE" />
 
 </LinearLayout>

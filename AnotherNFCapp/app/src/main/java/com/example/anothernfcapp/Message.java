@@ -2,7 +2,9 @@ package com.example.anothernfcapp;
 
 public class Message {
     public String note;
-    Message(String value){
+    public String tagID;
+    Message(String value, String tagId){
+        this.tagID = tagId;
         note = value;
     }
 

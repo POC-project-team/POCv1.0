@@ -31,37 +31,42 @@ public class MainScreen extends AppCompatActivity {
     boolean mWriteMode = false;
     private NfcAdapter nfcAdapter;
     private PendingIntent nfcPendingIntent;
-    AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-    String value;
-    private String serverUrl = "http://172.20.10.12:60494/";
-    private int FLAG = -1;
-    private String tagId;
+    public static String tagId;
+    TextView tagIdTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tagIdTextView = (TextView)findViewById(R.id.tagId);
         ((Button) findViewById(R.id.buttonwrite)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FLAG = 0;
                 Log.d("POST", "Clicked on write button");
-                nfcAdapter = NfcAdapter.getDefaultAdapter(MainScreen.this);
-                nfcPendingIntent = PendingIntent.getActivity(MainScreen.this, 0,
-                        new Intent(MainScreen.this, MainScreen.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-                enableTagWriteMode();
-                new AlertDialog.Builder(MainScreen.this).setTitle("Touch tag to write a data").setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        disableTagWriteMode();
-                    }
-                }).create().show();
+                if (tagId != null){
+                    writeScreenStart();
+
+                }
+                else{
+                    msgError();
+                }
             }
         });
         ((Button) findViewById(R.id.buttonget)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FLAG = 1;
                 Log.d("GET", "Clicked on get button");
+                if (tagId == null){
+                    msgError();
+                }
+                else {
+                    getDataViaTag();
+                }
+            }
+        });
+        ((Button) findViewById(R.id.buttonSetUp)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 nfcAdapter = NfcAdapter.getDefaultAdapter(MainScreen.this);
                 nfcPendingIntent = PendingIntent.getActivity(MainScreen.this, 0,
                         new Intent(MainScreen.this, MainScreen.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
@@ -89,6 +94,10 @@ public class MainScreen extends AppCompatActivity {
         nfcAdapter.enableForegroundDispatch(this, nfcPendingIntent, mWriteTagFilters, null);
     }
 
+    private void msgError(){
+        Toast.makeText(this, "Tag isn't set up", Toast.LENGTH_SHORT).show();
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onNewIntent(Intent intent) {
@@ -97,62 +106,24 @@ public class MainScreen extends AppCompatActivity {
             Tag detectedTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             tagId = bytesToHexString(detectedTag.getId());
             Log.d("TAG", tagId);
-            value = ((TextView)findViewById(R.id.valueFromServer)).getText().toString();
-            if (FLAG == 0) {
-                try {
-                    postMessage(value);
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                Toast.makeText(this, "Success: POCED THIS TAG", Toast.LENGTH_LONG).show();
-            }
-            if (FLAG == 1){
-                getDataViaTag();
-                Toast.makeText(this, "Success: POCED THIS TAG", Toast.LENGTH_LONG).show();
-            }
+            tagIdTextView.setText("Current tagId: " + tagId);
+            Toast.makeText(this, "Success: POCED THIS TAG", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void writeScreenStart(){
+        Log.d("POST", "Write Screen");
+        Intent intent = new Intent(this, WriteScreen.class);
+        startActivity(intent);
+
     }
 
     private void getDataViaTag(){
         Log.d("GET", "getDataViaTag");
-        startGetScreen();
-    }
-
-    public void startGetScreen(){
         Intent getScreen = new Intent(this, GetScreen.class);
         startActivity(getScreen);
     }
 
-    private void postMessage(String text) throws UnsupportedEncodingException {
-        JsonFactory jsonFactory = new JsonFactory();
-        String msg = jsonFactory.makeJsonMessage(text);
-        String urlToPost = serverUrl + "1/0/addNote";
-        Log.d("POST", urlToPost);
-        Log.d("POST", text);
-        StringEntity stringEntity = new StringEntity(msg);
-        asyncHttpClient.post(this, urlToPost, stringEntity, msg, new TextHttpResponseHandler() {
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d("POST", "Can't connect to the server. Connecting to google");
-                Log.e("POST", "Status code: " + statusCode);
-                asyncHttpClient.post("https://www.google.com", new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        Log.d("POST", "Connected to Google");
-                    }
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                        Log.e("POST", "Status code: " + statusCode);
-                    }
-                });
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                Log.d("POST", "onSuccess");
-            }
-        });
-    }
     private String bytesToHexString(byte[] src) {
         StringBuilder stringBuilder = new StringBuilder("0x");
         if (src == null || src.length <= 0) {
@@ -167,5 +138,9 @@ public class MainScreen extends AppCompatActivity {
         }
 
         return stringBuilder.toString();
+    }
+
+    public String getTagId(){
+        return tagId;
     }
 }

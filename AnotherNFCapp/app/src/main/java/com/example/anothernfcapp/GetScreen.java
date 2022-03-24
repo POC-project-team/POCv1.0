@@ -11,11 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.TextHttpResponseHandler;
-
-import java.util.Arrays;
 
 import cz.msebera.android.httpclient.Header;
 

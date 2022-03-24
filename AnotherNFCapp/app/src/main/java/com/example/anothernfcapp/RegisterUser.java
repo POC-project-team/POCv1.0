@@ -39,7 +39,7 @@ public class RegisterUser extends Activity {
 
     private void sendRegistration() {
         Toast.makeText(this, "WIP", Toast.LENGTH_SHORT).show();
-        
+
     }
 
     private void setGoBack(){
