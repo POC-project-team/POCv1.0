@@ -1,9 +1,9 @@
 package server
 
 import (
+	"backend/pkg/DB"
 	s "backend/pkg/Service"
 	"encoding/json"
-	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
 	"net/http"
@@ -32,22 +32,11 @@ func NewServer() (*myServer, *s.Service) {
 	}
 
 	srv := s.NewService()
-	if err := json.Unmarshal(s.ReadJSONFile("pkg/Server/Data.json"), &srv.Store); err != nil {
+	if err := json.Unmarshal(DB.ReadJSONFile("pkg/DB/Data.json"), &srv.Store); err != nil {
 		log.Error("Cannot read data from file")
 	}
-	router := mux.NewRouter()
 
-	userRouter := router.PathPrefix("/getUsers").Subrouter()
-	userRouter.HandleFunc("", srv.GetAllUsers).Methods("GET")
-
-	//router.HandleFunc("/getUsers", srv.GetAllUsers).Methods("GET")
-	router.HandleFunc("/createUser", srv.CreateUser).Methods("GET")
-	router.HandleFunc("/{user_id:[0-9]+}/getTags", srv.GetAllTags).Methods("GET")
-	router.HandleFunc("/{user_id:[0-9]+}/getNotes", srv.GetNotes).Methods("POST")
-	router.HandleFunc("/{user_id:[0-9]+}/addNote", srv.AddNote).Methods("POST")
-	router.Handle("/", router)
-
-	myRouter.Handler = router
+	myRouter.Handler = MyHandler(srv)
 
 	return myRouter, srv
 }

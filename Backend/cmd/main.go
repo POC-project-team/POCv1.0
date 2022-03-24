@@ -1,8 +1,8 @@
 package main
 
 import (
+	"backend/pkg/DB"
 	s "backend/pkg/Server"
-	service "backend/pkg/Service"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -18,7 +18,7 @@ func main() {
 		done <- true
 	}()
 	server.WaitShutdown()
-	service.WriteJSONFile("pkg/Server/Data.json", *data)
+	DB.WriteJSONFile("pkg/DB/Data.json", *data)
 
 	<-done
 	log.Info("Server shutdown complete")

@@ -13,11 +13,6 @@ import (
 	"strconv"
 )
 
-/*
-todo:
-	- remove unmarshal to another file
-*/
-
 type Service struct {
 	Store map[int]*u.User
 }

@@ -1,12 +1,13 @@
-package service
+package DB
 
 import (
+	"backend/pkg/Service"
 	"encoding/json"
 	log "github.com/sirupsen/logrus"
 	"io/ioutil"
 )
 
-func WriteJSONFile(fileName string, srv Service) {
+func WriteJSONFile(fileName string, srv service.Service) {
 	file, err := json.MarshalIndent(srv.Store, "", "	")
 	if err != nil {
 		log.Error("Cannot read data from server to JSON file: ", fileName)
