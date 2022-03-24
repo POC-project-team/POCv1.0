@@ -1,6 +1,7 @@
 package server
 
 import (
+	s "backend/pkg/Service"
 	"encoding/json"
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
@@ -10,7 +11,6 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
-	s "user/pkg/Service"
 )
 
 // todo: auth

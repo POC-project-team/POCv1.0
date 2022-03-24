@@ -1,12 +1,12 @@
 package Domain
 
 import (
+	"backend/pkg/APIerror"
 	"encoding/json"
 	"errors"
 	"io"
 	"io/ioutil"
 	"net/http"
-	"user/pkg/APIerror"
 )
 
 type Request struct {

@@ -2,15 +2,15 @@
 package service
 
 import (
+	"backend/pkg/APIerror"
+	domain "backend/pkg/Domain"
+	u "backend/pkg/User"
 	"encoding/json"
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
 	"math/rand"
 	"net/http"
 	"strconv"
-	"user/pkg/APIerror"
-	domain "user/pkg/Domain"
-	u "user/pkg/User"
 )
 
 /*
