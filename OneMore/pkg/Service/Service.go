@@ -69,7 +69,7 @@ func (s *Service) GetAllUsers(w http.ResponseWriter, _ *http.Request) {
 		resp.Users = append(resp.Users, strconv.Itoa(id))
 	}
 
-	if err := json.NewEncoder(w).Encode(resp.Users); err != nil {
+	if err := json.NewEncoder(w).Encode(resp); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusInternalServerError,
 			Description: "Cannot write data to request",
