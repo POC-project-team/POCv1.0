@@ -39,7 +39,7 @@ func (s *Service) ContainsUser(userId int, w http.ResponseWriter) bool {
 }
 
 // ContainsTag Contains check if the map Contains the specific user
-func (s *Service) ContainsTag(userId, tagId int, w http.ResponseWriter) bool {
+func (s *Service) ContainsTag(userId int, tagId string, w http.ResponseWriter) bool {
 	if _, ok := s.Store[userId].Tags[tagId]; !ok {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusBadRequest,
@@ -102,27 +102,16 @@ func (s *Service) GetAllTags(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := json.NewEncoder(w).Encode(s.Store[userId].Tags); err != nil {
-		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
-			ErrorCode:   http.StatusInternalServerError,
-			Description: "Cannot write data to request",
-		})
-	} else {
-		w.WriteHeader(http.StatusCreated)
+	type response struct {
+		Tags []string `json:"Tags"`
 	}
-}
+	var resp response
 
-func (s *Service) AddTag(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	userId, _ := strconv.Atoi(vars["user_id"])
-
-	if !(s.ContainsUser(userId, w)) {
-		return
+	for tag := range s.Store[userId].Tags {
+		resp.Tags = append(resp.Tags, tag)
 	}
 
-	id := s.Store[userId].NewTag()
-
-	if err := json.NewEncoder(w).Encode(s.Store[userId].Tags[id]); err != nil {
+	if err := json.NewEncoder(w).Encode(resp); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusInternalServerError,
 			Description: "Cannot write data to request",
@@ -133,6 +122,10 @@ func (s *Service) AddTag(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Service) GetNotes(w http.ResponseWriter, r *http.Request) {
+	var req domain.Request
+	if err := req.Bind(w, r); err != nil {
+		return
+	}
 	// params checking
 	vars := mux.Vars(r)
 	userId, err := strconv.Atoi(vars["user_id"])
@@ -142,19 +135,12 @@ func (s *Service) GetNotes(w http.ResponseWriter, r *http.Request) {
 			Description: "No userID param",
 		})
 	}
-	tagId, err := strconv.Atoi(vars["tag_id"])
-	if err != nil {
-		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
-			ErrorCode:   http.StatusBadRequest,
-			Description: "No tagID param",
-		})
-	}
 
-	if !(s.ContainsUser(userId, w)) || !(s.ContainsTag(userId, tagId, w)) {
+	if !(s.ContainsUser(userId, w)) || !(s.ContainsTag(userId, req.TagID, w)) {
 		return
 	}
 
-	if err := json.NewEncoder(w).Encode(s.Store[userId].Tags[tagId]); err != nil {
+	if err := json.NewEncoder(w).Encode(s.Store[userId].Tags[req.TagID].Notes); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusInternalServerError,
 			Description: "Cannot write data to request",
@@ -171,6 +157,14 @@ func (s *Service) AddNote(w http.ResponseWriter, r *http.Request) {
 	if err := req.Bind(w, r); err != nil {
 		return
 	}
+	if len(req.Note) == 0 {
+		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
+			ErrorCode:   http.StatusBadRequest,
+			Description: "Field 'note' has no data",
+		})
+		return
+	}
+
 	// params checking
 	vars := mux.Vars(r)
 	userId, err := strconv.Atoi(vars["user_id"])
@@ -180,23 +174,20 @@ func (s *Service) AddNote(w http.ResponseWriter, r *http.Request) {
 			Description: "No userID param",
 		})
 	}
-	tagId, err := strconv.Atoi(vars["tag_id"])
-	if err != nil {
-		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
-			ErrorCode:   http.StatusBadRequest,
-			Description: "No tagID param",
-		})
-	}
 
-	if !(s.ContainsUser(userId, w)) || !(s.ContainsTag(userId, tagId, w)) {
+	if !(s.ContainsUser(userId, w)) {
 		return
 	}
 
-	s.Store[userId].Tags[tagId].AddNoteTag(req.Note)
+	if s.Store[userId].Tags[req.TagID] == nil {
+		s.Store[userId].NewTag(req.TagID)
+	}
 
-	log.Info("New note for userID: ", userId, " tagID: ", tagId, " was created")
+	s.Store[userId].Tags[req.TagID].AddNoteTag(req.Note)
 
-	if err := json.NewEncoder(w).Encode(s.Store[userId].Tags[tagId]); err != nil {
+	log.Info("New note for userID: ", userId, " tagID: ", req.TagID, " was created")
+
+	if err := json.NewEncoder(w).Encode(s.Store[userId].Tags[req.TagID]); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusInternalServerError,
 			Description: "Cannot write data to request",

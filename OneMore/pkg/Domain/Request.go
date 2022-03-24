@@ -11,7 +11,7 @@ import (
 
 type Request struct {
 	UserID int    `json:"userID"`
-	TagID  int    `json:"tagID"`
+	TagID  string `json:"tagID"`
 	Note   string `json:"note"`
 }
 
@@ -40,14 +40,6 @@ func (req *Request) Bind(w http.ResponseWriter, r *http.Request) error {
 			Description: "Cannot parse data from json",
 		})
 		return errors.New("cannot parse data form JSON")
-	}
-
-	if len(req.Note) == 0 {
-		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
-			ErrorCode:   http.StatusBadRequest,
-			Description: "Field 'note' has no data",
-		})
-		return errors.New("field note is empty")
 	}
 
 	return nil

@@ -45,10 +45,9 @@ func NewServer() (*myServer, *s.Service) {
 	//router.HandleFunc("/getUsers", srv.GetAllUsers).Methods("GET")
 	router.HandleFunc("/createUser", srv.CreateUser).Methods("GET")
 	// todo: one func -> two things
-	router.HandleFunc("/{user_id:[0-9]+}/createTag", srv.AddTag).Methods("GET")
 	router.HandleFunc("/{user_id:[0-9]+}/getTags", srv.GetAllTags).Methods("GET")
-	router.HandleFunc("/{user_id:[0-9]+}/{tag_id:[0-9]+}/getNotes", srv.GetNotes).Methods("GET")
-	router.HandleFunc("/{user_id:[0-9]+}/{tag_id:[0-9]+}/addNote", srv.AddNote).Methods("POST")
+	router.HandleFunc("/{user_id:[0-9]+}/getNotes", srv.GetNotes).Methods("POST")
+	router.HandleFunc("/{user_id:[0-9]+}/addNote", srv.AddNote).Methods("POST")
 	router.Handle("/", router)
 
 	myRouter.Handler = router
@@ -63,12 +62,8 @@ func (myRouter *myServer) WaitShutdown() {
 	//Wait interrupt or shutdown request through /shutdown
 	select {
 	case sig := <-irqSig:
-		log.Info("Shutdown request (signal: %v)", sig)
-	case sig := <-myRouter.shutdownReq:
-		log.Info("Shutdown request (/shutdown %v)", sig)
+		log.Info("Shutdown request signal: ", sig)
 	}
-
-	log.Info("Stopping http server ...")
 
 	//Create shutdown context with 10 second timeout
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
