@@ -5,25 +5,24 @@ import (
 	"crypto/sha1"
 	"encoding/hex"
 	log "github.com/sirupsen/logrus"
-	"math/rand"
 	"strconv"
 	"time"
 )
 
 type User struct {
-	UserID int          `json:"userID"`
-	Tags   map[int]*Tag `json:"tagID"`
+	UserID int             //`json:"userID"`
+	Tags   map[string]*Tag `json:"tagID"`
 }
 
 func (u *User) ToString() string {
 	result := strconv.Itoa(u.UserID)
 	for _, tag := range u.Tags {
-		result += tag.ToString()
+		result += tag.TagID
 	}
 	return result
 }
 
-func NewHashUser() string {
+func _() string {
 	h := sha1.New()
 	return hex.EncodeToString(h.Sum([]byte(strconv.Itoa(int(time.Now().UnixNano())))))
 }
@@ -33,16 +32,10 @@ func NewUser(userID int) *User {
 	return &User{userID, nil}
 }
 
-func (u *User) NewTag() int {
+func (u *User) NewTag(id string) {
 	if u.Tags == nil {
-		u.Tags = make(map[int]*Tag)
+		u.Tags = make(map[string]*Tag)
 	}
-	var id int
-	for u.Tags[id] != nil {
-		id = rand.Int()
-	}
-	log.Info("New tagID: ", id, " for user_id: ", u.UserID, " was generated")
 	u.Tags[id] = TagInit(id)
-
-	return id
+	log.Info("New tagID: ", id, " for user_id: ", u.UserID, " was generated")
 }

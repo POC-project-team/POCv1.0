@@ -2,29 +2,21 @@
 package service
 
 import (
+	"backend/pkg/APIerror"
+	domain "backend/pkg/Domain"
+	u "backend/pkg/User"
 	"encoding/json"
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
-	"io"
-	"io/ioutil"
 	"math/rand"
 	"net/http"
 	"strconv"
-	"user/pkg/APIerror"
-	u "user/pkg/User"
 )
 
 /*
 todo:
 	- remove unmarshal to another file
 */
-
-// struct to parse the request from user
-type request struct {
-	UserID int    `json:"userID"`
-	TagID  int    `json:"tagID"`
-	Note   string `json:"note"`
-}
 
 type Service struct {
 	Store map[int]*u.User
@@ -47,7 +39,7 @@ func (s *Service) ContainsUser(userId int, w http.ResponseWriter) bool {
 }
 
 // ContainsTag Contains check if the map Contains the specific user
-func (s *Service) ContainsTag(userId, tagId int, w http.ResponseWriter) bool {
+func (s *Service) ContainsTag(userId int, tagId string, w http.ResponseWriter) bool {
 	if _, ok := s.Store[userId].Tags[tagId]; !ok {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusBadRequest,
@@ -77,7 +69,7 @@ func (s *Service) GetAllUsers(w http.ResponseWriter, _ *http.Request) {
 		resp.Users = append(resp.Users, strconv.Itoa(id))
 	}
 
-	if err := json.NewEncoder(w).Encode(resp.Users); err != nil {
+	if err := json.NewEncoder(w).Encode(resp); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusInternalServerError,
 			Description: "Cannot write data to request",
@@ -110,27 +102,16 @@ func (s *Service) GetAllTags(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := json.NewEncoder(w).Encode(s.Store[userId].Tags); err != nil {
-		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
-			ErrorCode:   http.StatusInternalServerError,
-			Description: "Cannot write data to request",
-		})
-	} else {
-		w.WriteHeader(http.StatusCreated)
+	type response struct {
+		Tags []string `json:"Tags"`
 	}
-}
+	var resp response
 
-func (s *Service) AddTag(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	userId, _ := strconv.Atoi(vars["user_id"])
-
-	if !(s.ContainsUser(userId, w)) {
-		return
+	for tag := range s.Store[userId].Tags {
+		resp.Tags = append(resp.Tags, tag)
 	}
 
-	id := s.Store[userId].NewTag()
-
-	if err := json.NewEncoder(w).Encode(s.Store[userId].Tags[id]); err != nil {
+	if err := json.NewEncoder(w).Encode(resp); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusInternalServerError,
 			Description: "Cannot write data to request",
@@ -141,6 +122,10 @@ func (s *Service) AddTag(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Service) GetNotes(w http.ResponseWriter, r *http.Request) {
+	var req domain.Request
+	if err := req.Bind(w, r); err != nil {
+		return
+	}
 	// params checking
 	vars := mux.Vars(r)
 	userId, err := strconv.Atoi(vars["user_id"])
@@ -150,19 +135,12 @@ func (s *Service) GetNotes(w http.ResponseWriter, r *http.Request) {
 			Description: "No userID param",
 		})
 	}
-	tagId, err := strconv.Atoi(vars["tag_id"])
-	if err != nil {
-		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
-			ErrorCode:   http.StatusBadRequest,
-			Description: "No tagID param",
-		})
-	}
 
-	if !(s.ContainsUser(userId, w)) || !(s.ContainsTag(userId, tagId, w)) {
+	if !(s.ContainsUser(userId, w)) || !(s.ContainsTag(userId, req.TagID, w)) {
 		return
 	}
 
-	if err := json.NewEncoder(w).Encode(s.Store[userId].Tags[tagId]); err != nil {
+	if err := json.NewEncoder(w).Encode(s.Store[userId].Tags[req.TagID].Notes); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusInternalServerError,
 			Description: "Cannot write data to request",
@@ -174,20 +152,15 @@ func (s *Service) GetNotes(w http.ResponseWriter, r *http.Request) {
 
 // AddNote of specific user
 func (s *Service) AddNote(w http.ResponseWriter, r *http.Request) {
-	content, err := ioutil.ReadAll(r.Body)
-	defer func(Body io.ReadCloser) {
-		if err := Body.Close(); err != nil {
-			APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
-				ErrorCode:   http.StatusInternalServerError,
-				Description: "Error while closing file after reading note",
-			})
-		}
-	}(r.Body)
-
-	if err != nil {
+	var req domain.Request
+	// try to parse the answer from user
+	if err := req.Bind(w, r); err != nil {
+		return
+	}
+	if len(req.Note) == 0 {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
-			ErrorCode:   http.StatusInternalServerError,
-			Description: "Cannot read the data from request",
+			ErrorCode:   http.StatusBadRequest,
+			Description: "Field 'note' has no data",
 		})
 		return
 	}
@@ -201,33 +174,20 @@ func (s *Service) AddNote(w http.ResponseWriter, r *http.Request) {
 			Description: "No userID param",
 		})
 	}
-	tagId, err := strconv.Atoi(vars["tag_id"])
-	if err != nil {
-		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
-			ErrorCode:   http.StatusBadRequest,
-			Description: "No tagID param",
-		})
-	}
 
-	if !(s.ContainsUser(userId, w)) || !(s.ContainsTag(userId, tagId, w)) {
+	if !(s.ContainsUser(userId, w)) {
 		return
 	}
 
-	// json parsing
-	var req request
-	if err := json.Unmarshal(content, &req); err != nil {
-		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
-			ErrorCode:   http.StatusInternalServerError,
-			Description: "Cannot parse data from json",
-		})
-		return
+	if s.Store[userId].Tags[req.TagID] == nil {
+		s.Store[userId].NewTag(req.TagID)
 	}
 
-	s.Store[userId].Tags[tagId].AddNoteTag(req.Note)
+	s.Store[userId].Tags[req.TagID].AddNoteTag(req.Note)
 
-	log.Info("New note for userID: ", userId, " tagID: ", tagId, " was created")
+	log.Info("New note for userID: ", userId, " tagID: ", req.TagID, " was created")
 
-	if err := json.NewEncoder(w).Encode(s.Store[userId].Tags[tagId]); err != nil {
+	if err := json.NewEncoder(w).Encode(s.Store[userId].Tags[req.TagID]); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusInternalServerError,
 			Description: "Cannot write data to request",

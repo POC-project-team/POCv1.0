@@ -1,9 +1,9 @@
 package main
 
 import (
+	s "backend/pkg/Server"
+	service "backend/pkg/Service"
 	log "github.com/sirupsen/logrus"
-	s "user/pkg/Server"
-	service "user/pkg/Service"
 )
 
 func main() {

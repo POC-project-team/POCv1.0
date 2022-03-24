@@ -1,27 +1,25 @@
 package user
 
 import (
-	"strconv"
 	"strings"
 )
 
 // struct for tag and working with it
 
 type Tag struct {
-	TagID int        `json:"tagID"`
+	TagID string     `json:"tagID"`
 	Notes []NoteData `json:"userNotes"`
 }
 
-func TagInit(TagID int) *Tag {
+func TagInit(TagID string) *Tag {
 	return &Tag{TagID: TagID}
 }
 
 func (t *Tag) AddNoteTag(note string) {
+	if t.Notes == nil {
+		t.Notes = make([]NoteData, 0)
+	}
 	t.Notes = append(t.Notes, NewNote(note))
-}
-
-func (t *Tag) ToString() string {
-	return strconv.Itoa(int(t.TagID))
 }
 
 func (t Tag) GetNotes() string {
