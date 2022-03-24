@@ -23,7 +23,7 @@ func (u *User) ToString() string {
 	return result
 }
 
-func NewHashUser() string {
+func _() string {
 	h := sha1.New()
 	return hex.EncodeToString(h.Sum([]byte(strconv.Itoa(int(time.Now().UnixNano())))))
 }

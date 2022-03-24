@@ -10,9 +10,12 @@ type HTTPErrorHandler struct {
 	Description string
 }
 
-func HTTPErrorHandle(w http.ResponseWriter, err HTTPErrorHandler)  {
+func HTTPErrorHandle(w http.ResponseWriter, err HTTPErrorHandler) {
 	w.WriteHeader(err.ErrorCode)
-	log.Error(err.Description)
+	// If the Error is on server, then log it
+	if err.ErrorCode == http.StatusInternalServerError {
+		log.Error(err.Description)
+	}
 	_, err1 := w.Write([]byte(err.Description))
 	if err1 != nil {
 		return

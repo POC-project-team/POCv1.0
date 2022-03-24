@@ -5,12 +5,11 @@ import (
 	"encoding/json"
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
-	"io"
-	"io/ioutil"
 	"math/rand"
 	"net/http"
 	"strconv"
 	"user/pkg/APIerror"
+	domain "user/pkg/Domain"
 	u "user/pkg/User"
 )
 
@@ -18,13 +17,6 @@ import (
 todo:
 	- remove unmarshal to another file
 */
-
-// struct to parse the request from user
-type request struct {
-	UserID int    `json:"userID"`
-	TagID  int    `json:"tagID"`
-	Note   string `json:"note"`
-}
 
 type Service struct {
 	Store map[int]*u.User
@@ -174,24 +166,11 @@ func (s *Service) GetNotes(w http.ResponseWriter, r *http.Request) {
 
 // AddNote of specific user
 func (s *Service) AddNote(w http.ResponseWriter, r *http.Request) {
-	content, err := ioutil.ReadAll(r.Body)
-	defer func(Body io.ReadCloser) {
-		if err := Body.Close(); err != nil {
-			APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
-				ErrorCode:   http.StatusInternalServerError,
-				Description: "Error while closing file after reading note",
-			})
-		}
-	}(r.Body)
-
-	if err != nil {
-		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
-			ErrorCode:   http.StatusInternalServerError,
-			Description: "Cannot read the data from request",
-		})
+	var req domain.Request
+	// try to parse the answer from user
+	if err := req.Bind(w, r); err != nil {
 		return
 	}
-
 	// params checking
 	vars := mux.Vars(r)
 	userId, err := strconv.Atoi(vars["user_id"])
@@ -210,16 +189,6 @@ func (s *Service) AddNote(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if !(s.ContainsUser(userId, w)) || !(s.ContainsTag(userId, tagId, w)) {
-		return
-	}
-
-	// json parsing
-	var req request
-	if err := json.Unmarshal(content, &req); err != nil {
-		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
-			ErrorCode:   http.StatusInternalServerError,
-			Description: "Cannot parse data from json",
-		})
 		return
 	}
 
