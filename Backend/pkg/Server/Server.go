@@ -37,14 +37,11 @@ func NewServer() (*myServer, *s.Service) {
 	}
 	router := mux.NewRouter()
 
-	// todo: use methods
-	// just for testing the
 	userRouter := router.PathPrefix("/getUsers").Subrouter()
 	userRouter.HandleFunc("", srv.GetAllUsers).Methods("GET")
 
 	//router.HandleFunc("/getUsers", srv.GetAllUsers).Methods("GET")
 	router.HandleFunc("/createUser", srv.CreateUser).Methods("GET")
-	// todo: one func -> two things
 	router.HandleFunc("/{user_id:[0-9]+}/getTags", srv.GetAllTags).Methods("GET")
 	router.HandleFunc("/{user_id:[0-9]+}/getNotes", srv.GetNotes).Methods("POST")
 	router.HandleFunc("/{user_id:[0-9]+}/addNote", srv.AddNote).Methods("POST")
