@@ -13,13 +13,13 @@ func main() {
 	go func() {
 		err := server.ListenAndServe()
 		if err != nil {
-			log.Info("Listen and server: ", err)
+			log.Info(err.Error())
 		}
 		done <- true
 	}()
+
 	server.WaitShutdown()
 	DB.WriteJSONFile("pkg/DB/Data.json", &data.Database)
 
 	<-done
-	log.Info("Server shutdown complete")
 }
