@@ -1,4 +1,4 @@
-// Package service /*
+// Package service /* logic for requesting */
 package service
 
 import (
@@ -27,7 +27,7 @@ func (s *Service) GetAllUsers(w http.ResponseWriter, _ *http.Request) {
 	}
 
 	var resp response
-	resp.Users = s.Database.AllUsers()
+	resp.Users = s.Database.GetAllUsers()
 
 	if err := json.NewEncoder(w).Encode(resp); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
@@ -39,6 +39,7 @@ func (s *Service) GetAllUsers(w http.ResponseWriter, _ *http.Request) {
 	}
 }
 
+// CreateUser handler for creating new user
 func (s *Service) CreateUser(w http.ResponseWriter, _ *http.Request) {
 	if err := json.NewEncoder(w).Encode(s.Database.CreateUser()); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
@@ -50,6 +51,7 @@ func (s *Service) CreateUser(w http.ResponseWriter, _ *http.Request) {
 	}
 }
 
+// GetAllTags handler for getting all tags of specific user
 func (s *Service) GetAllTags(w http.ResponseWriter, r *http.Request) {
 	type response struct {
 		Tags []string `json:"Tags"`
@@ -80,6 +82,7 @@ func (s *Service) GetAllTags(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// GetNotes handler for getting notes for specific tag of user
 func (s *Service) GetNotes(w http.ResponseWriter, r *http.Request) {
 	var req Request
 	if err := req.Bind(w, r); err != nil {
@@ -116,9 +119,8 @@ func (s *Service) GetNotes(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// AddNote of specific user
+// AddNote handler for creating new note for specific tag of user
 func (s *Service) AddNote(w http.ResponseWriter, r *http.Request) {
-	// try to parse the answer from user
 	var req Request
 	if err := req.Bind(w, r); err != nil {
 		return

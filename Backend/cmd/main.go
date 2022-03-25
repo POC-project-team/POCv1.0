@@ -1,7 +1,7 @@
+// Package main /* Entry point for the programs */
 package main
 
 import (
-	"backend/pkg/DB"
 	s "backend/pkg/Server"
 	log "github.com/sirupsen/logrus"
 )
@@ -9,6 +9,7 @@ import (
 func main() {
 	server, data := s.NewServer()
 
+	// signal handler for correct shutdown
 	done := make(chan bool)
 	go func() {
 		err := server.ListenAndServe()
@@ -19,7 +20,7 @@ func main() {
 	}()
 
 	server.WaitShutdown()
-	DB.WriteJSONFile("pkg/DB/Data.json", &data.Database)
+	data.Database.SaveData()
 
 	<-done
 }

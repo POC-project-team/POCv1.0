@@ -1,3 +1,4 @@
+// Package server /* for setting up a server */
 package server
 
 import (
@@ -5,6 +6,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// MyHandler defines the routes, returns router
 func MyHandler(srv *service.Service) *mux.Router {
 	router := mux.NewRouter()
 

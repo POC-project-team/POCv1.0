@@ -1,3 +1,4 @@
+// Package server /* for setting up a server */
 package server
 
 import (

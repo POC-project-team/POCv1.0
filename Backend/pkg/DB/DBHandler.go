@@ -1,3 +1,4 @@
+// Package DB /* for working with data base */
 package DB
 
 import (
@@ -10,6 +11,7 @@ import (
 	"strconv"
 )
 
+// WriteJSONFile for saving data to file
 func WriteJSONFile(fileName string, srv *DB) {
 	file, err := json.MarshalIndent(srv.Store, "", "	")
 	if err != nil {
@@ -21,6 +23,7 @@ func WriteJSONFile(fileName string, srv *DB) {
 	}
 }
 
+// ReadJSONFile for dumping the data from file to RAM
 func ReadJSONFile(fileName string) []byte {
 	data, err := ioutil.ReadFile(fileName)
 	if err != nil {
@@ -30,10 +33,12 @@ func ReadJSONFile(fileName string) []byte {
 	return data
 }
 
+// DB structure for storing data
 type DB struct {
 	Store map[int]*u.User
 }
 
+// NewDataBase init new object of database and dumps data from file
 func NewDataBase() *DB {
 	var srv DB
 	if err := json.Unmarshal(ReadJSONFile("pkg/DB/Data.json"), &srv.Store); err != nil {
@@ -43,11 +48,12 @@ func NewDataBase() *DB {
 	//return &Service{make(map[int]*u.User)}
 }
 
+// SaveData to file from RAM
 func (dataBase *DB) SaveData() {
 	WriteJSONFile("pkg/DB/Data.json", dataBase)
 }
 
-// Id generator
+// generates newId() for user
 func (dataBase *DB) newId() int {
 	var id int
 	for dataBase.Store[id+1] != nil {
@@ -56,23 +62,24 @@ func (dataBase *DB) newId() int {
 	return id + 1
 }
 
-// ContainsUser Contains check if the map Contains the specific user
-func (dataBase *DB) ContainsUser(userId int) bool {
+// check if the map Contains the specific user
+func (dataBase *DB) containsUser(userId int) bool {
 	if _, ok := dataBase.Store[userId]; !ok {
 		return false
 	}
 	return true
 }
 
-// ContainsTag Contains check if the map Contains the specific user
-func (dataBase *DB) ContainsTag(userId int, tagId string) bool {
+// check if the map Contains the specific user
+func (dataBase *DB) containsTag(userId int, tagId string) bool {
 	if _, ok := dataBase.Store[userId].Tags[tagId]; !ok {
 		return false
 	}
 	return true
 }
 
-func (dataBase *DB) AllUsers() []string {
+// GetAllUsers to get all users from database
+func (dataBase *DB) GetAllUsers() []string {
 	var response []string
 	for id := range dataBase.Store {
 		response = append(response, strconv.Itoa(id))
@@ -80,6 +87,7 @@ func (dataBase *DB) AllUsers() []string {
 	return response
 }
 
+// CreateUser creates new user, via searching for new id
 func (dataBase *DB) CreateUser() *u.User {
 	id := dataBase.newId()
 	dataBase.Store[id] = u.NewUser(id)
@@ -89,8 +97,9 @@ func (dataBase *DB) CreateUser() *u.User {
 	return dataBase.Store[id]
 }
 
+// GetUserTags returns all user's tags
 func (dataBase *DB) GetUserTags(userId int) ([]string, error) {
-	if !(dataBase.ContainsUser(userId)) {
+	if !(dataBase.containsUser(userId)) {
 		return nil, errors.New("no user found")
 	}
 
@@ -103,20 +112,22 @@ func (dataBase *DB) GetUserTags(userId int) ([]string, error) {
 	return response, nil
 }
 
+// GetUserNotes returns all users notes, returns error if no user or no tags
 func (dataBase *DB) GetUserNotes(userId int, tagId string) ([]u.Note, error) {
-	if !(dataBase.ContainsUser(userId)) {
+	if !(dataBase.containsUser(userId)) {
 		return nil, errors.New("no user found")
 	}
 
-	if !(dataBase.ContainsTag(userId, tagId)) {
-		return nil, errors.New("user has no tags")
+	if !(dataBase.containsTag(userId, tagId)) {
+		return nil, errors.New("user has no notes on this tag")
 	}
 
 	return dataBase.Store[userId].Tags[tagId].Notes, nil
 }
 
+// AddNote returns error if no user contains, writes new note and return all user notes
 func (dataBase *DB) AddNote(userId int, tagId, note string) ([]u.Note, error) {
-	if !(dataBase.ContainsUser(userId)) {
+	if !(dataBase.containsUser(userId)) {
 		return nil, errors.New("no such user")
 	}
 
