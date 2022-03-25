@@ -1,4 +1,4 @@
-package Domain
+package service
 
 import (
 	"backend/pkg/APIerror"

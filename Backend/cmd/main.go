@@ -18,7 +18,7 @@ func main() {
 		done <- true
 	}()
 	server.WaitShutdown()
-	DB.WriteJSONFile("pkg/DB/Data.json", *data)
+	DB.WriteJSONFile("pkg/DB/Data.json", &data.Database)
 
 	<-done
 	log.Info("Server shutdown complete")

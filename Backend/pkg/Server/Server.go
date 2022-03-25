@@ -1,9 +1,7 @@
 package server
 
 import (
-	"backend/pkg/DB"
 	s "backend/pkg/Service"
-	"encoding/json"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
 	"net/http"
@@ -32,9 +30,6 @@ func NewServer() (*myServer, *s.Service) {
 	}
 
 	srv := s.NewService()
-	if err := json.Unmarshal(DB.ReadJSONFile("pkg/DB/Data.json"), &srv.Store); err != nil {
-		log.Error("Cannot read data from file")
-	}
 
 	myRouter.Handler = MyHandler(srv)
 

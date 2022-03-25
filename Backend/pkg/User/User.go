@@ -10,7 +10,7 @@ import (
 )
 
 type User struct {
-	UserID int             //`json:"userID"`
+	UserID int
 	Tags   map[string]*Tag `json:"tagID"`
 }
 
