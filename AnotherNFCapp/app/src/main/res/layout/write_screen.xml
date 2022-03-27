@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".WriteScreen" >
+
+
+    <EditText
+        android:id="@+id/getTextValue"
+        android:hint="Value"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="POC POC POC POC" />
+
+    <Button
+        android:id="@+id/sendValue"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="WRITE" />
+
+</LinearLayout>

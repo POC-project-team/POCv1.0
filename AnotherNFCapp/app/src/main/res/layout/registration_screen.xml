@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RegisterUser" >
+
+
+    <EditText
+        android:id="@+id/loginReg"
+        android:hint="Login"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        />
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/passwordReg"
+        android:hint="@string/password" />
+
+    <Button
+        android:id="@+id/sendRegistration"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="REGIster" />
+
+    <Button
+        android:id="@+id/backToLogin"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="back" />
+</LinearLayout>

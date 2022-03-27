@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AnotherNFCapp</string>
+    <string name="password">Password</string>
+    <string name="place_tag_to_poc">PLACE TAG TO POC</string>
+</resources>
