@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AnotherNFCapp">
-        <activity android:name=".MainActivity"
+        <activity android:name=".screens.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,7 @@
         </intent-filter></activity>
 
         <activity
-            android:name=".MainScreen"
+            android:name=".screens.MainScreen"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
@@ -37,11 +37,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".GetScreen" />
+        <activity android:name=".screens.GetScreen" />
 
-        <activity android:name=".RegisterUser" />
+        <activity android:name=".screens.RegisterUser" />
 
-        <activity android:name=".WriteScreen" />
+        <activity android:name=".screens.WriteScreen" />
 
 
     </application>
