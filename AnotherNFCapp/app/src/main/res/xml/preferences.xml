@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+ <ListPreference
+     android:title="Connection type"
+     android:entries="@array/connectionType"
+     android:entryValues="@array/connectionType"
+     android:defaultValue="@string/default_value"
+     android:summary="Choose connection type"
+
+     />
+</PreferenceScreen>
