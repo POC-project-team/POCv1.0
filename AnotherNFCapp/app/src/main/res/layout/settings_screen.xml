@@ -1,22 +1,6 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.fragment.app.FragmentContainerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/settings_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".screens.settings.SettingsScreen" >
-
-
-    <Toggle
-        android:id="@+id/getTextValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Value"
-        android:text="POC POC POC POC" />
-
-    <Button
-        android:id="@+id/sendValue"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="WRITE" />
-
-</LinearLayout>
+    android:layout_height="match_parent" />

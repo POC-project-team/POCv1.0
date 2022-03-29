@@ -1,10 +1,11 @@
 <resources>
-    <string name="app_name">POC_APP</string>
+    <string name="app_name">POC APP</string>
     <string name="password">Password</string>
     <string name="place_tag_to_poc">PLACE TAG TO POC</string>
+    <string name="connection_key">connection_key</string>
     <string-array name="connectionType">
-        <item>local_host</item>
+        <item>localhost</item>
         <item>wi-fi</item>
     </string-array>
-    <string name="default_value">wi-fi</string>
+
 </resources>

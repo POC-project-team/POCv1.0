@@ -43,6 +43,7 @@
 
         <activity android:name=".screens.WriteScreen" />
 
+        <activity android:name=".screens.settings.SettingsScreen"/>
 
     </application>
 
