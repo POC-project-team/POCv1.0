@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	server, data := s.NewServer()
+	server := s.NewServer()
 
 	// signal handler for correct shutdown
 	done := make(chan bool)
@@ -20,7 +20,6 @@ func main() {
 	}()
 
 	server.WaitShutdown()
-	data.Database.SaveData()
 
 	<-done
 }

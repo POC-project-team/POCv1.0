@@ -4,7 +4,6 @@ package service
 import (
 	"backend/pkg/APIerror"
 	db "backend/pkg/DB"
-	u "backend/pkg/User"
 	"encoding/json"
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
@@ -13,21 +12,23 @@ import (
 )
 
 type Service struct {
-	Database db.DB
+	DataBaseSQL db.SQL
 }
 
 func NewService() *Service {
-	return &Service{Database: *db.NewDataBase()}
+	return &Service{
+		*db.NewSQLDataBase(),
+	}
 }
 
-// GetAllUsers func to return all of the users in the map
+// GetAllUsers func to return all users in the map
 func (s *Service) GetAllUsers(w http.ResponseWriter, _ *http.Request) {
 	type response struct {
 		Users []string `json:"Users"`
 	}
 
 	var resp response
-	resp.Users = s.Database.GetAllUsers()
+	resp.Users = s.DataBaseSQL.GetAllUsers()
 
 	if err := json.NewEncoder(w).Encode(resp); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
@@ -41,7 +42,7 @@ func (s *Service) GetAllUsers(w http.ResponseWriter, _ *http.Request) {
 
 // CreateUser handler for creating new user
 func (s *Service) CreateUser(w http.ResponseWriter, _ *http.Request) {
-	if err := json.NewEncoder(w).Encode(s.Database.CreateUser()); err != nil {
+	if err := json.NewEncoder(w).Encode(s.DataBaseSQL.CreateUser()); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusInternalServerError,
 			Description: "Cannot write data to request",
@@ -64,7 +65,7 @@ func (s *Service) GetAllTags(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	userId, _ := strconv.Atoi(vars["user_id"])
 
-	if resp.Tags, err = s.Database.GetUserTags(userId); err != nil {
+	if resp.Tags, err = s.DataBaseSQL.GetUserTags(userId); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusBadRequest,
 			Description: err.Error(),
@@ -98,9 +99,9 @@ func (s *Service) GetNotes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var notes []u.Note
+	var notes []db.Note
 
-	notes, err = s.Database.GetUserNotes(userId, req.TagID)
+	notes, err = s.DataBaseSQL.GetUserNotes(userId, req.TagID)
 	if err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusBadRequest,
@@ -135,7 +136,7 @@ func (s *Service) AddNote(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 
-	response, err := s.Database.AddNote(userId, req.TagID, req.Note)
+	response, err := s.DataBaseSQL.AddNote(userId, req.TagID, req.Note)
 	if err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusBadRequest,

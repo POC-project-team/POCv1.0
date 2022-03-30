@@ -20,7 +20,7 @@ type myServer struct {
 	reqCount    uint32
 }
 
-func NewServer() (*myServer, *s.Service) {
+func NewServer() *myServer {
 	// create server
 	myRouter := &myServer{
 		Server: http.Server{
@@ -34,7 +34,7 @@ func NewServer() (*myServer, *s.Service) {
 
 	myRouter.Handler = MyHandler(srv)
 
-	return myRouter, srv
+	return myRouter
 }
 
 func (myRouter *myServer) WaitShutdown() {
