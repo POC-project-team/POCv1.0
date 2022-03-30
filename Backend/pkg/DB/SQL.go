@@ -35,7 +35,7 @@ func (database *SQL) containsUser(userId int) bool {
 	}
 	var contain int
 	for rows.Next() {
-		rows.Scan(&contain)
+		_ = rows.Scan(&contain)
 	}
 	if contain == 0 {
 		return false
@@ -50,7 +50,7 @@ func (database *SQL) containsTag(tagID string) bool {
 	}
 	var contain int
 	for rows.Next() {
-		rows.Scan(&contain)
+		_ = rows.Scan(&contain)
 	}
 	if contain == 0 {
 		return false
@@ -58,53 +58,58 @@ func (database *SQL) containsTag(tagID string) bool {
 	return true
 }
 
-func (database *SQL) GetAllUsers() []string {
+func (database *SQL) GetAllUsers() ([]string, error) {
 	rows, err := database.Store.Query(`select * from "Users"`)
 	if err != nil {
-		log.Error(err.Error())
-		return nil
+		return nil, err
 	}
 
 	var UserID int
 	var items []u.User
 
 	for rows.Next() {
-		rows.Scan(&UserID)
+		err = rows.Scan(&UserID)
+		if err != nil {
+			return nil, err
+		}
 
 		items = append(items, u.User{
 			UserID: UserID,
 		})
 	}
 
-	// todo check if there many of this
 	var response []string
 	for _, id := range items {
 		response = append(response, strconv.Itoa(id.UserID))
 	}
-	return response
+	return response, nil
 }
 
-func (database *SQL) CreateUser() u.User {
+func (database *SQL) CreateUser() (u.User, error) {
 	rows, err := database.Store.Query(`select count(UserID) from Users`)
 	if err != nil {
-		log.Error(err.Error())
-		return u.User{}
+		return u.User{}, err
 	}
 	var userId int
 
 	for rows.Next() {
-		rows.Scan(&userId)
+		err = rows.Scan(&userId)
+		if err != nil {
+			return u.User{}, err
+		}
 	}
 	stmt, err := database.Store.Prepare(`insert into Users (UserID) values (?)`)
 	if err != nil {
-		log.Error(err.Error())
-		return u.User{}
+		return u.User{}, err
 	}
-	stmt.Exec(userId)
+	_, err = stmt.Exec(userId)
+	if err != nil {
+		return u.User{}, err
+	}
 	log.Info("New user: ", userId)
 	return u.User{
 		UserID: userId,
-	}
+	}, nil
 }
 
 func (database *SQL) GetUserTags(userId int) ([]string, error) {
@@ -120,11 +125,13 @@ func (database *SQL) GetUserTags(userId int) ([]string, error) {
 	var result []u.Tag
 
 	for rows.Next() {
-		rows.Scan(&tagID)
+		err = rows.Scan(&tagID)
+		if err != nil {
+			return nil, err
+		}
 
 		result = append(result, u.Tag{
-			UserID: userId,
-			TagID:  tagID,
+			TagID: tagID,
 		})
 	}
 
@@ -152,32 +159,58 @@ func (database *SQL) GetUserNotes(userId int, tagId string) ([]u.Note, error) {
 	var result []u.Note
 
 	for rows.Next() {
-		rows.Scan(&note.Note, &note.Time)
+		err = rows.Scan(&note.Note, &note.Time)
+		if err != nil {
+			return nil, err
+		}
 		result = append(result, note)
 	}
 	return result, nil
 }
 
-func (database *SQL) AddNote(userId int, tagId, note string) ([]u.Note, error) {
+func (database *SQL) AddNote(userId int, tagId, noteInfo string) (u.Tag, error) {
 	if !database.containsUser(userId) {
-		return nil, errors.New("no such user")
+		return u.Tag{}, errors.New("no such user")
 	}
 
 	if !database.containsTag(tagId) {
 		stmt, err := database.Store.Prepare(`insert into Tags (UserID, TagID)  values (?, ?)`)
 		if err != nil {
-			log.Error(err.Error())
+			return u.Tag{}, err
 		}
 
-		stmt.Exec(userId, tagId)
+		_, err = stmt.Exec(userId, tagId)
+		if err != nil {
+			return u.Tag{}, err
+		}
 	}
 
 	stmt, err := database.Store.Prepare(`insert into Note (TagID, Note, Data)  values (?, ?, ?)`)
 	if err != nil {
-		log.Error(err.Error())
+		return u.Tag{}, err
 	}
 
-	stmt.Exec(tagId, note, time.Now())
+	if _, err = stmt.Exec(tagId, noteInfo, time.Now()); err != nil {
+		return u.Tag{}, err
+	}
 
-	return database.GetUserNotes(userId, tagId)
+	rows, err := database.Store.Query(`select Note, Data from Note where TagID = ?`, tagId)
+	if err != nil {
+		return u.Tag{}, err
+	}
+
+	var note u.Note
+	var result u.Tag
+
+	result.TagID = tagId
+
+	for rows.Next() {
+		err = rows.Scan(&note.Note, &note.Time)
+		if err != nil {
+			return u.Tag{}, err
+		}
+		result.Notes = append(result.Notes, note)
+	}
+
+	return result, nil
 }

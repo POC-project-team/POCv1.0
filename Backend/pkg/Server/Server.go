@@ -2,7 +2,6 @@
 package server
 
 import (
-	s "backend/pkg/Service"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
 	"net/http"
@@ -21,7 +20,6 @@ type myServer struct {
 }
 
 func NewServer() *myServer {
-	// create server
 	myRouter := &myServer{
 		Server: http.Server{
 			Addr:         ":60494",
@@ -30,9 +28,7 @@ func NewServer() *myServer {
 		},
 	}
 
-	srv := s.NewService()
-
-	myRouter.Handler = MyHandler(srv)
+	myRouter.Handler = MyHandler()
 
 	return myRouter
 }

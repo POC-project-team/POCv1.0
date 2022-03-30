@@ -13,7 +13,7 @@ import (
 )
 
 type Service struct {
-	DataBaseSQL db.SQL
+	BaseSQL db.SQL
 }
 
 func NewService() *Service {
@@ -28,10 +28,19 @@ func (s *Service) GetAllUsers(w http.ResponseWriter, _ *http.Request) {
 		Users []string `json:"Users"`
 	}
 
-	var resp response
-	resp.Users = s.DataBaseSQL.GetAllUsers()
+	var (
+		resp response
+		err  error
+	)
+	resp.Users, err = s.BaseSQL.GetAllUsers()
+	if err != nil {
+		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
+			ErrorCode:   http.StatusInternalServerError,
+			Description: err.Error(),
+		})
+	}
 
-	if err := json.NewEncoder(w).Encode(resp); err != nil {
+	if err = json.NewEncoder(w).Encode(resp); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusInternalServerError,
 			Description: "Cannot write data to request",
@@ -43,7 +52,14 @@ func (s *Service) GetAllUsers(w http.ResponseWriter, _ *http.Request) {
 
 // CreateUser handler for creating new user
 func (s *Service) CreateUser(w http.ResponseWriter, _ *http.Request) {
-	if err := json.NewEncoder(w).Encode(s.DataBaseSQL.CreateUser()); err != nil {
+	result, err := s.BaseSQL.CreateUser()
+	if err != nil {
+		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
+			ErrorCode:   http.StatusInternalServerError,
+			Description: err.Error(),
+		})
+	}
+	if err := json.NewEncoder(w).Encode(result); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusInternalServerError,
 			Description: "Cannot write data to request",
@@ -66,7 +82,7 @@ func (s *Service) GetAllTags(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	userId, _ := strconv.Atoi(vars["user_id"])
 
-	if resp.Tags, err = s.DataBaseSQL.GetUserTags(userId); err != nil {
+	if resp.Tags, err = s.BaseSQL.GetUserTags(userId); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusBadRequest,
 			Description: err.Error(),
@@ -102,7 +118,7 @@ func (s *Service) GetNotes(w http.ResponseWriter, r *http.Request) {
 
 	var notes []u.Note
 
-	notes, err = s.DataBaseSQL.GetUserNotes(userId, req.TagID)
+	notes, err = s.BaseSQL.GetUserNotes(userId, req.TagID)
 	if err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusBadRequest,
@@ -137,7 +153,7 @@ func (s *Service) AddNote(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 
-	response, err := s.DataBaseSQL.AddNote(userId, req.TagID, req.Note)
+	response, err := s.BaseSQL.AddNote(userId, req.TagID, req.Note)
 	if err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusBadRequest,
