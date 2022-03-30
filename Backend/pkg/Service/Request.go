@@ -38,7 +38,7 @@ func (req *Request) Bind(w http.ResponseWriter, r *http.Request) error {
 
 	if err = json.Unmarshal(content, &req); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
-			ErrorCode:   http.StatusInternalServerError,
+			ErrorCode:   http.StatusBadRequest,
 			Description: "Cannot parse data from json",
 		})
 		return errors.New("cannot parse data form JSON")
