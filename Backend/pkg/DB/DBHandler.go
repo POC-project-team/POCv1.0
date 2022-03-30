@@ -5,6 +5,7 @@ import (
 	u "backend/pkg/User"
 	"encoding/json"
 	"errors"
+	"fmt"
 	log "github.com/sirupsen/logrus"
 	"io/ioutil"
 	"math/rand"
@@ -80,6 +81,9 @@ func (dataBase *DB) containsTag(userId int, tagId string) bool {
 
 // GetAllUsers to get all users from database
 func (dataBase *DB) GetAllUsers() []string {
+	sqlTest := GetAllUsersSQL()
+	fmt.Println(sqlTest)
+
 	var response []string
 	for id := range dataBase.Store {
 		response = append(response, strconv.Itoa(id))
