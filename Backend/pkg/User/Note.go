@@ -6,8 +6,8 @@ import (
 )
 
 type Note struct {
-	Note     string    `json:"note"`
-	NoteTime time.Time `json:"time"`
+	Note string    `json:"note"`
+	Time time.Time `json:"time"`
 }
 
 // NewNote constructor for struct note
@@ -17,6 +17,6 @@ func NewNote(note string) Note {
 
 func (n *Note) ToString() string {
 	var result string
-	result += "Time: " + n.NoteTime.String() + "\nNote: " + n.Note
+	result += "Time: " + n.Time.String() + "\nNote: " + n.Note
 	return result
 }

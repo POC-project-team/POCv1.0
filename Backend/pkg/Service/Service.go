@@ -4,6 +4,7 @@ package service
 import (
 	"backend/pkg/APIerror"
 	db "backend/pkg/DB"
+	u "backend/pkg/User"
 	"encoding/json"
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
@@ -99,7 +100,7 @@ func (s *Service) GetNotes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var notes []db.Note
+	var notes []u.Note
 
 	notes, err = s.DataBaseSQL.GetUserNotes(userId, req.TagID)
 	if err != nil {

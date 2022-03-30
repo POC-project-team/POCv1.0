@@ -111,31 +111,31 @@ func (database *SQL) GetUserTags(userId int) ([]string, error) {
 	if !database.containsUser(userId) {
 		return nil, errors.New("no such user")
 	}
-	rows, err := database.Store.Query(`select TagId from Tags where TagID = ?`, userId)
+	rows, err := database.Store.Query(`select TagId from Tags where UserID = ?`, userId)
 	if err != nil {
 		log.Error(err.Error())
 		return nil, err
 	}
 	var tagID string
-	var result []Tag
+	var result []u.Tag
 
 	for rows.Next() {
 		rows.Scan(&tagID)
 
-		result = append(result, Tag{
-			UserId: userId,
-			TagId:  tagID,
+		result = append(result, u.Tag{
+			UserID: userId,
+			TagID:  tagID,
 		})
 	}
 
 	var response []string
 	for _, tag := range result {
-		response = append(response, tag.TagId)
+		response = append(response, tag.TagID)
 	}
 	return response, nil
 }
 
-func (database *SQL) GetUserNotes(userId int, tagId string) ([]Note, error) {
+func (database *SQL) GetUserNotes(userId int, tagId string) ([]u.Note, error) {
 	if !database.containsUser(userId) {
 		return nil, errors.New("no such user")
 	}
@@ -148,8 +148,8 @@ func (database *SQL) GetUserNotes(userId int, tagId string) ([]Note, error) {
 	if err != nil {
 		return nil, err
 	}
-	var note Note
-	var result []Note
+	var note u.Note
+	var result []u.Note
 
 	for rows.Next() {
 		rows.Scan(&note.Note, &note.Time)
@@ -158,7 +158,7 @@ func (database *SQL) GetUserNotes(userId int, tagId string) ([]Note, error) {
 	return result, nil
 }
 
-func (database *SQL) AddNote(userId int, tagId, note string) ([]Note, error) {
+func (database *SQL) AddNote(userId int, tagId, note string) ([]u.Note, error) {
 	if !database.containsUser(userId) {
 		return nil, errors.New("no such user")
 	}
