@@ -2,12 +2,14 @@ package com.example.anothernfcapp.screens;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Build;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anothernfcapp.R;
+import com.example.anothernfcapp.screens.settings.SettingsScreen;
 
 public class MainScreen extends AppCompatActivity {
     boolean mWriteMode = false;
@@ -26,6 +29,8 @@ public class MainScreen extends AppCompatActivity {
     private PendingIntent nfcPendingIntent;
     public static String tagId;
     TextView tagIdTextView;
+    static String ipServerUrl = "http://172.20.10.12:60494/";
+    static String localhostUrl = "http://localhost/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +75,13 @@ public class MainScreen extends AppCompatActivity {
                         disableTagWriteMode();
                     }
                 }).create().show();
+            }
+        });
+        ((Button)findViewById(R.id.settings)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent settingsIntent = new Intent(MainScreen.this, SettingsScreen.class);
+                startActivity(settingsIntent);
             }
         });
 

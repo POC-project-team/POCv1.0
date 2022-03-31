@@ -2,11 +2,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
  <ListPreference
+     android:key="@string/connection_key"
      android:title="Connection type"
      android:entries="@array/connectionType"
      android:entryValues="@array/connectionType"
-     android:defaultValue="@string/default_value"
      android:summary="Choose connection type"
-
+     android:defaultValue="wi-fi"
      />
 </PreferenceScreen>
