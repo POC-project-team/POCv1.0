@@ -22,7 +22,7 @@ type myServer struct {
 func NewServer() *myServer {
 	myRouter := &myServer{
 		Server: http.Server{
-			Addr:         ":60494",
+			Addr:         "localhost:60494",
 			ReadTimeout:  10 * time.Second,
 			WriteTimeout: 10 * time.Second,
 		},
