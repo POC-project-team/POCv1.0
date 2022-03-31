@@ -15,7 +15,6 @@ import androidx.preference.PreferenceManager;
 import com.example.anothernfcapp.json.JsonFactory;
 import com.example.anothernfcapp.R;
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import java.io.UnsupportedEncodingException;
@@ -36,9 +35,7 @@ public class WriteScreen extends Activity {
         super.onCreate(savedInstanceState);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(WriteScreen.this);
         typeOfConnection = sharedPreferences.getString(getString(R.string.connection_key), "wi-fi");
-        Log.e("POST", typeOfConnection);
-
-
+        Log.d("POST", typeOfConnection);
         setContentView(R.layout.write_screen);
         asyncHttpClient = new AsyncHttpClient();
         sendButton = (Button) findViewById(R.id.sendValue);
@@ -60,52 +57,35 @@ public class WriteScreen extends Activity {
     private void postMessage(String text) throws UnsupportedEncodingException {
         if (typeOfConnection.equals("wi-fi")){
             urlToPost = MainScreen.ipServerUrl + "1/addNote";
-            Log.e("POST", urlToPost);
         }
         else if (typeOfConnection.equals("localhost")){
             urlToPost = MainScreen.localhostUrl + "1/addNote";
-            Log.e("POST", urlToPost);
         }
+        Log.d("POST", urlToPost);
         JsonFactory jsonFactory = new JsonFactory();
         String msg = jsonFactory.makeJsonForAddNoteRequest(text, MainScreen.tagId);
-        Log.d("POST", "postMessage: " + MainScreen.tagId);
-        Log.d("POST", urlToPost);
-        Log.d("POST", text);
         StringEntity stringEntity = new StringEntity(msg);
         asyncHttpClient.post(this, urlToPost, stringEntity, msg, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                toastOnSuccess(statusCode);
-                Log.d("POST", "Can't connect to the server. Connecting to google");
-                Log.e("POST", "Status code: " + statusCode);
-                asyncHttpClient.post("https://www.google.com", new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        toastOnSuccess(statusCode);
-                        Log.d("POST", "Connected to Google");
-                    }
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                        toastOnSuccess(statusCode);
-                        Log.e("POST", "Status code: " + statusCode);
-                    }
-                });
+                onPostRequest(statusCode);
+                Log.e("POST", "onFailure. Status code " + statusCode);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                toastOnSuccess(statusCode);
+                onPostRequest(statusCode);
                 Log.d("POST", "onSuccess");
             }
         });
     }
 
-    private void toastOnSuccess(int code) {
+    private void onPostRequest(int code) {
         if (code >= 200 && code < 400){
-            Toast.makeText(this, "Successfully wrote", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Successfully wrote to the server", Toast.LENGTH_SHORT).show();
         }
         else if (code>=400){
-            Toast.makeText(this, "Error while writing", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error while writing to the server. Status code: " + code, Toast.LENGTH_SHORT).show();
         }
     }
 

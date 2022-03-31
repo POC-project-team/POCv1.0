@@ -10,9 +10,9 @@ public class JsonFactory {
         JsonForAddNoteRequest jsonForAddNoteRequest = new JsonForAddNoteRequest(value, tagId);
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
-        Log.d("GSON", gson.toJson(jsonForAddNoteRequest));
         return gson.toJson(jsonForAddNoteRequest);
     }
+
     public String makeJsonForGetNotesRequest(String tagID){
         JsonForGetNotesRequest jsonForGetNotesRequest = new JsonForGetNotesRequest(tagID);
         GsonBuilder gsonBuilder = new GsonBuilder();

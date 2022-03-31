@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -62,20 +63,8 @@ public class GetScreen extends Activity {
         asyncHttpClient.post(this, urlToGet, stringEntity, message, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.e("GET", "Failure to connect to the server");
-                Log.e("GET", "" + statusCode);
-                asyncHttpClient.get("https://google.com", new TextHttpResponseHandler() {
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        Log.e("GET", "Connection error. Status code: " + statusCode);
-                    }
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                        Log.d("GET", "Connected to Google");
-                    }
-                });
-
+                Log.e("GET", "onFailure. Status code: " + statusCode);
+                onBadStatusCodeReceived(statusCode);
             }
 
             @Override
@@ -89,6 +78,10 @@ public class GetScreen extends Activity {
             }
         });
 
+    }
+
+    private void onBadStatusCodeReceived(int statusCode){
+        Toast.makeText(this, "Error while sending info to the server. Status Code: " + statusCode, Toast.LENGTH_SHORT).show();
     }
 
 }
