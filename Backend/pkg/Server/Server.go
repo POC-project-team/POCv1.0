@@ -19,6 +19,7 @@ type myServer struct {
 	reqCount    uint32
 }
 
+// NewServer constructor for Server
 func NewServer() *myServer {
 	myRouter := &myServer{
 		Server: http.Server{
@@ -33,6 +34,7 @@ func NewServer() *myServer {
 	return myRouter
 }
 
+// WaitShutdown for correct shutting down the server
 func (myRouter *myServer) WaitShutdown() {
 	irqSig := make(chan os.Signal, 1)
 	signal.Notify(irqSig, syscall.SIGINT, syscall.SIGTERM)

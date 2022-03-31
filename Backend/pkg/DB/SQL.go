@@ -22,6 +22,7 @@ func openDataBase() *sql.DB {
 	return db
 }
 
+// NewSQLDataBase creates the database and connects to it
 func NewSQLDataBase() *SQL {
 	var database SQL
 	database.Store = openDataBase()
@@ -58,6 +59,8 @@ func (database *SQL) containsTag(tagID string) bool {
 	return true
 }
 
+// GetAllUsers for getting all users from database
+// Return []string for answering the request and error status
 func (database *SQL) GetAllUsers() ([]string, error) {
 	rows, err := database.Store.Query(`select * from "Users"`)
 	if err != nil {
@@ -85,6 +88,8 @@ func (database *SQL) GetAllUsers() ([]string, error) {
 	return response, nil
 }
 
+// CreateUser creates a user in db
+// Returns created user and error status
 func (database *SQL) CreateUser() (u.User, error) {
 	rows, err := database.Store.Query(`select count(UserID) from Users`)
 	if err != nil {
@@ -112,6 +117,8 @@ func (database *SQL) CreateUser() (u.User, error) {
 	}, nil
 }
 
+// GetUserTags get all tags from specific user
+// Return []string for answering the request and error status
 func (database *SQL) GetUserTags(userId int) ([]string, error) {
 	if !database.containsUser(userId) {
 		return nil, errors.New("no such user")
@@ -142,6 +149,8 @@ func (database *SQL) GetUserTags(userId int) ([]string, error) {
 	return response, nil
 }
 
+// GetUserNotes get user notes from tag
+// Return []string for answering the request and error status
 func (database *SQL) GetUserNotes(userId int, tagId string) ([]u.Note, error) {
 	if !database.containsUser(userId) {
 		return nil, errors.New("no such user")
@@ -168,6 +177,9 @@ func (database *SQL) GetUserNotes(userId int, tagId string) ([]u.Note, error) {
 	return result, nil
 }
 
+// AddNote creates a new note for tag
+// Creates tag if not exist
+// Return Tag object and error status
 func (database *SQL) AddNote(userId int, tagId, noteInfo string) (u.Tag, error) {
 	if !database.containsUser(userId) {
 		return u.Tag{}, errors.New("no such user")
