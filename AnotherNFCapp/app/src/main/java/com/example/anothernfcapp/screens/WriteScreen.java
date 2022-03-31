@@ -67,7 +67,7 @@ public class WriteScreen extends Activity {
             Log.e("POST", urlToPost);
         }
         JsonFactory jsonFactory = new JsonFactory();
-        String msg = jsonFactory.makeJsonMessage(text, MainScreen.tagId);
+        String msg = jsonFactory.makeJsonForAddNoteRequest(text, MainScreen.tagId);
         Log.d("POST", "postMessage: " + MainScreen.tagId);
         Log.d("POST", urlToPost);
         Log.d("POST", text);
