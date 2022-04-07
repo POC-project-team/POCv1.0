@@ -16,4 +16,4 @@ EXPOSE 60494
 RUN go get github.com/ZeLebo/POC@upgrade
 
 RUN go build cmd/main.go
-CMD ["./main"]
+ENTRYPOINT ["./main"]
