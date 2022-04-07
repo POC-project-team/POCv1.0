@@ -13,7 +13,7 @@ COPY . ./
 
 EXPOSE 60494
 
-RUN go get github.com/ZeLebo/POC@upgrade
+RUN go get github.com/ZeLebo/POC@zhora
 
 RUN go build cmd/main.go
 ENTRYPOINT ["./main"]
