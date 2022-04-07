@@ -8,6 +8,7 @@ import (
 
 func main() {
 	server := s.NewServer()
+	log.Info("The server is up and running at ", server.Addr, "\n")
 
 	// signal handler for correct shutdown
 	done := make(chan bool)
