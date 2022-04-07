@@ -6,3 +6,4 @@ services:
     ports: ["60494:60494"]
     volumes:
       - ./pkg/DB/StorageData.db:/backend/pkg/DB/StorageData.db
+    restart: on-failure
