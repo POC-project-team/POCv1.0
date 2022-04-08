@@ -23,7 +23,7 @@ func MyHandler() *mux.Router {
 	router.HandleFunc("/{user_id:[0-9]+}/addNote", srv.AddNote).Methods("POST")
 	router.HandleFunc("/test", func(writer http.ResponseWriter, request *http.Request) {
 		writer.WriteHeader(http.StatusCreated)
-		if _, err := writer.Write([]byte("Hello, I'm working")); err != nil {
+		if _, err := writer.Write([]byte("Hello, I'm working\n")); err != nil {
 			APIerror.HTTPErrorHandle(writer, APIerror.HTTPErrorHandler{
 				ErrorCode:   http.StatusBadRequest,
 				Description: "I don't know…",
