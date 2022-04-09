@@ -1,9 +1,7 @@
+// Package server /* for setting up a server */
 package server
 
 import (
-	s "backend/pkg/Service"
-	"encoding/json"
-	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
 	"net/http"
@@ -21,40 +19,22 @@ type myServer struct {
 	reqCount    uint32
 }
 
-func NewServer() (*myServer, *s.Service) {
-	// create server
+// NewServer constructor for Server
+func NewServer() *myServer {
 	myRouter := &myServer{
 		Server: http.Server{
-			Addr:         ":60494",
+			Addr:         "0.0.0.0:60494", //it's going to be redone
 			ReadTimeout:  10 * time.Second,
 			WriteTimeout: 10 * time.Second,
 		},
 	}
 
-	srv := s.NewService()
-	if err := json.Unmarshal(s.ReadJSONFile("pkg/Server/Data.json"), &srv.Store); err != nil {
-		log.Error("Cannot read data from file")
-	}
-	router := mux.NewRouter()
+	myRouter.Handler = MyHandler()
 
-	// todo: use methods
-	// just for testing the
-	userRouter := router.PathPrefix("/getUsers").Subrouter()
-	userRouter.HandleFunc("", srv.GetAllUsers).Methods("GET")
-
-	//router.HandleFunc("/getUsers", srv.GetAllUsers).Methods("GET")
-	router.HandleFunc("/createUser", srv.CreateUser).Methods("GET")
-	// todo: one func -> two things
-	router.HandleFunc("/{user_id:[0-9]+}/getTags", srv.GetAllTags).Methods("GET")
-	router.HandleFunc("/{user_id:[0-9]+}/getNotes", srv.GetNotes).Methods("POST")
-	router.HandleFunc("/{user_id:[0-9]+}/addNote", srv.AddNote).Methods("POST")
-	router.Handle("/", router)
-
-	myRouter.Handler = router
-
-	return myRouter, srv
+	return myRouter
 }
 
+// WaitShutdown for correct shutting down the server
 func (myRouter *myServer) WaitShutdown() {
 	irqSig := make(chan os.Signal, 1)
 	signal.Notify(irqSig, syscall.SIGINT, syscall.SIGTERM)

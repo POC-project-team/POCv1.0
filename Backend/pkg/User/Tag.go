@@ -1,3 +1,4 @@
+// Package user /* for user data structure */
 package user
 
 import (
@@ -7,8 +8,9 @@ import (
 // struct for tag and working with it
 
 type Tag struct {
-	TagID string     `json:"tagID"`
-	Notes []NoteData `json:"userNotes"`
+	//UserID int
+	TagID string `json:"tagID"`
+	Notes []Note `json:"userNotes"`
 }
 
 func TagInit(TagID string) *Tag {
@@ -17,7 +19,7 @@ func TagInit(TagID string) *Tag {
 
 func (t *Tag) AddNoteTag(note string) {
 	if t.Notes == nil {
-		t.Notes = make([]NoteData, 0)
+		t.Notes = make([]Note, 0)
 	}
 	t.Notes = append(t.Notes, NewNote(note))
 }

@@ -1,4 +1,5 @@
-package Domain
+// Package service /* logic for requesting */
+package service
 
 import (
 	"backend/pkg/APIerror"
@@ -15,10 +16,11 @@ type Request struct {
 	Note   string `json:"note"`
 }
 
+// Bind read body of request, return error when exist
 func (req *Request) Bind(w http.ResponseWriter, r *http.Request) error {
 	content, err := ioutil.ReadAll(r.Body)
 	defer func(Body io.ReadCloser) {
-		if err := Body.Close(); err != nil {
+		if err = Body.Close(); err != nil {
 			APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 				ErrorCode:   http.StatusInternalServerError,
 				Description: "Error while closing file after reading note",
@@ -34,9 +36,9 @@ func (req *Request) Bind(w http.ResponseWriter, r *http.Request) error {
 		return errors.New("cannot read the data from request")
 	}
 
-	if err := json.Unmarshal(content, &req); err != nil {
+	if err = json.Unmarshal(content, &req); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
-			ErrorCode:   http.StatusInternalServerError,
+			ErrorCode:   http.StatusBadRequest,
 			Description: "Cannot parse data from json",
 		})
 		return errors.New("cannot parse data form JSON")

@@ -1,25 +1,26 @@
+// Package main /* Entry point for the programs */
 package main
 
 import (
 	s "backend/pkg/Server"
-	service "backend/pkg/Service"
 	log "github.com/sirupsen/logrus"
 )
 
 func main() {
-	server, data := s.NewServer()
+	server := s.NewServer()
+	log.Info("The server is up and running at ", server.Addr, "\n")
 
+	// signal handler for correct shutdown
 	done := make(chan bool)
 	go func() {
 		err := server.ListenAndServe()
 		if err != nil {
-			log.Info("Listen and server: ", err)
+			log.Info(err.Error())
 		}
 		done <- true
 	}()
+
 	server.WaitShutdown()
-	service.WriteJSONFile("pkg/Server/Data.json", *data)
 
 	<-done
-	log.Info("Server shutdown complete")
 }

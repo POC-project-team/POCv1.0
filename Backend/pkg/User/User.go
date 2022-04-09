@@ -1,4 +1,4 @@
-// Package user /*
+// Package user /* for user data structure */
 package user
 
 import (
@@ -10,7 +10,7 @@ import (
 )
 
 type User struct {
-	UserID int             //`json:"userID"`
+	UserID int
 	Tags   map[string]*Tag `json:"tagID"`
 }
 
