@@ -85,7 +85,7 @@ func (database *SQL) GetUserID(login, password string) (int, error) {
 // GetAllUsers for getting all users from database
 // Return []string for answering the request and error status
 func (database *SQL) GetAllUsers() ([]string, error) {
-	rows, err := database.Store.Query(`select * from "Users"`)
+	rows, err := database.Store.Query(`select UserID from "Users"`)
 	if err != nil {
 		return nil, err
 	}
@@ -113,7 +113,8 @@ func (database *SQL) GetAllUsers() ([]string, error) {
 
 // CreateUser creates a user in db
 // Returns created user and error status
-func (database *SQL) CreateUser() (u.User, error) {
+func (database *SQL) CreateUser(login, password string) (u.User, error) {
+
 	rows, err := database.Store.Query(`select count(UserID) from Users`)
 	if err != nil {
 		return u.User{}, err
@@ -126,11 +127,11 @@ func (database *SQL) CreateUser() (u.User, error) {
 			return u.User{}, err
 		}
 	}
-	stmt, err := database.Store.Prepare(`insert into Users (UserID) values (?)`)
+	stmt, err := database.Store.Prepare(`insert into Users (UserID, Login, Password) values (?, ?, ?)`)
 	if err != nil {
 		return u.User{}, err
 	}
-	_, err = stmt.Exec(userId)
+	_, err = stmt.Exec(userId, login, password)
 	if err != nil {
 		return u.User{}, err
 	}

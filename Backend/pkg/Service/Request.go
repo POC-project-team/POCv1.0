@@ -53,7 +53,7 @@ func (req *Request) Bind(w http.ResponseWriter, r *http.Request) error {
 
 // ParseTagID from the header and put into the struct
 func (req *Request) ParseTagID(w http.ResponseWriter, r *http.Request) error {
-	tagID := mux.Vars(r)["tagID"]
+	tagID := mux.Vars(r)["tag_id"]
 	if tagID == "" && req.TagID == "" {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusBadRequest,

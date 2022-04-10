@@ -68,7 +68,7 @@ func Auth(w http.ResponseWriter, r *http.Request) {
 			Description: "Cannot make token",
 		})
 	} else {
-		log.Info("New token was created for user", UserID)
+		log.Info("New token was created for user ", UserID)
 		w.WriteHeader(http.StatusCreated)
 	}
 }

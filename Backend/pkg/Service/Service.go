@@ -57,7 +57,15 @@ func (s *Service) CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result, err := s.BaseSQL.CreateUser()
+	if req.Login == "" || req.Password == "" {
+		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
+			ErrorCode:   http.StatusBadRequest,
+			Description: "No login or password provided",
+		})
+		return
+	}
+
+	result, err := s.BaseSQL.CreateUser(req.Login, req.Password)
 	if err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusInternalServerError,
