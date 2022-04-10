@@ -6,10 +6,8 @@ import (
 	db "backend/pkg/DB"
 	u "backend/pkg/User"
 	"encoding/json"
-	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
 	"net/http"
-	"strconv"
 )
 
 type Service struct {
@@ -87,15 +85,18 @@ func (s *Service) GetAllTags(w http.ResponseWriter, r *http.Request) {
 	type response struct {
 		Tags []string `json:"Tags"`
 	}
-
 	var (
 		resp response
+		req  Request
 		err  error
 	)
-	vars := mux.Vars(r)
-	userId, _ := strconv.Atoi(vars["user_id"])
+	if req.ParseToken(w, r) != nil {
+		return
+	}
+	//vars := mux.Vars(r)
+	//userId, _ := strconv.Atoi(vars["user_id"])
 
-	if resp.Tags, err = s.BaseSQL.GetUserTags(userId); err != nil {
+	if resp.Tags, err = s.BaseSQL.GetUserTags(req.UserID); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusBadRequest,
 			Description: err.Error(),
@@ -116,22 +117,13 @@ func (s *Service) GetAllTags(w http.ResponseWriter, r *http.Request) {
 // GetNotes handler for getting notes for specific tag of user
 func (s *Service) GetNotes(w http.ResponseWriter, r *http.Request) {
 	var req Request
-	if err := req.Bind(w, r); err != nil {
-		return
-	}
-	// params checking
-	userId, err := strconv.Atoi(mux.Vars(r)["user_id"])
-	if err != nil {
-		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
-			ErrorCode:   http.StatusBadRequest,
-			Description: "No userID param",
-		})
+	if req.Bind(w, r) != nil || req.ParseToken(w, r) != nil || req.ParseTagID(w, r) != nil {
 		return
 	}
 
 	var notes []u.Note
 
-	notes, err = s.BaseSQL.GetUserNotes(userId, req.TagID)
+	notes, err := s.BaseSQL.GetUserNotes(req.UserID, req.TagID)
 	if err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusBadRequest,

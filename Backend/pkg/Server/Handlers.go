@@ -14,17 +14,15 @@ func MyHandler() *mux.Router {
 	srv := service.NewService()
 	router := mux.NewRouter()
 
-	router.HandleFunc("/auth", au.Auth).Methods("POST")
-
-	//router.HandleFunc("/{token}/testString", au.ParseUserIDFromToken)
-
 	router.HandleFunc("/users", srv.GetAllUsers).Methods("GET")
+
+	router.HandleFunc("/auth", au.Auth).Methods("POST")
 	router.HandleFunc("/signup", srv.CreateUser).Methods("POST")
 
-	router.HandleFunc("/{user_id:[0-9]+}/getTags", srv.GetAllTags).Methods("GET")
+	router.HandleFunc("/{token}/tags", srv.GetAllTags).Methods("GET")
 
-	router.HandleFunc("/{user_id:[0-9]+}/getNotes", srv.GetNotes).Methods("POST")
-	router.HandleFunc("/{token}/{tag_id}/addNote", srv.AddNote).Methods("POST")
+	router.HandleFunc("/{token}/{tag_id}/notes", srv.GetNotes).Methods("GET")
+	router.HandleFunc("/{token}/{tag_id}/note", srv.AddNote).Methods("POST")
 
 	router.HandleFunc("/test", func(writer http.ResponseWriter, request *http.Request) {
 		writer.WriteHeader(http.StatusCreated)
