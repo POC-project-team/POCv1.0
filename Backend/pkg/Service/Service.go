@@ -115,7 +115,7 @@ func (s *Service) GetAllTags(w http.ResponseWriter, r *http.Request) {
 // GetNotes handler for getting notes for specific tag of user
 func (s *Service) GetNotes(w http.ResponseWriter, r *http.Request) {
 	var req Request
-	if req.Bind(w, r) != nil || req.ParseToken(w, r) != nil || req.ParseTagID(w, r) != nil {
+	if req.ParseToken(w, r) != nil || req.ParseTagID(w, r) != nil {
 		return
 	}
 
