@@ -13,10 +13,6 @@
 
     Seems like not such a bad idea
 
-# Testing
-  - Implement UNIT tests for code
-  - Mock DataBase, test and then delete it
-  - Test the system complex with Postman (or something like this)
 
 # API
   - Rewrite API to Swagger methods (7.04.2022)
@@ -28,3 +24,23 @@
           |-- TagHandler
           |-- NoteHandler
       |-- Server
+
+  ## Rewrite the API
+    1. "/getUsers" -> "Users" GET ✅
+      Method for me to see the users in the system
+    2. "/createUser" -> "/signup" POST {"login":"", "passwd":""} ✅
+      Method for creating a new user with his data
+    3. "/login" POST
+      Method for login in the system
+    3. "/GetTags" -> "/Tags" GET ✅
+      Method to get all the tags from the user
+    4. "/GetNotes" -> "Notes" GET ❌
+      Method to get the notes from the user, the tagID need to be passed inside the header
+    5. "/addNote" -> "addNote" POST ✅
+      Method to add the note to the specific tag, pass the note in body, else - header
+
+
+# Testing
+  - Implement UNIT tests for code
+  - Mock DataBase, test and then delete it
+  - Test the system complex with Postman (or something like this)

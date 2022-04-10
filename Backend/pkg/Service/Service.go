@@ -51,7 +51,12 @@ func (s *Service) GetAllUsers(w http.ResponseWriter, _ *http.Request) {
 }
 
 // CreateUser handler for creating new user
-func (s *Service) CreateUser(w http.ResponseWriter, _ *http.Request) {
+func (s *Service) CreateUser(w http.ResponseWriter, r *http.Request) {
+	var req Request
+	if req.Bind(w, r) != nil {
+		return
+	}
+
 	result, err := s.BaseSQL.CreateUser()
 	if err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
@@ -140,20 +145,12 @@ func (s *Service) GetNotes(w http.ResponseWriter, r *http.Request) {
 // AddNote handler for creating new note for specific tag of user
 func (s *Service) AddNote(w http.ResponseWriter, r *http.Request) {
 	var req Request
-	if err := req.Bind(w, r); err != nil {
+	// param checking
+	if req.Bind(w, r) != nil || req.ParseToken(w, r) != nil || req.ParseTagID(w, r) != nil {
 		return
 	}
 
-	// params checking
-	userId, err := strconv.Atoi(mux.Vars(r)["user_id"])
-	if err != nil {
-		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
-			ErrorCode:   http.StatusBadRequest,
-			Description: "No userID param",
-		})
-	}
-
-	response, err := s.BaseSQL.AddNote(userId, req.TagID, req.Note)
+	response, err := s.BaseSQL.AddNote(req.UserID, req.TagID, req.Note)
 	if err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusBadRequest,
@@ -168,7 +165,7 @@ func (s *Service) AddNote(w http.ResponseWriter, r *http.Request) {
 			Description: "Cannot write data to request",
 		})
 	} else {
-		log.Info("New note for userID: ", userId, " tagID: ", req.TagID, " was created")
+		log.Info("New note for userID: ", req.UserID, " tagID: ", req.TagID, " was created")
 		w.WriteHeader(http.StatusCreated)
 	}
 }
