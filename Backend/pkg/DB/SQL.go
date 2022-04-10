@@ -147,7 +147,7 @@ func (database *SQL) GetUserTags(userId int) ([]string, error) {
 	if !database.containsUser(userId) {
 		return nil, errors.New("no such user")
 	}
-	rows, err := database.Store.Query(`select TagId from Note where UserID = ?`, userId)
+	rows, err := database.Store.Query(`select distinct TagId from Note where UserID = ?`, userId)
 	if err != nil {
 		log.Error(err.Error())
 		return nil, err
