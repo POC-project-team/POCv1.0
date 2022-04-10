@@ -184,7 +184,9 @@ func (database *SQL) GetUserNotes(userId int, tagId string) ([]u.Note, error) {
 		return nil, errors.New("no such tag")
 	}
 
-	rows, err := database.Store.Query(`select Note, Data from Note where TagID = ?`, tagId)
+	rows, err := database.Store.Query(
+		`select note, data from Note Inner join Tags on Tags.TagID = note.TagID where UserID = ? and note.TagID = ?`,
+		userId, tagId)
 	if err != nil {
 		return nil, err
 	}
@@ -230,7 +232,9 @@ func (database *SQL) AddNote(userId int, tagId, noteInfo string) (u.Tag, error) 
 		return u.Tag{}, err
 	}
 
-	rows, err := database.Store.Query(`select Note, Data from Note where TagID = ?`, tagId)
+	rows, err := database.Store.Query(
+		`select note, data from Note Inner join Tags on Tags.TagID = note.TagID where UserID = ? and note.TagID = ?`,
+		userId, tagId)
 	if err != nil {
 		return u.Tag{}, err
 	}
