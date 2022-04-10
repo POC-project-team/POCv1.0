@@ -45,7 +45,7 @@ func (database *SQL) containsUser(userId int) bool {
 }
 
 func (database *SQL) containsTag(tagID string) bool {
-	rows, err := database.Store.Query(`select count(TagID) from Tags where TagID = ?`, tagID)
+	rows, err := database.Store.Query(`select count(TagID) from note where TagID = ?`, tagID)
 	if err != nil {
 		log.Error(err.Error())
 	}
@@ -147,7 +147,7 @@ func (database *SQL) GetUserTags(userId int) ([]string, error) {
 	if !database.containsUser(userId) {
 		return nil, errors.New("no such user")
 	}
-	rows, err := database.Store.Query(`select TagId from Tags where UserID = ?`, userId)
+	rows, err := database.Store.Query(`select TagId from Note where UserID = ?`, userId)
 	if err != nil {
 		log.Error(err.Error())
 		return nil, err
@@ -185,8 +185,7 @@ func (database *SQL) GetUserNotes(userId int, tagId string) ([]u.Note, error) {
 	}
 
 	rows, err := database.Store.Query(
-		`select note, data from Note Inner join Tags on Tags.TagID = note.TagID where UserID = ? and note.TagID = ?`,
-		userId, tagId)
+		`select note, data from Note where UserID = ? and note.TagID = ?`, userId, tagId)
 	if err != nil {
 		return nil, err
 	}
@@ -211,30 +210,17 @@ func (database *SQL) AddNote(userId int, tagId, noteInfo string) (u.Tag, error) 
 		return u.Tag{}, errors.New("no such user")
 	}
 
-	if !database.containsTag(tagId) {
-		stmt, err := database.Store.Prepare(`insert into Tags (UserID, TagID)  values (?, ?)`)
-		if err != nil {
-			return u.Tag{}, err
-		}
-
-		_, err = stmt.Exec(userId, tagId)
-		if err != nil {
-			return u.Tag{}, err
-		}
-	}
-
-	stmt, err := database.Store.Prepare(`insert into Note (TagID, Note, Data)  values (?, ?, ?)`)
+	stmt, err := database.Store.Prepare(`insert into Note (UserID, TagID, Note, Data)  values (?, ?, ?, ?)`)
 	if err != nil {
 		return u.Tag{}, err
 	}
 
-	if _, err = stmt.Exec(tagId, noteInfo, time.Now()); err != nil {
+	if _, err = stmt.Exec(userId, tagId, noteInfo, time.Now()); err != nil {
 		return u.Tag{}, err
 	}
 
 	rows, err := database.Store.Query(
-		`select note, data from Note Inner join Tags on Tags.TagID = note.TagID where UserID = ? and note.TagID = ?`,
-		userId, tagId)
+		`select note, data from Note where UserID = ? and note.TagID = ?`, userId, tagId)
 	if err != nil {
 		return u.Tag{}, err
 	}
