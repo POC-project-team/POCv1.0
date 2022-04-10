@@ -1,7 +1,5 @@
 # Working with data
     - Need to provide the methods to share items with users
-    - What if user forget password or login
-    - Provide method to delete the note
 
 # Testing
   - Implement UNIT tests for code

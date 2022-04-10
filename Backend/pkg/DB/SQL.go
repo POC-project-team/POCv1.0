@@ -4,10 +4,11 @@ import (
 	u "backend/pkg/User"
 	"database/sql"
 	"errors"
-	_ "github.com/mattn/go-sqlite3"
-	log "github.com/sirupsen/logrus"
 	"strconv"
 	"time"
+
+	_ "github.com/mattn/go-sqlite3"
+	log "github.com/sirupsen/logrus"
 )
 
 type SQL struct {
@@ -139,6 +140,32 @@ func (database *SQL) CreateUser(login, password string) (u.User, error) {
 	return u.User{
 		UserID: userId,
 	}, nil
+}
+
+// ChangeLogin change login of user
+func (database *SQL) ChangeLogin(userId int, login string) error {
+	stmt, err := database.Store.Prepare(`update Users set Login = ? where UserID = ?`)
+	if err != nil {
+		return err
+	}
+	_, err = stmt.Exec(login, userId)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// ChangePassword change password of user
+func (database *SQL) ChangePassword(userId int, password string) error {
+	stmt, err := database.Store.Prepare(`update Users set Password = ? where UserID = ?`)
+	if err != nil {
+		return err
+	}
+	_, err = stmt.Exec(password, userId)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 // GetUserTags get all tags from specific user

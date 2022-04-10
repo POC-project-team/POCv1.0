@@ -72,3 +72,57 @@ func Auth(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusCreated)
 	}
 }
+
+func ChangeLogin(w http.ResponseWriter, r *http.Request) {
+	var response service.Request
+
+	if response.ParseToken(w, r) != nil {
+		return
+	}
+
+	if err := response.Bind(w, r); err != nil {
+		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
+			ErrorCode:   http.StatusInternalServerError,
+			Description: err.Error(),
+		})
+		return
+	}
+
+	if err := DB.NewSQLDataBase().ChangeLogin(response.UserID, response.Login); err != nil {
+		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
+			ErrorCode:   http.StatusBadRequest,
+			Description: err.Error(),
+		})
+		return
+	}
+
+	log.Info("Login was changed for user ", response.UserID)
+	w.WriteHeader(http.StatusCreated)
+}
+
+func ChangePassword(w http.ResponseWriter, r *http.Request) {
+	var response service.Request
+
+	if response.ParseToken(w, r) != nil {
+		return
+	}
+
+	if err := response.Bind(w, r); err != nil {
+		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
+			ErrorCode:   http.StatusInternalServerError,
+			Description: err.Error(),
+		})
+		return
+	}
+
+	if err := DB.NewSQLDataBase().ChangePassword(response.UserID, response.Password); err != nil {
+		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
+			ErrorCode:   http.StatusBadRequest,
+			Description: err.Error(),
+		})
+		return
+	}
+
+	log.Info("Password was changed for user ", response.UserID)
+	w.WriteHeader(http.StatusCreated)
+}

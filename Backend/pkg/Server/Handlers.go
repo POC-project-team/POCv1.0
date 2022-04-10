@@ -17,8 +17,10 @@ func MyHandler() *mux.Router {
 	router.HandleFunc("/users", srv.GetAllUsers).Methods("GET")
 
 	router.HandleFunc("/auth", au.Auth).Methods("POST")
-	router.HandleFunc("/signup", srv.CreateUser).Methods("POST")
+	router.HandleFunc("/changeLogin", au.ChangeLogin).Methods("POST")
+	router.HandleFunc("/changePassword", au.ChangePassword).Methods("POST")
 
+	router.HandleFunc("/signup", srv.CreateUser).Methods("POST")
 	router.HandleFunc("/{token}/tags", srv.GetAllTags).Methods("GET")
 
 	router.HandleFunc("/{token}/{tag_id}/notes", srv.GetNotes).Methods("GET")
