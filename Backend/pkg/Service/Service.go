@@ -93,8 +93,6 @@ func (s *Service) GetAllTags(w http.ResponseWriter, r *http.Request) {
 	if req.ParseToken(w, r) != nil {
 		return
 	}
-	//vars := mux.Vars(r)
-	//userId, _ := strconv.Atoi(vars["user_id"])
 
 	if resp.Tags, err = s.BaseSQL.GetUserTags(req.UserID); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
