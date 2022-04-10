@@ -3,6 +3,8 @@ package service
 
 import (
 	"backend/pkg/APIerror"
+	"crypto/sha1"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"github.com/dgrijalva/jwt-go"
@@ -18,6 +20,11 @@ type Request struct {
 	Note     string `json:"note"`
 	Login    string `json:"login"`
 	Password string `json:"password"`
+}
+
+func toHash(passwd string) string {
+	h := sha1.New()
+	return hex.EncodeToString(h.Sum([]byte(passwd)))
 }
 
 // Bind read body of request, return error when exist
@@ -46,6 +53,9 @@ func (req *Request) Bind(w http.ResponseWriter, r *http.Request) error {
 			Description: "Cannot parse data from JSON",
 		})
 		return errors.New("cannot parse data from JSON")
+	}
+	if req.Password != "" {
+		req.Password = toHash(req.Password)
 	}
 
 	return nil
