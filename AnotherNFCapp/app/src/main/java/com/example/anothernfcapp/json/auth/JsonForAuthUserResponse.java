@@ -1,9 +1,9 @@
-package com.example.anothernfcapp.json;
+package com.example.anothernfcapp.json.auth;
 
-public class JsonForResponseAuthUser {
+public class JsonForAuthUserResponse {
     String token;
 
-    JsonForResponseAuthUser(String token){
+    JsonForAuthUserResponse(String token){
         this.token = token;
     }
 

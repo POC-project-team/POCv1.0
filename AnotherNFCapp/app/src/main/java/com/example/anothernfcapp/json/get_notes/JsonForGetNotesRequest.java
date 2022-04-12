@@ -1,4 +1,4 @@
-package com.example.anothernfcapp.json;
+package com.example.anothernfcapp.json.get_notes;
 
 public class JsonForGetNotesRequest {
     private String tagID;

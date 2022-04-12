@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.anothernfcapp.R;
 import com.example.anothernfcapp.json.JsonFactory;
@@ -59,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         asyncHttpClient = new AsyncHttpClient();
         String url = StaticVariables.ipServerUrl + "auth";
         JsonFactory jsonFactory = new JsonFactory();
-        String msg = jsonFactory.makeJsonForAuthUser(login.getText().toString(), password.getText().toString());
+        String msg = jsonFactory.makeJsonForAuthUserRequest(login.getText().toString(), password.getText().toString());
         StringEntity stringEntity = new StringEntity(msg);
         asyncHttpClient.post(this, url, stringEntity, msg, new TextHttpResponseHandler() {
             @Override
@@ -88,6 +87,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void parseJWT(String response){
         JsonFactory jsonFactory = new JsonFactory();
-        StaticVariables.setJWT(jsonFactory.makeStringForResponseAuthUser(response).toString());
+        StaticVariables.setJWT(jsonFactory.makeStringForAuthUserResponse(response).toString());
     }
 }
