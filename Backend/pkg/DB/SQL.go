@@ -62,9 +62,10 @@ func (database *SQL) containsTag(tagID string) bool {
 
 // GetUserID return UserID, if user with such login and password exist
 func (database *SQL) GetUserID(login, password string) (int, error) {
+	// get login
 	rows, err := database.Store.Query(`
-	select count(UserID), UserID from Users where Login = ? and Password = ?;
-	`, login, password)
+	select count(UserID) from Users where Login = ?;
+	`, login)
 
 	if err != nil {
 		return 0, err
@@ -73,10 +74,26 @@ func (database *SQL) GetUserID(login, password string) (int, error) {
 	var cnt, UserID int
 
 	for rows.Next() {
+		err = rows.Scan(&cnt)
+	}
+
+	if cnt == 0 {
+		return 0, errors.New("no such user")
+	}
+
+	rows, err = database.Store.Query(`
+	select count(UserID), UserID from Users where Login = ? and Password = ?;
+	`, login, password)
+
+	if err != nil {
+		return 0, err
+	}
+
+	for rows.Next() {
 		err = rows.Scan(&cnt, &UserID)
 		// if no userID provided makes error with parsing NULL to int
 		if err != nil {
-			return 0, errors.New("no such user ")
+			return 0, errors.New("login or password is incorrect")
 		}
 	}
 
