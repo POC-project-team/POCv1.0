@@ -21,7 +21,8 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".screens.MainScreen"
@@ -43,7 +44,9 @@
 
         <activity android:name=".screens.WriteScreen" />
 
-        <activity android:name=".screens.settings.SettingsScreen"/>
+        <activity android:name=".screens.UserInformation"/>
+
+        <activity android:name=".screens.SettingsScreen"/>
 
     </application>
 

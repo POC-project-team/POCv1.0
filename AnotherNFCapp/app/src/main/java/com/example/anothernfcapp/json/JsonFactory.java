@@ -1,7 +1,5 @@
 package com.example.anothernfcapp.json;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -27,4 +25,20 @@ public class JsonFactory {
         parsedMessage = gson.fromJson(messageToParse, JsonForGetNotesResponse[].class);
         return parsedMessage;
     }
+
+    public String makeJsonForAuthUser(String login, String password){
+        JsonForPOSTAuthUser jsonForAuthUser = new JsonForPOSTAuthUser(login, password);
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+        return gson.toJson(jsonForAuthUser);
+
+    }
+
+    public JsonForResponseAuthUser makeStringForResponseAuthUser(String messageToParse){
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+        return gson.fromJson(messageToParse, JsonForResponseAuthUser.class);
+    }
+
+
 }

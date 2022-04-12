@@ -2,14 +2,13 @@ package com.example.anothernfcapp.screens;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceManager;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Build;
@@ -21,16 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anothernfcapp.R;
-import com.example.anothernfcapp.screens.settings.SettingsScreen;
 
 public class MainScreen extends AppCompatActivity {
     boolean mWriteMode = false;
     private NfcAdapter nfcAdapter;
     private PendingIntent nfcPendingIntent;
-    public static String tagId;
     TextView tagIdTextView;
-    static String ipServerUrl = "http://172.20.10.12:60494/";
-    static String localhostUrl = "http://localhost/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +36,7 @@ public class MainScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("POST", "Clicked on write button");
-                if (tagId != null){
+                if (StaticVariables.tagId != null){
                     writeScreenStart();
 
                 }
@@ -54,7 +49,7 @@ public class MainScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("GET", "Clicked on get button");
-                if (tagId == null){
+                if (StaticVariables.tagId == null){
                     msgError();
                 }
                 else {
@@ -103,15 +98,16 @@ public class MainScreen extends AppCompatActivity {
         Toast.makeText(this, "Tag isn't set up", Toast.LENGTH_SHORT).show();
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         if (mWriteMode && NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
             Tag detectedTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            tagId = bytesToHexString(detectedTag.getId());
-            Log.d("TAG", tagId);
-            tagIdTextView.setText("Current tagId: " + tagId);
+            StaticVariables.setTagId(bytesToHexString(detectedTag.getId()));
+            Log.d("TAG", StaticVariables.tagId);
+            tagIdTextView.setText("Current tagId: " + StaticVariables.tagId);
             Toast.makeText(this, "Success: POCED THIS TAG", Toast.LENGTH_LONG).show();
         }
     }
@@ -146,6 +142,6 @@ public class MainScreen extends AppCompatActivity {
     }
 
     public String getTagId(){
-        return tagId;
+        return StaticVariables.tagId;
     }
 }

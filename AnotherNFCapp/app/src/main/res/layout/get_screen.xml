@@ -5,21 +5,24 @@
     android:orientation="vertical"
     tools:context=".screens.GetScreen" >
 
-
     <TextView
         android:id="@+id/valueFromServer"
         android:layout_width="fill_parent"
-        android:layout_height="680dp"
-        android:hint="Value from server"
+        android:layout_height="wrap_content"
+        android:hint="@string/value_from_server"
         android:text=""
         android:textSize="14sp"
         android:verticalScrollbarPosition="right" />
 
-    <Button
-        android:id="@+id/goBackButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Back" />
-
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom">
+        <Button
+            android:id="@+id/goBackButton"
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/go_back" />
+    </LinearLayout>
 </LinearLayout>

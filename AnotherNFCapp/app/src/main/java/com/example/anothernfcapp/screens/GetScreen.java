@@ -2,6 +2,7 @@ package com.example.anothernfcapp.screens;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.preference.PreferenceManager;
 
 import com.example.anothernfcapp.R;
 import com.example.anothernfcapp.json.JsonFactory;
@@ -27,6 +29,7 @@ public class GetScreen extends Activity {
     TextView textView;
     Button button;
     JsonFactory jsonFactory;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,11 +53,11 @@ public class GetScreen extends Activity {
 
     private void getJsonMessageFromServer() {
         asyncHttpClient = new AsyncHttpClient();
-        String urlToGet = MainScreen.ipServerUrl + "1/getNotes";
+        String urlToGet = StaticVariables.ipServerUrl + "1/getNotes";
         Log.d("GET", urlToGet);
         StringEntity stringEntity = null;
-        JsonFactory jsonFactory = new JsonFactory();
-        String message = jsonFactory.makeJsonForGetNotesRequest(MainScreen.tagId);
+        jsonFactory = new JsonFactory();
+        String message = jsonFactory.makeJsonForGetNotesRequest(StaticVariables.tagId);
         try {
             stringEntity = new StringEntity(message);
         } catch (UnsupportedEncodingException e) {
@@ -64,7 +67,7 @@ public class GetScreen extends Activity {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.e("GET", "onFailure. Status code: " + statusCode);
-                onBadStatusCodeReceived(statusCode);
+                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, GetScreen.this);
             }
 
             @Override
@@ -78,10 +81,6 @@ public class GetScreen extends Activity {
             }
         });
 
-    }
-
-    private void onBadStatusCodeReceived(int statusCode){
-        Toast.makeText(this, "Error while sending info to the server. Status Code: " + statusCode, Toast.LENGTH_SHORT).show();
     }
 
 }
