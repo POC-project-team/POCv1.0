@@ -53,7 +53,7 @@ public class SettingsScreen extends AppCompatActivity {
     }
 
     private void logout() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, Login.class);
         startActivity(intent);
     }
 

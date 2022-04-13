@@ -80,7 +80,7 @@ public class RegisterUser extends Activity {
     }
 
     private void setGoBack(){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, Login.class);
         startActivity(intent);
     }
 

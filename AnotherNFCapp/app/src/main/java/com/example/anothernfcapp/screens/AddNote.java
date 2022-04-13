@@ -67,7 +67,7 @@ public class AddNote extends Activity {
         urlToPost = StaticVariables.ipServerUrl + StaticVariables.JWT + "/" + StaticVariables.tagId + "/note";
         Log.d("POST", urlToPost);
         JsonFactory jsonFactory = new JsonFactory();
-        String msg = jsonFactory.makeJsonForAddNoteRequest(text, StaticVariables.tagId);
+        String msg = jsonFactory.makeJsonForAddNoteRequest(text);
         StringEntity stringEntity = new StringEntity(msg);
         asyncHttpClient.post(this, urlToPost, stringEntity, msg, new TextHttpResponseHandler() {
             @Override

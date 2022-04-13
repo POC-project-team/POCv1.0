@@ -59,9 +59,7 @@ public class GetNotes extends Activity {
         String urlToGet = StaticVariables.ipServerUrl + StaticVariables.JWT + "/" + StaticVariables.tagId + "/notes";
         Log.d("GET", urlToGet);
         jsonFactory = new JsonFactory();
-        String message = jsonFactory.makeJsonForGetNotesRequest(StaticVariables.tagId);
-        StringEntity stringEntity = new StringEntity(message);
-        asyncHttpClient.post(this, urlToGet, stringEntity, message, new TextHttpResponseHandler() {
+        asyncHttpClient.post(urlToGet, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.e("GET", "Failed to connect to the server "  + statusCode + " Response: " + responseString);

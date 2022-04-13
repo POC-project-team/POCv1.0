@@ -22,7 +22,7 @@ import java.io.UnsupportedEncodingException;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
-public class MainActivity extends AppCompatActivity {
+public class Login extends AppCompatActivity {
     EditText login;
     EditText password;
     Button buttonLogin;
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.e("LOGIN", "Failed to connect to the server " + statusCode + " Response: " + responseString);
-                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, MainActivity.this);
+                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, Login.this);
             }
 
             @Override

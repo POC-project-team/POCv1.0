@@ -10,15 +10,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.anothernfcapp.R;
+import com.loopj.android.http.AsyncHttpClient;
 
 public class UserInformation extends AppCompatActivity {
     TextView nickname;
     TextView tags;
     Button backButton;
+    AsyncHttpClient asyncHttpClient;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_info_layout);
+        asyncHttpClient = new AsyncHttpClient();
         backButton = findViewById(R.id.goBackButtonUserInf);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,7 +29,15 @@ public class UserInformation extends AppCompatActivity {
                 backButton();
             }
         });
+        setName();
+        setTags();
+    }
 
+    private void setTags() {
+
+    }
+
+    private void setName() {
     }
 
     private void backButton() {
