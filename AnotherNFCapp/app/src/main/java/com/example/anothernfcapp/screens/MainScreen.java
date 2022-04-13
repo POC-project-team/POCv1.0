@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anothernfcapp.R;
+import com.example.anothernfcapp.utility.StaticVariables;
 
 public class MainScreen extends AppCompatActivity {
     boolean mWriteMode = false;
@@ -35,10 +36,8 @@ public class MainScreen extends AppCompatActivity {
         ((Button) findViewById(R.id.buttonwrite)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("POST", "Clicked on write button");
                 if (StaticVariables.tagId != null){
                     writeScreenStart();
-
                 }
                 else{
                     msgError();
@@ -48,7 +47,6 @@ public class MainScreen extends AppCompatActivity {
         ((Button) findViewById(R.id.buttonget)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("GET", "Clicked on get button");
                 if (StaticVariables.tagId == null){
                     msgError();
                 }
@@ -101,6 +99,7 @@ public class MainScreen extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
+
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         if (mWriteMode && NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
@@ -113,15 +112,13 @@ public class MainScreen extends AppCompatActivity {
     }
 
     private void writeScreenStart(){
-        Log.d("POST", "Write Screen");
-        Intent intent = new Intent(this, WriteScreen.class);
+        Intent intent = new Intent(this, AddNote.class);
         startActivity(intent);
 
     }
 
     private void getDataViaTag(){
-        Log.d("GET", "getDataViaTag");
-        Intent getScreen = new Intent(this, GetScreen.class);
+        Intent getScreen = new Intent(this, GetNotes.class);
         startActivity(getScreen);
     }
 

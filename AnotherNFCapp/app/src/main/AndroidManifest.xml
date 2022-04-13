@@ -38,11 +38,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".screens.GetScreen" />
+        <activity android:name=".screens.GetNotes" />
 
         <activity android:name=".screens.RegisterUser" />
 
-        <activity android:name=".screens.WriteScreen" />
+        <activity android:name=".screens.AddNote" />
 
         <activity android:name=".screens.UserInformation"/>
 

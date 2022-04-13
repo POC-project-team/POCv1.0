@@ -2,8 +2,6 @@ package com.example.anothernfcapp.screens;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,10 +10,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.preference.PreferenceManager;
 
 import com.example.anothernfcapp.json.JsonFactory;
 import com.example.anothernfcapp.R;
+import com.example.anothernfcapp.utility.BadStatusCodeProcess;
+import com.example.anothernfcapp.utility.StaticVariables;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.TextHttpResponseHandler;
 
@@ -24,7 +23,7 @@ import java.io.UnsupportedEncodingException;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
-public class WriteScreen extends Activity {
+public class AddNote extends Activity {
     AsyncHttpClient asyncHttpClient;
     EditText value;
     Button sendButton;
@@ -65,7 +64,7 @@ public class WriteScreen extends Activity {
 
 
     private void postMessage(String text) throws UnsupportedEncodingException {
-        urlToPost = StaticVariables.ipServerUrl + "1/addNote";
+        urlToPost = StaticVariables.ipServerUrl + StaticVariables.JWT + "/" + StaticVariables.tagId + "/note";
         Log.d("POST", urlToPost);
         JsonFactory jsonFactory = new JsonFactory();
         String msg = jsonFactory.makeJsonForAddNoteRequest(text, StaticVariables.tagId);
@@ -73,8 +72,8 @@ public class WriteScreen extends Activity {
         asyncHttpClient.post(this, urlToPost, stringEntity, msg, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, WriteScreen.this);
-                Log.e("POST", "onFailure. Status code " + statusCode);
+                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, AddNote.this);
+                Log.e("POST", "Failed to connect to server. " + statusCode + " Response: " + responseString);
             }
 
             @Override

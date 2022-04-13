@@ -1,10 +1,10 @@
-package com.example.anothernfcapp.screens;
+package com.example.anothernfcapp.utility;
 
 import android.content.Context;
 import android.widget.Toast;
 
 public class BadStatusCodeProcess {
-    static void parseBadStatusCode(int statusCode, String response, Context context){
+    public static void parseBadStatusCode(int statusCode, String response, Context context){
         if (statusCode == 0){
             Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
         }

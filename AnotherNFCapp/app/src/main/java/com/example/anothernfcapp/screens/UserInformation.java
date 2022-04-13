@@ -26,6 +26,7 @@ public class UserInformation extends AppCompatActivity {
                 backButton();
             }
         });
+
     }
 
     private void backButton() {

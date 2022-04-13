@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 import com.example.anothernfcapp.R;
 import com.example.anothernfcapp.json.JsonFactory;
 import com.example.anothernfcapp.json.get_notes.JsonForGetNotesResponse;
+import com.example.anothernfcapp.utility.BadStatusCodeProcess;
+import com.example.anothernfcapp.utility.StaticVariables;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.TextHttpResponseHandler;
 
@@ -21,7 +23,7 @@ import java.io.UnsupportedEncodingException;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
-public class GetScreen extends Activity {
+public class GetNotes extends Activity {
     AsyncHttpClient asyncHttpClient;
     TextView textView;
     Button button;
@@ -32,7 +34,11 @@ public class GetScreen extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.get_screen);
-        getJsonMessageFromServer();
+        try {
+            getJsonMessageFromServer();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         textView = (TextView) findViewById(R.id.valueFromServer);
         button = (Button) findViewById(R.id.goBackButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -48,28 +54,22 @@ public class GetScreen extends Activity {
         startActivity(getScreen);
     }
 
-    private void getJsonMessageFromServer() {
+    private void getJsonMessageFromServer() throws UnsupportedEncodingException {
         asyncHttpClient = new AsyncHttpClient();
-        String urlToGet = StaticVariables.ipServerUrl + "1/getNotes";
+        String urlToGet = StaticVariables.ipServerUrl + StaticVariables.JWT + "/" + StaticVariables.tagId + "/notes";
         Log.d("GET", urlToGet);
-        StringEntity stringEntity = null;
         jsonFactory = new JsonFactory();
         String message = jsonFactory.makeJsonForGetNotesRequest(StaticVariables.tagId);
-        try {
-            stringEntity = new StringEntity(message);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        StringEntity stringEntity = new StringEntity(message);
         asyncHttpClient.post(this, urlToGet, stringEntity, message, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.e("GET", "onFailure. Status code: " + statusCode);
-                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, GetScreen.this);
+                Log.e("GET", "Failed to connect to the server "  + statusCode + " Response: " + responseString);
+                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, GetNotes.this);
             }
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                Log.d("GET", "onSuccess");
+                Log.d("GET", "Successfully connected to the server");
                 JsonForGetNotesResponse[] message;
                 message = jsonFactory.makeStringForGetNotesResponse(responseString);
                 for (JsonForGetNotesResponse msg:message) {

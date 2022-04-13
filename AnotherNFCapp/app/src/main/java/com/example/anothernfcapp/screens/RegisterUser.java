@@ -3,6 +3,7 @@ package com.example.anothernfcapp.screens;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,10 +13,10 @@ import androidx.annotation.Nullable;
 
 import com.example.anothernfcapp.R;
 import com.example.anothernfcapp.json.JsonFactory;
-import com.example.anothernfcapp.json.add_notes.JsonForAddNoteRequest;
 import com.example.anothernfcapp.json.register.JsonForRegisterUserRequest;
+import com.example.anothernfcapp.utility.BadStatusCodeProcess;
+import com.example.anothernfcapp.utility.StaticVariables;
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import java.io.UnsupportedEncodingException;
@@ -67,12 +68,13 @@ public class RegisterUser extends Activity {
         asyncHttpClient.post(this, urlToRegister, stringEntity, msg, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.e("REGISTER", "Failed to connect to the server " + statusCode + " Response: " + responseString);
                 BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, RegisterUser.this);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-
+                onSuccessRegister();
             }
         });
     }
@@ -82,5 +84,7 @@ public class RegisterUser extends Activity {
         startActivity(intent);
     }
 
-    private
+    private void onSuccessRegister(){
+        Toast.makeText(this, "Successful registration", Toast.LENGTH_SHORT).show();
+    }
 }

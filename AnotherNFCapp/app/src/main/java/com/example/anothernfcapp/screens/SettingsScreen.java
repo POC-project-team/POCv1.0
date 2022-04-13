@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.anothernfcapp.R;
+import com.example.anothernfcapp.utility.BadStatusCodeProcess;
+import com.example.anothernfcapp.utility.StaticVariables;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.TextHttpResponseHandler;
 
