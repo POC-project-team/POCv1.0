@@ -1,5 +1,6 @@
 package com.example.anothernfcapp.screens;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -33,11 +34,14 @@ public class UserInformation extends AppCompatActivity {
         setTags();
     }
 
+    @SuppressLint("SetTextI18n")
     private void setTags() {
-
+        nickname.setText("WIP");
     }
 
+    @SuppressLint("SetTextI18n")
     private void setName() {
+        tags.setText("WIP");
     }
 
     private void backButton() {

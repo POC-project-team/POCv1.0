@@ -72,8 +72,8 @@ public class AddNote extends Activity {
         asyncHttpClient.post(this, urlToPost, stringEntity, msg, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, AddNote.this);
                 Log.e("POST", "Failed to connect to server. " + statusCode + " Response: " + responseString);
+                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, AddNote.this);
             }
 
             @Override
