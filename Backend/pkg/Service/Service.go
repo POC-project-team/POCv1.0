@@ -65,10 +65,19 @@ func (s *Service) CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	result, err := s.BaseSQL.CreateUser(req.Login, req.Password)
 	if err != nil {
-		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
-			ErrorCode:   http.StatusInternalServerError,
-			Description: err.Error(),
-		})
+		if err.Error() == "user with such login exists" {
+			APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
+				ErrorCode:   http.StatusBadRequest,
+				Description: err.Error(),
+			})
+			return
+		} else {
+			APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
+				ErrorCode:   http.StatusInternalServerError,
+				Description: err.Error(),
+			})
+			return
+		}
 	}
 	if err := json.NewEncoder(w).Encode(result); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{

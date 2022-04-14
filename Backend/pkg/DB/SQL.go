@@ -145,6 +145,25 @@ func (database *SQL) CreateUser(login, password string) (u.User, error) {
 			return u.User{}, err
 		}
 	}
+
+	var cnt int
+
+	rows, err = database.Store.Query(`select count(Login) from Users where Login = ?`, login)
+	if err != nil {
+		return u.User{}, err
+	}
+
+	for rows.Next() {
+		err = rows.Scan(&cnt)
+		if err != nil {
+			return u.User{}, err
+		}
+	}
+
+	if cnt != 0 {
+		return u.User{}, errors.New("user with such login exists")
+	}
+
 	stmt, err := database.Store.Prepare(`insert into Users (UserID, Login, Password) values (?, ?, ?)`)
 	if err != nil {
 		return u.User{}, err
