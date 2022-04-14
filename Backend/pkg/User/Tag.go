@@ -9,8 +9,9 @@ import (
 
 type Tag struct {
 	//UserID int
-	TagID string `json:"tagID"`
-	Notes []Note `json:"userNotes"`
+	TagID   string `json:"tagID"`
+	TagName string `json:"tagName"`
+	Notes   []Note `json:"userNotes"`
 }
 
 func TagInit(TagID string) *Tag {

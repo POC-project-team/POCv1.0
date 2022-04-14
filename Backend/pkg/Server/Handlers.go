@@ -24,14 +24,12 @@ func MyHandler() *mux.Router {
 	router.HandleFunc("/{token}/changePassword", au.ChangePassword).Methods("POST")
 
 	// routers for tag handling
-	router.HandleFunc("/{token}/tags", srv.GetAllTags).Methods("GET")
-	/*
-		router.HandleFunc("/{token}/{tag_id}/tag", srv.CreateTag).Methods("POST")
-		router.HandleFunc("/{token}/{tag_id}/tag", srv.GetTag).Methods("GET")
-		router.HandleFunc("/{token}/{tag_id}/tag", srv.UpdateTag).Methods("PUT")
-		router.HandleFunc("/{token}/{tag_id}/tag", srv.DeleteTag).Methods("DELETE")
-		router.HandleFunc("/{token}/{tag_id}/transfer", srv.TransferTag).Methods("POST")
-	*/
+	router.HandleFunc("/{token}/tags", srv.GetAllUsersTags).Methods("GET")
+	router.HandleFunc("/{token}/{tag_id}/tag", srv.CreateTag).Methods("POST")
+	router.HandleFunc("/{token}/{tag_id}/tag", srv.GetTag).Methods("GET")
+	router.HandleFunc("/{token}/{tag_id}/tag", srv.UpdateTag).Methods("PUT")
+	router.HandleFunc("/{token}/{tag_id}/tag", srv.DeleteTag).Methods("DELETE")
+	router.HandleFunc("/{token}/{tag_id}/send", srv.TransferTag).Methods("POST")
 
 	// routers for notes handling
 	router.HandleFunc("/{token}/{tag_id}/notes", srv.GetNotes).Methods("GET")

@@ -17,6 +17,7 @@ import (
 type Request struct {
 	UserID   int    `json:"userID"`
 	TagID    string `json:"tagID"`
+	TagName  string `json:"tagName"`
 	Note     string `json:"note"`
 	Login    string `json:"login"`
 	Password string `json:"password"`
