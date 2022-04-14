@@ -84,9 +84,8 @@ public class SettingsScreen extends AppCompatActivity {
     }
 
     private void dungeonMaster() {
-        if (StaticVariables.login.equals("aboba")){
+        if (StaticVariables.login.equals(StaticVariables.superUser)){
             StaticVariables.setTagId(StaticVariables.superTagId);
-            Log.d("TAG", StaticVariables.superTagId);
             Toast.makeText(this, "Successfully set up tag", Toast.LENGTH_SHORT).show();
         }
         else{
