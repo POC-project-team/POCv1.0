@@ -46,7 +46,7 @@ func (database *SQL) containsUser(userId int) bool {
 }
 
 func (database *SQL) containsTag(tagID string) bool {
-	rows, err := database.Store.Query(`select count(TagID) from note where TagID = ?`, tagID)
+	rows, err := database.Store.Query(`select count(TagID) from Notes where TagID = ?`, tagID)
 	if err != nil {
 		log.Error(err.Error())
 	}
@@ -210,7 +210,7 @@ func (database *SQL) GetUserTags(userId int) ([]string, error) {
 	if !database.containsUser(userId) {
 		return nil, errors.New("no such user")
 	}
-	rows, err := database.Store.Query(`select distinct TagId from Note where UserID = ?`, userId)
+	rows, err := database.Store.Query(`select distinct TagId from Notes where UserID = ?`, userId)
 	if err != nil {
 		log.Error(err.Error())
 		return nil, err
@@ -248,7 +248,7 @@ func (database *SQL) GetUserNotes(userId int, tagId string) ([]u.Note, error) {
 	}
 
 	rows, err := database.Store.Query(
-		`select note, data from Note where UserID = ? and note.TagID = ?`, userId, tagId)
+		`select note, data from Notes where UserID = ? and notes.TagID = ?`, userId, tagId)
 	if err != nil {
 		return nil, err
 	}
@@ -273,7 +273,7 @@ func (database *SQL) AddNote(userId int, tagId, noteInfo string) (u.Tag, error) 
 		return u.Tag{}, errors.New("no such user")
 	}
 
-	stmt, err := database.Store.Prepare(`insert into Note (UserID, TagID, Note, Data)  values (?, ?, ?, ?)`)
+	stmt, err := database.Store.Prepare(`insert into Notes (UserID, TagID, Note, Data)  values (?, ?, ?, ?)`)
 	if err != nil {
 		return u.Tag{}, err
 	}
@@ -283,7 +283,7 @@ func (database *SQL) AddNote(userId int, tagId, noteInfo string) (u.Tag, error) 
 	}
 
 	rows, err := database.Store.Query(
-		`select note, data from Note where UserID = ? and note.TagID = ?`, userId, tagId)
+		`select note, data from Notes where UserID = ? and notes.TagID = ?`, userId, tagId)
 	if err != nil {
 		return u.Tag{}, err
 	}
