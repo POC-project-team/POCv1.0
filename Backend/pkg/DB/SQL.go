@@ -450,10 +450,6 @@ func (database *SQL) AddNote(userId int, tagId, noteInfo string) (u.Tag, error) 
 		return u.Tag{}, errors.New("no such user")
 	}
 
-	if !database.containsTag(userId, tagId) {
-		return u.Tag{}, errors.New("no such tag")
-	}
-
 	stmt, err := database.Store.Prepare(`insert into Notes (UserID, TagID, Note, Data)  values (?, ?, ?, ?)`)
 	if err != nil {
 		return u.Tag{}, err
@@ -473,6 +469,11 @@ func (database *SQL) AddNote(userId int, tagId, noteInfo string) (u.Tag, error) 
 	var result u.Tag
 
 	result.TagID = tagId
+	result.TagName, err = database.getTagName(userId, tagId)
+
+	if err != nil {
+		return u.Tag{}, errors.New("cannot parse tag name")
+	}
 
 	for rows.Next() {
 		err = rows.Scan(&note.Note, &note.Time)
@@ -480,6 +481,40 @@ func (database *SQL) AddNote(userId int, tagId, noteInfo string) (u.Tag, error) 
 			return u.Tag{}, err
 		}
 		result.Notes = append(result.Notes, note)
+	}
+
+	return result, nil
+}
+
+func (database *SQL) getTagName(userId int, tagId string) (string, error) {
+	if !database.containsUser(userId) {
+		return "", errors.New("no such user")
+	}
+
+	if !database.containsTag(userId, tagId) {
+		stmt, err := database.Store.Prepare(`insert into Tags (UserID, TagID, TagName) values (?, ?, ?)`)
+		if err != nil {
+			return "", err
+		}
+		if _, err = stmt.Exec(userId, tagId, "Untitled"); err != nil {
+			return "", err
+		}
+		return "Untitled", nil
+	}
+
+	rows, err := database.Store.Query(
+		`select TagName from Tags where UserID = ? and TagID = ?`, userId, tagId)
+	if err != nil {
+		return "", err
+	}
+
+	var result string
+
+	for rows.Next() {
+		err = rows.Scan(&result)
+		if err != nil {
+			return "", err
+		}
 	}
 
 	return result, nil

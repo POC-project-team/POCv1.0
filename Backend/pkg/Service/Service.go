@@ -242,7 +242,7 @@ func (s *Service) CreateTag(w http.ResponseWriter, r *http.Request) {
 
 	if resp.Tag, err = s.BaseSQL.CreateTag(req.UserID, req.TagID, req.TagName); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
-			ErrorCode:   http.StatusInternalServerError,
+			ErrorCode:   http.StatusBadRequest,
 			Description: err.Error(),
 		})
 		return
