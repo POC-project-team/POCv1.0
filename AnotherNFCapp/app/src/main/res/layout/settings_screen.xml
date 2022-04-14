@@ -24,4 +24,21 @@
         android:id="@+id/logoutButton"
         android:text="@string/logout"
         android:layout_below="@+id/userInfoButton"/>
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/logoutButton"
+        android:id="@+id/clearTagButton"
+        android:text="@string/clear_tagid"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/clearTagButton"
+        android:text="@string/dungeon_master"
+        android:id="@+id/iAmBossOfTheGym"
+        />
+
 </RelativeLayout>

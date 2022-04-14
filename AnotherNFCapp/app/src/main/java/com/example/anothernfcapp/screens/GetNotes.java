@@ -28,12 +28,14 @@ public class GetNotes extends Activity {
     TextView textView;
     Button button;
     JsonFactory jsonFactory;
+    BadStatusCodeProcess badStatusCodeProcess;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.get_screen);
+        badStatusCodeProcess = new BadStatusCodeProcess();
         try {
             getJsonMessageFromServer();
         } catch (UnsupportedEncodingException e) {
@@ -59,11 +61,11 @@ public class GetNotes extends Activity {
         String urlToGet = StaticVariables.ipServerUrl + StaticVariables.JWT + "/" + StaticVariables.tagId + "/notes";
         Log.d("GET", urlToGet);
         jsonFactory = new JsonFactory();
-        asyncHttpClient.post(urlToGet, new TextHttpResponseHandler() {
+        asyncHttpClient.get(urlToGet, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.e("GET", "Failed to connect to the server "  + statusCode + " Response: " + responseString);
-                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, GetNotes.this);
+                badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, GetNotes.this);
             }
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {

@@ -138,7 +138,4 @@ public class MainScreen extends AppCompatActivity {
         return stringBuilder.toString();
     }
 
-    public String getTagId(){
-        return StaticVariables.tagId;
-    }
 }

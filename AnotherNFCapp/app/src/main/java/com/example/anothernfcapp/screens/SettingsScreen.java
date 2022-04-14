@@ -22,12 +22,18 @@ public class SettingsScreen extends AppCompatActivity {
     Button testConnectionButton;
     Button getUserInfoButton;
     Button logoutButton;
+    Button clearTagId;
+    Button dungeonMasterButton;
     AsyncHttpClient asyncHttpClient;
+    BadStatusCodeProcess badStatusCodeProcess;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         asyncHttpClient = new AsyncHttpClient();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_screen);
+        dungeonMasterButton = findViewById(R.id.iAmBossOfTheGym);
+        clearTagId = findViewById(R.id.clearTagButton);
+        badStatusCodeProcess = new BadStatusCodeProcess();
         testConnectionButton = findViewById(R.id.testConnectionButton);
         getUserInfoButton = findViewById(R.id.userInfoButton);
         logoutButton = findViewById(R.id.logoutButton);
@@ -50,6 +56,34 @@ public class SettingsScreen extends AppCompatActivity {
                 logout();
             }
         });
+        clearTagId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearTagId();
+            }
+        });
+        dungeonMasterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dungeonMaster();
+            }
+        });
+    }
+
+    private void dungeonMaster() {
+        if (StaticVariables.login.equals("aboba")){
+            StaticVariables.setTagId(StaticVariables.superTagId);
+            Log.d("TAG", StaticVariables.superTagId);
+            Toast.makeText(this, "Successfully set up tag", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void clearTagId() {
+        StaticVariables.tagId = null;
+        Toast.makeText(this, "Successfully cleared tagID", Toast.LENGTH_SHORT).show();
     }
 
     private void logout() {
@@ -68,7 +102,7 @@ public class SettingsScreen extends AppCompatActivity {
         asyncHttpClient.get(url, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, SettingsScreen.this);
+                badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, SettingsScreen.this);
             }
 
             @Override

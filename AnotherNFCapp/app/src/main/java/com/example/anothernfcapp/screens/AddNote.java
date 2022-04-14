@@ -29,11 +29,13 @@ public class AddNote extends Activity {
     Button sendButton;
     Button backButton;
     String urlToPost;
+    BadStatusCodeProcess badStatusCodeProcess;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.write_screen);
+        badStatusCodeProcess = new BadStatusCodeProcess();
         asyncHttpClient = new AsyncHttpClient();
         sendButton = (Button) findViewById(R.id.sendValue);
         backButton = findViewById(R.id.goBackWriteScreen);
@@ -73,7 +75,7 @@ public class AddNote extends Activity {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.e("POST", "Failed to connect to server. " + statusCode + " Response: " + responseString);
-                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, AddNote.this);
+                badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, AddNote.this);
             }
 
             @Override

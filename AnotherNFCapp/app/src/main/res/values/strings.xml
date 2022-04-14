@@ -17,4 +17,6 @@
     <string name="test_connection">Test connection</string>
     <string name="get_user_info">Get user info</string>
     <string name="logout">Logout</string>
+    <string name="clear_tagid">Clear tagID</string>
+    <string name="dungeon_master">DUNGEON MASTER</string>
 </resources>

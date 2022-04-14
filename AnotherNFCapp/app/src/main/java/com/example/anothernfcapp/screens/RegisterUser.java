@@ -33,11 +33,13 @@ public class RegisterUser extends Activity {
     AsyncHttpClient asyncHttpClient;
     JsonForRegisterUserRequest jsonForRegisterUserRequest;
     JsonFactory jsonFactory;
+    BadStatusCodeProcess badStatusCodeProcess;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         jsonFactory = new JsonFactory();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration_screen);
+        badStatusCodeProcess = new BadStatusCodeProcess();
         login = (EditText) findViewById(R.id.loginReg);
         password = (EditText) findViewById(R.id.passwordReg);
         register = (Button) findViewById(R.id.sendRegistration);
@@ -69,7 +71,7 @@ public class RegisterUser extends Activity {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.e("REGISTER", "Failed to connect to the server " + statusCode + " Response: " + responseString);
-                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, RegisterUser.this);
+                badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, RegisterUser.this);
             }
 
             @Override

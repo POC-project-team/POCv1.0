@@ -28,11 +28,13 @@ public class Login extends AppCompatActivity {
     Button buttonLogin;
     Button buttonRegister;
     AsyncHttpClient asyncHttpClient;
+    BadStatusCodeProcess badStatusCodeProcess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
+        badStatusCodeProcess = new BadStatusCodeProcess();
         login = (EditText) findViewById(R.id.login);
         password = (EditText) findViewById(R.id.password);
         buttonLogin = (Button) findViewById(R.id.loginButton);
@@ -67,13 +69,15 @@ public class Login extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.e("LOGIN", "Failed to connect to the server " + statusCode + " Response: " + responseString);
-                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, Login.this);
+                badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, Login.this);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 Log.d("LOGIN", "Successfully connected to the server");
+                Log.d("LOGIN", responseString);
                 parseJWT(responseString);
+                StaticVariables.setLogin(login.getText().toString());
                 login();
             }
         });
