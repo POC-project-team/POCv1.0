@@ -16,12 +16,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AnotherNFCapp">
-        <activity android:name=".screens.MainActivity"
+
+        <activity android:name=".screens.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".screens.MainScreen"
@@ -37,13 +39,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".screens.GetScreen" />
+        <activity android:name=".screens.GetNotes" />
 
         <activity android:name=".screens.RegisterUser" />
 
-        <activity android:name=".screens.WriteScreen" />
+        <activity android:name=".screens.AddNote" />
 
-        <activity android:name=".screens.settings.SettingsScreen"/>
+        <activity android:name=".screens.UserInformation"/>
+
+        <activity android:name=".screens.SettingsScreen"/>
 
     </application>
 

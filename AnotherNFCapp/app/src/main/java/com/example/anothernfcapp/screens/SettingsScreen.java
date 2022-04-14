@@ -1,0 +1,121 @@
+package com.example.anothernfcapp.screens;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.anothernfcapp.R;
+import com.example.anothernfcapp.utility.BadStatusCodeProcess;
+import com.example.anothernfcapp.utility.StaticVariables;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.TextHttpResponseHandler;
+
+import cz.msebera.android.httpclient.Header;
+
+public class SettingsScreen extends AppCompatActivity {
+    Button testConnectionButton;
+    Button getUserInfoButton;
+    Button logoutButton;
+    Button clearTagId;
+    Button dungeonMasterButton;
+    AsyncHttpClient asyncHttpClient;
+    BadStatusCodeProcess badStatusCodeProcess;
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        asyncHttpClient = new AsyncHttpClient();
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.settings_screen);
+        dungeonMasterButton = findViewById(R.id.iAmBossOfTheGym);
+        clearTagId = findViewById(R.id.clearTagButton);
+        badStatusCodeProcess = new BadStatusCodeProcess();
+        testConnectionButton = findViewById(R.id.testConnectionButton);
+        getUserInfoButton = findViewById(R.id.userInfoButton);
+        logoutButton = findViewById(R.id.logoutButton);
+        testConnectionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                testConnection();
+            }
+        });
+
+        getUserInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userInfo();
+            }
+        });
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
+        clearTagId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearTagId();
+            }
+        });
+        dungeonMasterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dungeonMaster();
+            }
+        });
+    }
+
+    private void dungeonMaster() {
+        if (StaticVariables.login.equals("aboba")){
+            StaticVariables.setTagId(StaticVariables.superTagId);
+            Log.d("TAG", StaticVariables.superTagId);
+            Toast.makeText(this, "Successfully set up tag", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void clearTagId() {
+        StaticVariables.tagId = null;
+        Toast.makeText(this, "Successfully cleared tagID", Toast.LENGTH_SHORT).show();
+    }
+
+    private void logout() {
+        Intent intent = new Intent(this, Login.class);
+        startActivity(intent);
+    }
+
+    private void userInfo() {
+        Intent intent = new Intent(this, UserInformation.class);
+        startActivity(intent);
+    }
+
+    private void testConnection(){
+        String url = StaticVariables.ipServerUrl + "test";
+        Log.d("TEST", url);
+        asyncHttpClient.get(url, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, SettingsScreen.this);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                makeToastMsg(statusCode);
+                Log.d("TEST", "onSuccess");
+            }
+        });
+    }
+
+    private void makeToastMsg(int statusCode){
+        if (statusCode >= 200 && statusCode < 400){
+            Toast.makeText(this, "Server is working", Toast.LENGTH_SHORT).show();
+        }
+    }
+}
