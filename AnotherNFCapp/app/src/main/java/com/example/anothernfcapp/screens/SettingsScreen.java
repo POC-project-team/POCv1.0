@@ -23,6 +23,7 @@ public class SettingsScreen extends AppCompatActivity {
     Button getUserInfoButton;
     Button logoutButton;
     Button clearTagId;
+    Button goBack;
     Button dungeonMasterButton;
     AsyncHttpClient asyncHttpClient;
     BadStatusCodeProcess badStatusCodeProcess;
@@ -31,6 +32,7 @@ public class SettingsScreen extends AppCompatActivity {
         asyncHttpClient = new AsyncHttpClient();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_screen);
+        goBack = findViewById(R.id.goBackSettingsScreen);
         dungeonMasterButton = findViewById(R.id.iAmBossOfTheGym);
         clearTagId = findViewById(R.id.clearTagButton);
         badStatusCodeProcess = new BadStatusCodeProcess();
@@ -68,6 +70,17 @@ public class SettingsScreen extends AppCompatActivity {
                 dungeonMaster();
             }
         });
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goBack();
+            }
+        });
+    }
+
+    private void goBack() {
+        Intent intent = new Intent(this, MainScreen.class);
+        startActivity(intent);
     }
 
     private void dungeonMaster() {
