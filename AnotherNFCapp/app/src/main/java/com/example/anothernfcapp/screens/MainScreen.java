@@ -107,7 +107,7 @@ public class MainScreen extends AppCompatActivity {
             StaticVariables.setTagId(bytesToHexString(detectedTag.getId()));
             Log.d("TAG", StaticVariables.tagId);
             tagIdTextView.setText("Current tagId: " + StaticVariables.tagId);
-            Toast.makeText(this, "Success: POCED THIS TAG", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Success: POCED THIS TAG", Toast.LENGTH_SHORT).show();
         }
     }
 
