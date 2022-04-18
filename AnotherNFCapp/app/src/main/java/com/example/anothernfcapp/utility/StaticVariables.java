@@ -5,6 +5,7 @@ public class StaticVariables {
     public static String JWT;
     public static String tagId;
     public static String login;
+    public static final String superUser = "poc";
     public final static String superTagId = "0x040c446a287381";
 
     public static void setTagId(String tagId) {
