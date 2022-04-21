@@ -4,6 +4,7 @@ import com.example.anothernfcapp.json.add_notes.JsonForAddNoteRequest;
 import com.example.anothernfcapp.json.auth.JsonForAuthUserRequest;
 import com.example.anothernfcapp.json.auth.JsonForAuthUserResponse;
 import com.example.anothernfcapp.json.change_login.JsonForChangeLoginRequest;
+import com.example.anothernfcapp.json.change_password.JsonForChangePasswordRequest;
 import com.example.anothernfcapp.json.get_notes.JsonForGetNotesResponse;
 import com.example.anothernfcapp.json.register.JsonForRegisterUserRequest;
 import com.google.gson.Gson;
@@ -51,6 +52,13 @@ public class JsonFactory {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
         return gson.toJson(jsonForChangeLoginRequest);
+    }
+
+    public String makeJsonForChangePasswordRequest(String login, String password){
+        JsonForChangePasswordRequest jsonForChangePasswordRequest = new JsonForChangePasswordRequest(login, password);
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+        return gson.toJson(jsonForChangePasswordRequest);
     }
 
 

@@ -23,61 +23,58 @@ import java.io.UnsupportedEncodingException;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
-public class ChangeLogin extends Activity {
-    Button changeLoginButton;
+public class ChangePassword extends Activity {
     EditText login;
-    EditText confirmLogin;
-    EditText password;
-    Button goBack;
+    EditText oldPassword;
+    EditText newPassword;
+    Button changePasswordButton;
+    Button goBackButton;
     AsyncHttpClient asyncHttpClient;
     JsonFactory jsonFactory;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.change_login);
-        asyncHttpClient = new AsyncHttpClient();
-        jsonFactory = new JsonFactory();
-        login.findViewById(R.id.old_login);
-        confirmLogin.findViewById(R.id.new_login);
-        password.findViewById(R.id.passwordForChangeLogin);
-        changeLoginButton.findViewById(R.id.buttonForChangeLogin);
-        goBack.findViewById(R.id.goBackButtonChangeLogin);
-        changeLoginButton.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.change_password);
+        login.findViewById(R.id.loginForChangePassword);
+        oldPassword.findViewById(R.id.old_password);
+        newPassword.findViewById(R.id.new_password);
+        changePasswordButton.findViewById(R.id.buttonForChangePassword);
+        goBackButton.findViewById(R.id.goBackButtonChangePassword);
+        changePasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    changeLogin();
+                    changePassword();
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
             }
         });
-        goBack.setOnClickListener(new View.OnClickListener() {
+        goBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goBack();
             }
         });
-
     }
 
-    private void changeLogin() throws UnsupportedEncodingException {
-        if (login.getText().toString().equals(confirmLogin.getText().toString()) && login.getText().toString().equals(StaticVariables.login)){
-            String url = StaticVariables.ipServerUrl + StaticVariables.JWT + "/changeLogin";
-            String request = jsonFactory.makeJsonForChangeLoginRequest(login.getText().toString(), password.getText().toString());
+    private void changePassword() throws UnsupportedEncodingException {
+        if (login.getText().toString().equals(StaticVariables.login) &&
+                oldPassword.getText().toString().equals(newPassword.getText().toString())){
+            String url = StaticVariables.ipServerUrl + StaticVariables.JWT + "/loginPassword";
+            String request = jsonFactory.makeJsonForChangePasswordRequest(login.getText().toString(), newPassword.getText().toString());
             StringEntity stringEntity = new StringEntity(request);
             asyncHttpClient.post(this, url, stringEntity, request, new TextHttpResponseHandler() {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                     BadStatusCodeProcess badStatusCodeProcess = new BadStatusCodeProcess();
-                    badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, ChangeLogin.this);
-                    Log.e("CHANGELOGIN", "Status code: " + statusCode + " response: " + responseString);
+                    badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, ChangePassword.this);
+                    Log.e("CHANGEPASSWORD", "Status code: " + statusCode + " response: " + responseString);
                 }
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                    Log.d("CHANGELOGIN", "Successfully change login");
-                    printOnSuccess();
+                    printSuccess();
                     try {
                         wait(100);
                     } catch (InterruptedException e) {
@@ -87,12 +84,7 @@ public class ChangeLogin extends Activity {
                 }
             });
         }
-        else if (login.getText().toString().equals("") || confirmLogin.getText().toString().equals("")){
-            Toast.makeText(this, "Enter login", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            Toast.makeText(this, "Logins doesn't match", Toast.LENGTH_SHORT).show();
-        }
+
     }
 
     private void logout() {
@@ -100,14 +92,14 @@ public class ChangeLogin extends Activity {
         startActivity(intent);
     }
 
-    private void printOnSuccess() {
-        Toast.makeText(this, "Successfully changed your login", Toast.LENGTH_SHORT).show();
+    private void printSuccess() {
+        Toast.makeText(this, "Successfully changed your password", Toast.LENGTH_SHORT).show();
     }
+
 
     private void goBack() {
         Intent intent = new Intent(this, SettingsScreen.class);
         startActivity(intent);
     }
-
 
 }

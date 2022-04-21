@@ -49,6 +49,9 @@
 
         <activity android:name=".screens.SettingsScreen"/>
 
+        <activity android:name=".screens.ChangeLogin"/>
+        <activity android:name=".screens.ChangePassword"/>
+
     </application>
 
 </manifest>
