@@ -3,6 +3,7 @@ package com.example.anothernfcapp.json;
 import com.example.anothernfcapp.json.add_notes.JsonForAddNoteRequest;
 import com.example.anothernfcapp.json.auth.JsonForAuthUserRequest;
 import com.example.anothernfcapp.json.auth.JsonForAuthUserResponse;
+import com.example.anothernfcapp.json.change_login.JsonForChangeLoginRequest;
 import com.example.anothernfcapp.json.get_notes.JsonForGetNotesResponse;
 import com.example.anothernfcapp.json.register.JsonForRegisterUserRequest;
 import com.google.gson.Gson;
@@ -43,6 +44,13 @@ public class JsonFactory {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
         return gson.toJson(jsonForRegisterUserRequest);
+    }
+
+    public String makeJsonForChangeLoginRequest(String login, String password){
+        JsonForChangeLoginRequest jsonForChangeLoginRequest = new JsonForChangeLoginRequest(login, password);
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+        return gson.toJson(jsonForChangeLoginRequest);
     }
 
 

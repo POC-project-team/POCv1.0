@@ -19,4 +19,8 @@
     <string name="logout">Logout</string>
     <string name="clear_tagid">Clear tagID</string>
     <string name="dungeon_master">DUNGEON MASTER</string>
+    <string name="change_password">Change password</string>
+    <string name="new_login">New login</string>
+    <string name="old_login">Old login</string>
+    <string name="change_login">Change login</string>
 </resources>

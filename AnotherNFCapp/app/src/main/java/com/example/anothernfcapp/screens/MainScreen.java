@@ -97,7 +97,7 @@ public class MainScreen extends AppCompatActivity {
     }
 
     @SuppressLint("SetTextI18n")
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     @Override
 
     protected void onNewIntent(Intent intent) {
