@@ -93,11 +93,8 @@ func (s *Service) CreateUser(w http.ResponseWriter, r *http.Request) {
 
 // GetAllUsersTags handler for getting all tags of specific user
 func (s *Service) GetAllUsersTags(w http.ResponseWriter, r *http.Request) {
-	type response struct {
-		Tags []db.TagNoUserNotes `json:"tags"`
-	}
 	var (
-		resp response
+		tags []db.TagNoUserNotes
 		req  Request
 		err  error
 	)
@@ -105,7 +102,7 @@ func (s *Service) GetAllUsersTags(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if resp.Tags, err = s.BaseSQL.GetUserTags(req.UserID); err != nil {
+	if tags, err = s.BaseSQL.GetUserTags(req.UserID); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusBadRequest,
 			Description: err.Error(),
@@ -113,7 +110,7 @@ func (s *Service) GetAllUsersTags(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err = json.NewEncoder(w).Encode(resp); err != nil {
+	if err = json.NewEncoder(w).Encode(tags); err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
 			ErrorCode:   http.StatusInternalServerError,
 			Description: "Cannot write data to request",
