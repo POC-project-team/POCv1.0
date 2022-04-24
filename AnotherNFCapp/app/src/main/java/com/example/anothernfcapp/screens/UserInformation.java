@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.anothernfcapp.R;
+import com.example.anothernfcapp.json.JsonFactory;
+import com.example.anothernfcapp.json.get_tags.JsonForGetTagsResponse;
 import com.example.anothernfcapp.utility.BadStatusCodeProcess;
 import com.example.anothernfcapp.utility.StaticVariables;
 import com.loopj.android.http.AsyncHttpClient;
@@ -55,7 +57,11 @@ public class UserInformation extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                tags.setText(responseString);
+                JsonFactory jsonFactory = new JsonFactory();
+                JsonForGetTagsResponse[] json = jsonFactory.makeStringForGetTagsResponse(responseString);
+                for (JsonForGetTagsResponse item : json) {
+                    tags.append(item.toString());
+                }
             }
         });
     }

@@ -7,6 +7,7 @@ import com.example.anothernfcapp.json.auth.JsonForAuthUserResponse;
 import com.example.anothernfcapp.json.change_login.JsonForChangeLoginRequest;
 import com.example.anothernfcapp.json.change_password.JsonForChangePasswordRequest;
 import com.example.anothernfcapp.json.get_notes.JsonForGetNotesResponse;
+import com.example.anothernfcapp.json.get_tags.JsonForGetTagsResponse;
 import com.example.anothernfcapp.json.register.JsonForRegisterUserRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -67,6 +68,13 @@ public class JsonFactory {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
         return gson.toJson(json);
+    }
+
+    public JsonForGetTagsResponse[] makeStringForGetTagsResponse(String messageToParse){
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+        return gson.fromJson(messageToParse, JsonForGetTagsResponse[].class);
+
     }
 
 
