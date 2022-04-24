@@ -77,7 +77,20 @@ public class MainScreen extends AppCompatActivity {
                 startActivity(settingsIntent);
             }
         });
+        findViewById(R.id.startAddNewTag).setOnClickListener(v -> {
+            if(StaticVariables.tagId == null){
+                msgError();
+            }
+            else {
+                startAddTagScreen();
+            }
+        });
 
+    }
+
+    private void startAddTagScreen() {
+        Intent intent = new Intent(MainScreen.this, AddNewTag.class);
+        startActivity(intent);
     }
 
     private void disableTagWriteMode() {

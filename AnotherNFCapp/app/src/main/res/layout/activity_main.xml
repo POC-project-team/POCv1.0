@@ -14,7 +14,7 @@
         android:id="@+id/buttonSetUp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Set up tag" />
+        android:text="@string/set_up_tag" />
 
     <Button
         android:layout_width="match_parent"

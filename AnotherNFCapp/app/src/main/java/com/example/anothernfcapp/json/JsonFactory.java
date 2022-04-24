@@ -1,5 +1,6 @@
 package com.example.anothernfcapp.json;
 
+import com.example.anothernfcapp.json.add_new_tag.JsonForCreateNewTagRequest;
 import com.example.anothernfcapp.json.add_notes.JsonForAddNoteRequest;
 import com.example.anothernfcapp.json.auth.JsonForAuthUserRequest;
 import com.example.anothernfcapp.json.auth.JsonForAuthUserResponse;
@@ -59,6 +60,13 @@ public class JsonFactory {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
         return gson.toJson(jsonForChangePasswordRequest);
+    }
+
+    public String makeJsonForCreateTagRequest(String tagName){
+        JsonForCreateNewTagRequest json = new JsonForCreateNewTagRequest(tagName);
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+        return gson.toJson(json);
     }
 
 
