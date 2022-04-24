@@ -50,7 +50,10 @@
         <activity android:name=".screens.SettingsScreen"/>
 
         <activity android:name=".screens.ChangeLogin"/>
+
         <activity android:name=".screens.ChangePassword"/>
+
+        <activity android:name=".screens.AddNewTag"/>
 
     </application>
 
