@@ -33,4 +33,6 @@
     <string name="get_data_about_this_tag">Get data about this tag</string>
     <string name="settings">settings</string>
     <string name="set_up_tag">Set up tag</string>
+    <string name="tag_settings">Tag settings</string>
+    <string name="change_tag_name">Change tag name</string>
 </resources>

@@ -16,12 +16,6 @@
         android:layout_height="wrap_content"
         android:text="@string/set_up_tag" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/startAddNewTag"
-        android:text="@string/add_new_tag"
-        />
 
     <Button
         android:id="@+id/buttonwrite"
@@ -40,4 +34,10 @@
         android:id="@+id/settings"
         android:text="@string/settings"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tag_settings"
+        android:id="@+id/tagSettingsButton"
+        />
 </LinearLayout>

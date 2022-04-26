@@ -55,6 +55,10 @@ public class MainScreen extends AppCompatActivity {
                 }
             }
         });
+        ((Button) findViewById(R.id.tagSettingsButton)).setOnClickListener(v ->{
+            Intent intent = new Intent(this, TagSettings.class);
+            startActivity(intent);
+        });
         ((Button) findViewById(R.id.buttonSetUp)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,20 +81,7 @@ public class MainScreen extends AppCompatActivity {
                 startActivity(settingsIntent);
             }
         });
-        findViewById(R.id.startAddNewTag).setOnClickListener(v -> {
-            if(StaticVariables.tagId == null){
-                msgError();
-            }
-            else {
-                startAddTagScreen();
-            }
-        });
 
-    }
-
-    private void startAddTagScreen() {
-        Intent intent = new Intent(MainScreen.this, AddNewTag.class);
-        startActivity(intent);
     }
 
     private void disableTagWriteMode() {
