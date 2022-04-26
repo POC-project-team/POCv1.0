@@ -8,4 +8,11 @@ public class JsonForGetTagsResponse {
         this.tagId = tagId;
         this.tagName = tagName;
     }
+
+    @Override
+    public String toString() {
+        return "Tag:\n" +
+                "tagId = '" + tagId + '\n' +
+                "tagName='" + tagName;
+    }
 }
