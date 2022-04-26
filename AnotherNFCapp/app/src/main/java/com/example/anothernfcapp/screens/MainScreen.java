@@ -56,8 +56,13 @@ public class MainScreen extends AppCompatActivity {
             }
         });
         ((Button) findViewById(R.id.tagSettingsButton)).setOnClickListener(v ->{
-            Intent intent = new Intent(this, TagSettings.class);
-            startActivity(intent);
+            if (StaticVariables.tagId == null){
+                msgError();
+            }
+            else{
+                Intent intent = new Intent(this, TagSettings.class);
+                startActivity(intent);
+            }
         });
         ((Button) findViewById(R.id.buttonSetUp)).setOnClickListener(new View.OnClickListener() {
             @Override

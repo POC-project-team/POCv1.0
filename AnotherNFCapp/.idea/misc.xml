@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/layout/add_new_tag.xml" value="0.2552083333333333" />
         <entry key="app/src/main/res/layout/change_login.xml" value="0.275" />
         <entry key="app/src/main/res/layout/change_password.xml" value="0.275" />
+        <entry key="app/src/main/res/layout/change_tag_name.xml" value="0.2552083333333333" />
         <entry key="app/src/main/res/layout/get_screen.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/get_tag_screen.xml" value="0.33489583333333334" />
         <entry key="app/src/main/res/layout/login_buttons.xml" value="0.32083333333333336" />
