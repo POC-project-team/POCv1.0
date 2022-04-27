@@ -31,15 +31,9 @@ public class UserInformation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_info_layout);
         asyncHttpClient = new AsyncHttpClient();
-        nickname = findViewById(R.id.user_name);
+        nickname.findViewById(R.id.user_name);
         tags = findViewById(R.id.available_tags);
-        backButton = findViewById(R.id.goBackButtonUserInf);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backButton();
-            }
-        });
+        backButton.findViewById(R.id.goBackButtonUserInf).setOnClickListener(v -> backButton());
         setName();
         setTags();
     }

@@ -27,6 +27,8 @@ public class AddNote extends Activity {
     AsyncHttpClient asyncHttpClient;
     EditText value;
     String urlToPost;
+    Button sendValue;
+    Button goBack;
     BadStatusCodeProcess badStatusCodeProcess;
 
     @Override
@@ -35,14 +37,14 @@ public class AddNote extends Activity {
         setContentView(R.layout.write_screen);
         badStatusCodeProcess = new BadStatusCodeProcess();
         asyncHttpClient = new AsyncHttpClient();
-        findViewById(R.id.sendValue).setOnClickListener(v -> {
+        sendValue.findViewById(R.id.sendValue).setOnClickListener(v -> {
             try {
                 postMessage(value.getText().toString());
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         });
-        findViewById(R.id.goBackWriteScreen).setOnClickListener(v -> goBackButton());
+        goBack.findViewById(R.id.goBackWriteScreen).setOnClickListener(v -> goBackButton());
         value = findViewById(R.id.getTextValue);
     }
 

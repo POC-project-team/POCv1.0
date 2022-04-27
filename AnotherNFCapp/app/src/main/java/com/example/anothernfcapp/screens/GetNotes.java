@@ -21,12 +21,11 @@ import com.loopj.android.http.TextHttpResponseHandler;
 import java.io.UnsupportedEncodingException;
 
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class GetNotes extends Activity {
     AsyncHttpClient asyncHttpClient;
     TextView textView;
-    Button button;
+    Button goBackButton;
     JsonFactory jsonFactory;
     BadStatusCodeProcess badStatusCodeProcess;
 
@@ -41,14 +40,8 @@ public class GetNotes extends Activity {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        textView = (TextView) findViewById(R.id.valueFromServer);
-        button = (Button) findViewById(R.id.goBackButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backButton();
-            }
-        });
+        textView.findViewById(R.id.valueFromServer);
+        goBackButton.findViewById(R.id.goBackButton).setOnClickListener(v -> backButton());
     }
 
     private void backButton() {

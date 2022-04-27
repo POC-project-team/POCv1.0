@@ -31,35 +31,25 @@ public class RegisterUser extends Activity {
     Button goBack;
     String urlToRegister;
     AsyncHttpClient asyncHttpClient;
-    JsonForRegisterUserRequest jsonForRegisterUserRequest;
     JsonFactory jsonFactory;
     BadStatusCodeProcess badStatusCodeProcess;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         jsonFactory = new JsonFactory();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration_screen);
         badStatusCodeProcess = new BadStatusCodeProcess();
-        login = (EditText) findViewById(R.id.loginReg);
-        password = (EditText) findViewById(R.id.passwordReg);
-        register = (Button) findViewById(R.id.sendRegistration);
-        goBack = (Button) findViewById(R.id.backToLogin);
-        goBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setGoBack();
+        login.findViewById(R.id.loginReg);
+        password.findViewById(R.id.passwordReg);
+        register.findViewById(R.id.sendRegistration).setOnClickListener(v -> {
+            try {
+                sendRegistration();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
             }
         });
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    sendRegistration();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        goBack.findViewById(R.id.backToLogin).setOnClickListener(v -> setGoBack());
     }
 
     private void sendRegistration() throws UnsupportedEncodingException {
