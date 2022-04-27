@@ -92,7 +92,4 @@ public class JsonFactory {
         Gson gson = gsonBuilder.create();
         return gson.toJson(json);
     }
-
-
-
 }

@@ -53,8 +53,6 @@
 
         <activity android:name=".screens.ChangePassword"/>
 
-        <activity android:name=".screens.AddNewTag"/>
-
         <activity android:name=".screens.TagSettings"/>
 
         <activity android:name=".screens.ChangeTagName"/>
