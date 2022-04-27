@@ -39,43 +39,13 @@ public class SettingsScreen extends AppCompatActivity {
         testConnectionButton = findViewById(R.id.testConnectionButton);
         getUserInfoButton = findViewById(R.id.userInfoButton);
         logoutButton = findViewById(R.id.logoutButton);
-        testConnectionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                testConnection();
-            }
-        });
+        testConnectionButton.setOnClickListener(v -> testConnection());
 
-        getUserInfoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                userInfo();
-            }
-        });
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logout();
-            }
-        });
-        clearTagId.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clearTagId();
-            }
-        });
-        dungeonMasterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dungeonMaster();
-            }
-        });
-        goBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goBack();
-            }
-        });
+        getUserInfoButton.setOnClickListener(v -> userInfo());
+        logoutButton.setOnClickListener(v -> logout());
+        clearTagId.setOnClickListener(v -> clearTagId());
+        dungeonMasterButton.setOnClickListener(v -> dungeonMaster());
+        goBack.setOnClickListener(v -> goBack());
     }
 
     private void goBack() {

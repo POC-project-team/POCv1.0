@@ -55,8 +55,6 @@
 
         <activity android:name=".screens.TagSettings"/>
 
-        <activity android:name=".screens.ChangeTagName"/>
-
     </application>
 
 </manifest>

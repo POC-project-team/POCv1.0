@@ -34,16 +34,49 @@ public class TagSettings extends Activity {
         setContentView(R.layout.tag_settings);
         asyncHttpClient = new AsyncHttpClient();
         findViewById(R.id.startAddNewTag).setOnClickListener(v -> addNewTag());
-        findViewById(R.id.startChangeTagName).setOnClickListener(v -> {
-            Intent intent = new Intent(this, ChangeTagName.class);
-            startActivity(intent);
-        });
+        findViewById(R.id.startChangeTagName).setOnClickListener(v -> change_tag_name());
         findViewById(R.id.deleteTag).setOnClickListener(v -> deleteTag());
         findViewById(R.id.goBackTagSettings).setOnClickListener(v -> {
             Intent intent = new Intent(this, MainScreen.class);
             startActivity(intent);
         });
         findViewById(R.id.sendTag).setOnClickListener(v -> sendTag());
+    }
+
+    private void change_tag_name() {
+        String url = StaticVariables.ipServerUrl + StaticVariables.JWT + "/" + StaticVariables.tagId + "/tag";
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        View changeTagNameView = layoutInflater.inflate(R.layout.change_tag_name, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(changeTagNameView);
+        EditText newTagName = changeTagNameView.findViewWithTag(R.id.newTagName);
+        builder.setPositiveButton("Change", (dialog, which) -> {
+            JsonFactory jsonFactory = new JsonFactory();
+            String msg = jsonFactory.makeJsonForChangeTagNameRequest(newTagName.getText().toString());
+            StringEntity stringEntity;
+            try {
+                stringEntity = new StringEntity(msg);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                return;
+            }
+            asyncHttpClient.put(this, url, stringEntity, msg, new TextHttpResponseHandler() {
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    BadStatusCodeProcess badStatusCodeProcess = new BadStatusCodeProcess();
+                    badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, TagSettings.this);
+                    Log.e("CHANGETAGNAME", "Status code: " + statusCode + " response: " + responseString);
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                    onSuccessfulChange();
+                }
+            });
+        }).setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
     }
 
     private void addNewTag() {
@@ -56,11 +89,12 @@ public class TagSettings extends Activity {
         builder.setPositiveButton("Set", (dialog, which) -> {
             JsonFactory jsonFactory = new JsonFactory();
             String msg = jsonFactory.makeJsonForCreateTagRequest(tagName.getText().toString());
-            StringEntity stringEntity = null;
+            StringEntity stringEntity;
             try {
                 stringEntity = new StringEntity(msg);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
+                return;
             }
             asyncHttpClient.post(this, url, stringEntity, msg, new TextHttpResponseHandler() {
                 @Override
@@ -72,17 +106,14 @@ public class TagSettings extends Activity {
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                    createOnSuccessMessage();
+                    onSuccessAddTag();
                     Log.d("ADDNEWTAG", "Successfully created new tag");
                 }
             });
-        }).setNegativeButton("Cancel", ((dialog, which) -> {
-            dialog.cancel();
-        }));
-    }
-
-    private void createOnSuccessMessage() {
-        Toast.makeText(this, "Successfully created new tag", Toast.LENGTH_SHORT).show();
+        }).setNegativeButton("Cancel", ((dialog, which) ->
+            dialog.cancel()));
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void sendTag() {
@@ -95,11 +126,12 @@ public class TagSettings extends Activity {
         builder.setPositiveButton("Send", (dialog, which) -> {
             JsonFactory jsonFactory = new JsonFactory();
             String msg = jsonFactory.makeJsonForSendTagRequest(login.getText().toString());
-            StringEntity stringEntity = null;
+            StringEntity stringEntity;
             try {
                 stringEntity = new StringEntity(msg);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
+                return;
             }
             asyncHttpClient.post(this, url, stringEntity, msg, new TextHttpResponseHandler() {
                 @Override
@@ -115,11 +147,9 @@ public class TagSettings extends Activity {
                 }
             });
         }).setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
 
-    }
-
-    private void showOnSuccess() {
-        Toast.makeText(this, "Successfully sent this tag", Toast.LENGTH_SHORT).show();
     }
 
     private void deleteTag() {
@@ -141,6 +171,18 @@ public class TagSettings extends Activity {
                 onSuccessfulDelete();
             }
         });
+    }
+
+    private void onSuccessAddTag() {
+        Toast.makeText(this, "Successfully created new tag", Toast.LENGTH_SHORT).show();
+    }
+
+    private void showOnSuccess() {
+        Toast.makeText(this, "Successfully sent this tag", Toast.LENGTH_SHORT).show();
+    }
+
+    private void onSuccessfulChange() {
+        Toast.makeText(this, "Successfully changed this tag", Toast.LENGTH_SHORT).show();
     }
 
     private void onSuccessfulDelete() {
