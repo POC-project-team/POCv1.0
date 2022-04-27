@@ -38,24 +38,14 @@ public class ChangePassword extends Activity {
         login.findViewById(R.id.loginForChangePassword);
         oldPassword.findViewById(R.id.old_password);
         newPassword.findViewById(R.id.new_password);
-        changePasswordButton.findViewById(R.id.buttonForChangePassword);
-        goBackButton.findViewById(R.id.goBackButtonChangePassword);
-        changePasswordButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    changePassword();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+        changePasswordButton.findViewById(R.id.buttonForChangePassword).setOnClickListener(v -> {
+            try {
+                changePassword();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
             }
         });
-        goBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goBack();
-            }
-        });
+        goBackButton.findViewById(R.id.goBackButtonChangePassword).setOnClickListener(v -> goBack());
     }
 
     private void changePassword() throws UnsupportedEncodingException {

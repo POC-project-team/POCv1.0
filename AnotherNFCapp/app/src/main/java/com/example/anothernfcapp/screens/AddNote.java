@@ -26,8 +26,6 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 public class AddNote extends Activity {
     AsyncHttpClient asyncHttpClient;
     EditText value;
-    Button sendButton;
-    Button backButton;
     String urlToPost;
     BadStatusCodeProcess badStatusCodeProcess;
 
@@ -37,26 +35,15 @@ public class AddNote extends Activity {
         setContentView(R.layout.write_screen);
         badStatusCodeProcess = new BadStatusCodeProcess();
         asyncHttpClient = new AsyncHttpClient();
-        sendButton = (Button) findViewById(R.id.sendValue);
-        backButton = findViewById(R.id.goBackWriteScreen);
+        findViewById(R.id.sendValue).setOnClickListener(v -> {
+            try {
+                postMessage(value.getText().toString());
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        });
+        findViewById(R.id.goBackWriteScreen).setOnClickListener(v -> goBackButton());
         value = findViewById(R.id.getTextValue);
-        sendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    postMessage(value.getText().toString());
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goBackButton();
-            }
-        });
-
     }
 
     private void goBackButton() {

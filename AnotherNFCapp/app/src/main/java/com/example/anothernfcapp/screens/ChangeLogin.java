@@ -40,25 +40,14 @@ public class ChangeLogin extends Activity {
         login.findViewById(R.id.old_login);
         confirmLogin.findViewById(R.id.new_login);
         password.findViewById(R.id.passwordForChangeLogin);
-        changeLoginButton.findViewById(R.id.buttonForChangeLogin);
-        goBack.findViewById(R.id.goBackButtonChangeLogin);
-        changeLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    changeLogin();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+        changeLoginButton.findViewById(R.id.buttonForChangeLogin).setOnClickListener(v -> {
+            try {
+                changeLogin();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
             }
         });
-        goBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goBack();
-            }
-        });
-
+        goBack.findViewById(R.id.goBackButtonChangeLogin).setOnClickListener(v -> goBack());
     }
 
     private void changeLogin() throws UnsupportedEncodingException {
