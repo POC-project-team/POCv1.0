@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,7 +25,7 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 public class ChangeLogin extends Activity {
     Button changeLoginButton;
     EditText login;
-    EditText confirmLogin;
+    EditText newLogin;
     EditText password;
     Button goBack;
     AsyncHttpClient asyncHttpClient;
@@ -38,7 +37,7 @@ public class ChangeLogin extends Activity {
         asyncHttpClient = new AsyncHttpClient();
         jsonFactory = new JsonFactory();
         login = findViewById(R.id.old_login);
-        confirmLogin = findViewById(R.id.new_login);
+        newLogin = findViewById(R.id.new_login);
         password = findViewById(R.id.passwordForChangeLogin);
         changeLoginButton = findViewById(R.id.buttonForChangeLogin);
         changeLoginButton.setOnClickListener(v -> {
@@ -53,9 +52,9 @@ public class ChangeLogin extends Activity {
     }
 
     private void changeLogin() throws UnsupportedEncodingException {
-        if (login.getText().toString().equals(confirmLogin.getText().toString()) && login.getText().toString().equals(StaticVariables.login)){
+        if (login.getText().toString().equals(StaticVariables.login)){
             String url = StaticVariables.ipServerUrl + StaticVariables.JWT + "/changeLogin";
-            String request = jsonFactory.makeJsonForChangeLoginRequest(login.getText().toString(), password.getText().toString());
+            String request = jsonFactory.makeJsonForChangeLoginRequest(newLogin.getText().toString(), password.getText().toString());
             StringEntity stringEntity = new StringEntity(request);
             asyncHttpClient.post(this, url, stringEntity, request, new TextHttpResponseHandler() {
                 @Override
@@ -78,11 +77,11 @@ public class ChangeLogin extends Activity {
                 }
             });
         }
-        else if (login.getText().toString().equals("") || confirmLogin.getText().toString().equals("")){
+        else if (login.getText().toString().equals("") || newLogin.getText().toString().equals("")){
             Toast.makeText(this, "Enter login", Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(this, "Logins doesn't match", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You can't change another login", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -96,7 +95,7 @@ public class ChangeLogin extends Activity {
     }
 
     private void goBack() {
-        Intent intent = new Intent(this, SettingsScreen.class);
+        Intent intent = new Intent(this, Settings.class);
         startActivity(intent);
     }
 

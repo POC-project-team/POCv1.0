@@ -38,4 +38,5 @@
     <string name="enter_new_tag_name">Enter new tag name</string>
     <string name="send_tag">send tag</string>
     <string name="write_login">Write login</string>
+    <string name="confirm_password">Confirm password</string>
 </resources>

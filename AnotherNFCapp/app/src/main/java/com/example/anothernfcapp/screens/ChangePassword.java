@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -25,8 +24,8 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class ChangePassword extends Activity {
     EditText login;
-    EditText oldPassword;
     EditText newPassword;
+    EditText confirmPassword;
     Button changePasswordButton;
     Button goBackButton;
     AsyncHttpClient asyncHttpClient;
@@ -35,9 +34,11 @@ public class ChangePassword extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.change_password);
+        jsonFactory = new JsonFactory();
+        asyncHttpClient = new AsyncHttpClient();
         login = findViewById(R.id.loginForChangePassword);
-        oldPassword = findViewById(R.id.old_password);
-        newPassword = findViewById(R.id.new_password);
+        newPassword = findViewById(R.id.old_password);
+        confirmPassword = findViewById(R.id.new_password);
         changePasswordButton = findViewById(R.id.buttonForChangePassword);
         changePasswordButton.setOnClickListener(v -> {
             try {
@@ -51,10 +52,9 @@ public class ChangePassword extends Activity {
     }
 
     private void changePassword() throws UnsupportedEncodingException {
-        if (login.getText().toString().equals(StaticVariables.login) &&
-                oldPassword.getText().toString().equals(newPassword.getText().toString())){
-            String url = StaticVariables.ipServerUrl + StaticVariables.JWT + "/loginPassword";
-            String request = jsonFactory.makeJsonForChangePasswordRequest(login.getText().toString(), newPassword.getText().toString());
+        if (login.getText().toString().equals(StaticVariables.login) && newPassword.getText().toString().equals(confirmPassword.getText().toString())){
+            String url = StaticVariables.ipServerUrl + StaticVariables.JWT + "/changePassword";
+            String request = jsonFactory.makeJsonForChangePasswordRequest(login.getText().toString(), confirmPassword.getText().toString());
             StringEntity stringEntity = new StringEntity(request);
             asyncHttpClient.post(this, url, stringEntity, request, new TextHttpResponseHandler() {
                 @Override
@@ -76,6 +76,12 @@ public class ChangePassword extends Activity {
                 }
             });
         }
+        else if (newPassword.getText().toString().equals("") || confirmPassword.getText().toString().equals("")){
+            Toast.makeText(this, "Enter new password", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(this, "You can't change password of another user", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -90,7 +96,7 @@ public class ChangePassword extends Activity {
 
 
     private void goBack() {
-        Intent intent = new Intent(this, SettingsScreen.class);
+        Intent intent = new Intent(this, Settings.class);
         startActivity(intent);
     }
 

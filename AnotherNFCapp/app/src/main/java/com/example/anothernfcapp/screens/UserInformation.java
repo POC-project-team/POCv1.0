@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -54,6 +53,10 @@ public class UserInformation extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 JsonFactory jsonFactory = new JsonFactory();
                 JsonForGetTagsResponse[] json = jsonFactory.makeStringForGetTagsResponse(responseString);
+                if (json == null){
+                    tags.append("No data found");
+                    return;
+                }
                 for (JsonForGetTagsResponse item : json) {
                     tags.append(item.toString());
                 }
@@ -67,7 +70,7 @@ public class UserInformation extends AppCompatActivity {
     }
 
     private void backButton() {
-        Intent intent = new Intent(this, SettingsScreen.class);
+        Intent intent = new Intent(this, Settings.class);
         startActivity(intent);
     }
 }

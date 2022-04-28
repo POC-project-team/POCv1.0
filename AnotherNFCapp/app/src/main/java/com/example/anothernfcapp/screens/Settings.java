@@ -3,7 +3,6 @@ package com.example.anothernfcapp.screens;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -18,13 +17,15 @@ import com.loopj.android.http.TextHttpResponseHandler;
 
 import cz.msebera.android.httpclient.Header;
 
-public class SettingsScreen extends AppCompatActivity {
+public class Settings extends AppCompatActivity {
     Button testConnectionButton;
     Button getUserInfoButton;
     Button logoutButton;
     Button clearTagId;
     Button goBack;
     Button dungeonMasterButton;
+    Button changeLogin;
+    Button changePassword;
     AsyncHttpClient asyncHttpClient;
     BadStatusCodeProcess badStatusCodeProcess;
     @Override
@@ -45,6 +46,20 @@ public class SettingsScreen extends AppCompatActivity {
         getUserInfoButton.setOnClickListener(v -> userInfo());
         logoutButton = findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(v -> logout());
+        changeLogin = findViewById(R.id.changeLogin);
+        changeLogin.setOnClickListener(v -> changeLogin());
+        changePassword = findViewById(R.id.changePassword);
+        changePassword.setOnClickListener(v -> changePassword());
+    }
+
+    private void changePassword() {
+        Intent intent = new Intent(this, ChangePassword.class);
+        startActivity(intent);
+    }
+
+    private void changeLogin() {
+        Intent intent = new Intent(this, ChangeLogin.class);
+        startActivity(intent);
     }
 
     private void goBack() {
@@ -83,20 +98,18 @@ public class SettingsScreen extends AppCompatActivity {
         asyncHttpClient.get(url, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, SettingsScreen.this);
+                badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, Settings.this);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                makeToastMsg(statusCode);
+                makeToastMsg();
                 Log.d("TEST", "onSuccess");
             }
         });
     }
 
-    private void makeToastMsg(int statusCode){
-        if (statusCode >= 200 && statusCode < 400){
-            Toast.makeText(this, "Server is working", Toast.LENGTH_SHORT).show();
-        }
+    private void makeToastMsg(){
+        Toast.makeText(this, "Server is working", Toast.LENGTH_SHORT).show();
     }
 }

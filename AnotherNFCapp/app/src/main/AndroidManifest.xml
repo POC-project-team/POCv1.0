@@ -47,7 +47,7 @@
 
         <activity android:name=".screens.UserInformation"/>
 
-        <activity android:name=".screens.SettingsScreen"/>
+        <activity android:name=".screens.Settings"/>
 
         <activity android:name=".screens.ChangeLogin"/>
 

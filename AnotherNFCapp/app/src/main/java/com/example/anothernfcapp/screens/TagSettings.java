@@ -60,7 +60,7 @@ public class TagSettings extends Activity {
         View changeTagNameView = layoutInflater.inflate(R.layout.change_tag_name, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(changeTagNameView);
-        EditText newTagName = changeTagNameView.findViewWithTag(R.id.newTagName);
+        EditText newTagName = changeTagNameView.findViewById(R.id.newTagName);
         builder.setPositiveButton("Change", (dialog, which) -> {
             JsonFactory jsonFactory = new JsonFactory();
             String msg = jsonFactory.makeJsonForChangeTagNameRequest(newTagName.getText().toString());
@@ -96,7 +96,7 @@ public class TagSettings extends Activity {
         View addNewTagView = layoutInflater.inflate(R.layout.add_new_tag, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(addNewTagView);
-        EditText tagName = addNewTagView.findViewWithTag(R.id.setTagName);
+        EditText tagName = addNewTagView.findViewById(R.id.setTagName);
         builder.setPositiveButton("Set", (dialog, which) -> {
             JsonFactory jsonFactory = new JsonFactory();
             String msg = jsonFactory.makeJsonForCreateTagRequest(tagName.getText().toString());
@@ -168,7 +168,7 @@ public class TagSettings extends Activity {
             Toast.makeText(this, "Tag isn't set up", Toast.LENGTH_SHORT).show();
             return;
         }
-        String url = StaticVariables.ipServerUrl + StaticVariables.JWT + "/" + StaticVariables.tagId + "tag";
+        String url = StaticVariables.ipServerUrl + StaticVariables.JWT + "/" + StaticVariables.tagId + "/" + "tag";
         asyncHttpClient.delete(url, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {

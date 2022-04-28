@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
@@ -14,7 +13,6 @@ import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,7 +74,7 @@ public class MainScreen extends AppCompatActivity {
         });
         settingsScreen = findViewById(R.id.settings);
         settingsScreen.setOnClickListener(v -> {
-            Intent settingsIntent = new Intent(MainScreen.this, SettingsScreen.class);
+            Intent settingsIntent = new Intent(MainScreen.this, Settings.class);
             startActivity(settingsIntent);
         });
 
