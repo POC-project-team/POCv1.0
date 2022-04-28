@@ -15,14 +15,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class JsonFactory {
-    public String makeJsonForAddNoteRequest(String value){
+    public static String makeJsonForAddNoteRequest(String value){
         JsonForAddNoteRequest jsonForAddNoteRequest = new JsonForAddNoteRequest(value);
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
         return gson.toJson(jsonForAddNoteRequest);
     }
 
-    public JsonForGetNotesResponse[] makeStringForGetNotesResponse(String messageToParse){
+    public static JsonForGetNotesResponse[] makeStringForGetNotesResponse(String messageToParse){
         JsonForGetNotesResponse[] parsedMessage;
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
@@ -30,7 +30,7 @@ public class JsonFactory {
         return parsedMessage;
     }
 
-    public String makeJsonForAuthUserRequest(String login, String password){
+    public static String makeJsonForAuthUserRequest(String login, String password){
         JsonForAuthUserRequest jsonForAuthUser = new JsonForAuthUserRequest(login, password);
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
@@ -38,55 +38,55 @@ public class JsonFactory {
 
     }
 
-    public JsonForAuthUserResponse makeStringForAuthUserResponse(String messageToParse){
+    public static JsonForAuthUserResponse makeStringForAuthUserResponse(String messageToParse){
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
         return gson.fromJson(messageToParse, JsonForAuthUserResponse.class);
     }
 
-    public String makeJsonForRegisterUserRequest(String login, String password){
+    public static String makeJsonForRegisterUserRequest(String login, String password){
         JsonForRegisterUserRequest jsonForRegisterUserRequest = new JsonForRegisterUserRequest(login, password);
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
         return gson.toJson(jsonForRegisterUserRequest);
     }
 
-    public String makeJsonForChangeLoginRequest(String login, String password){
+    public static String makeJsonForChangeLoginRequest(String login, String password){
         JsonForChangeLoginRequest jsonForChangeLoginRequest = new JsonForChangeLoginRequest(login, password);
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
         return gson.toJson(jsonForChangeLoginRequest);
     }
 
-    public String makeJsonForChangePasswordRequest(String login, String password){
+    public static String makeJsonForChangePasswordRequest(String login, String password){
         JsonForChangePasswordRequest jsonForChangePasswordRequest = new JsonForChangePasswordRequest(login, password);
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
         return gson.toJson(jsonForChangePasswordRequest);
     }
 
-    public String makeJsonForCreateTagRequest(String tagName){
+    public static String makeJsonForCreateTagRequest(String tagName){
         JsonForCreateNewTagRequest json = new JsonForCreateNewTagRequest(tagName);
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
         return gson.toJson(json);
     }
 
-    public JsonForGetTagsResponse[] makeStringForGetTagsResponse(String messageToParse){
+    public static JsonForGetTagsResponse[] makeStringForGetTagsResponse(String messageToParse){
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
         return gson.fromJson(messageToParse, JsonForGetTagsResponse[].class);
 
     }
 
-    public String makeJsonForChangeTagNameRequest(String tagName){
+    public static String makeJsonForChangeTagNameRequest(String tagName){
         JsonForChangeTagNameRequest json = new JsonForChangeTagNameRequest(tagName);
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
         return gson.toJson(json);
     }
 
-    public String makeJsonForSendTagRequest(String login){
+    public static String makeJsonForSendTagRequest(String login){
         JsonForSendTagRequest json = new JsonForSendTagRequest(login);
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();

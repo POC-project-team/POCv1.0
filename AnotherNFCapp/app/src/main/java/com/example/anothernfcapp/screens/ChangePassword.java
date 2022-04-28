@@ -23,18 +23,17 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class ChangePassword extends Activity {
-    EditText login;
-    EditText newPassword;
-    EditText confirmPassword;
-    Button changePasswordButton;
-    Button goBackButton;
-    AsyncHttpClient asyncHttpClient;
-    JsonFactory jsonFactory;
+    private EditText login;
+    private EditText newPassword;
+    private EditText confirmPassword;
+    private Button changePasswordButton;
+    private Button goBackButton;
+    private AsyncHttpClient asyncHttpClient;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.change_password);
-        jsonFactory = new JsonFactory();
         asyncHttpClient = new AsyncHttpClient();
         login = findViewById(R.id.loginForChangePassword);
         newPassword = findViewById(R.id.old_password);
@@ -54,13 +53,12 @@ public class ChangePassword extends Activity {
     private void changePassword() throws UnsupportedEncodingException {
         if (login.getText().toString().equals(StaticVariables.login) && newPassword.getText().toString().equals(confirmPassword.getText().toString())){
             String url = StaticVariables.ipServerUrl + StaticVariables.JWT + "/changePassword";
-            String request = jsonFactory.makeJsonForChangePasswordRequest(login.getText().toString(), confirmPassword.getText().toString());
+            String request = JsonFactory.makeJsonForChangePasswordRequest(login.getText().toString(), confirmPassword.getText().toString());
             StringEntity stringEntity = new StringEntity(request);
             asyncHttpClient.post(this, url, stringEntity, request, new TextHttpResponseHandler() {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                    BadStatusCodeProcess badStatusCodeProcess = new BadStatusCodeProcess();
-                    badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, ChangePassword.this);
+                    BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, ChangePassword.this);
                     Log.e("CHANGEPASSWORD", "Status code: " + statusCode + " response: " + responseString);
                 }
 

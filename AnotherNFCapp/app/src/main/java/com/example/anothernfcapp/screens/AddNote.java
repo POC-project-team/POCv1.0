@@ -24,18 +24,16 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class AddNote extends Activity {
-    AsyncHttpClient asyncHttpClient;
-    EditText value;
-    String urlToPost;
-    Button sendValue;
-    Button goBack;
-    BadStatusCodeProcess badStatusCodeProcess;
+    private AsyncHttpClient asyncHttpClient;
+    private EditText value;
+    private String urlToPost;
+    private Button sendValue;
+    private Button goBack;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.write_screen);
-        badStatusCodeProcess = new BadStatusCodeProcess();
         asyncHttpClient = new AsyncHttpClient();
         sendValue = findViewById(R.id.sendValue);
         sendValue.setOnClickListener(v -> {
@@ -59,14 +57,13 @@ public class AddNote extends Activity {
     private void postMessage(String text) throws UnsupportedEncodingException {
         urlToPost = StaticVariables.ipServerUrl + StaticVariables.JWT + "/" + StaticVariables.tagId + "/note";
         Log.d("POST", urlToPost);
-        JsonFactory jsonFactory = new JsonFactory();
-        String msg = jsonFactory.makeJsonForAddNoteRequest(text);
+        String msg = JsonFactory.makeJsonForAddNoteRequest(text);
         StringEntity stringEntity = new StringEntity(msg);
         asyncHttpClient.post(this, urlToPost, stringEntity, msg, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.e("POST", "Failed to connect to server. " + statusCode + " Response: " + responseString);
-                badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, AddNote.this);
+                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, AddNote.this);
             }
 
             @Override

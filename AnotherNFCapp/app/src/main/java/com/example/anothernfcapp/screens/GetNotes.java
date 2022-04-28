@@ -23,18 +23,14 @@ import java.io.UnsupportedEncodingException;
 import cz.msebera.android.httpclient.Header;
 
 public class GetNotes extends Activity {
-    AsyncHttpClient asyncHttpClient;
-    TextView textView;
-    Button goBackButton;
-    JsonFactory jsonFactory;
-    BadStatusCodeProcess badStatusCodeProcess;
-
+    private AsyncHttpClient asyncHttpClient;
+    private TextView textView;
+    private Button goBackButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.get_screen);
-        badStatusCodeProcess = new BadStatusCodeProcess();
         try {
             getJsonMessageFromServer();
         } catch (UnsupportedEncodingException e) {
@@ -54,18 +50,17 @@ public class GetNotes extends Activity {
         asyncHttpClient = new AsyncHttpClient();
         String urlToGet = StaticVariables.ipServerUrl + StaticVariables.JWT + "/" + StaticVariables.tagId + "/notes";
         Log.d("GET", urlToGet);
-        jsonFactory = new JsonFactory();
         asyncHttpClient.get(urlToGet, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.e("GET", "Failed to connect to the server "  + statusCode + " Response: " + responseString);
-                badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, GetNotes.this);
+                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, GetNotes.this);
             }
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 Log.d("GET", "Successfully connected to the server");
                 JsonForGetNotesResponse[] message;
-                message = jsonFactory.makeStringForGetNotesResponse(responseString);
+                message = JsonFactory.makeStringForGetNotesResponse(responseString);
                 for (JsonForGetNotesResponse msg:message) {
                     textView.append(msg.toString());
                 }

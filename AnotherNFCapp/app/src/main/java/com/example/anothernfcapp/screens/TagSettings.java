@@ -27,12 +27,12 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class TagSettings extends Activity {
-    AsyncHttpClient asyncHttpClient;
-    Button addNewTag;
-    Button changeTagName;
-    Button deleteTag;
-    Button goBack;
-    Button sendTag;
+    private AsyncHttpClient asyncHttpClient;
+    private Button addNewTag;
+    private Button changeTagName;
+    private Button deleteTag;
+    private Button goBack;
+    private Button sendTag;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,8 +62,7 @@ public class TagSettings extends Activity {
         builder.setView(changeTagNameView);
         EditText newTagName = changeTagNameView.findViewById(R.id.newTagName);
         builder.setPositiveButton("Change", (dialog, which) -> {
-            JsonFactory jsonFactory = new JsonFactory();
-            String msg = jsonFactory.makeJsonForChangeTagNameRequest(newTagName.getText().toString());
+            String msg = JsonFactory.makeJsonForChangeTagNameRequest(newTagName.getText().toString());
             StringEntity stringEntity;
             try {
                 stringEntity = new StringEntity(msg);
@@ -74,8 +73,7 @@ public class TagSettings extends Activity {
             asyncHttpClient.put(this, url, stringEntity, msg, new TextHttpResponseHandler() {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                    BadStatusCodeProcess badStatusCodeProcess = new BadStatusCodeProcess();
-                    badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, TagSettings.this);
+                    BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, TagSettings.this);
                     Log.e("CHANGETAGNAME", "Status code: " + statusCode + " response: " + responseString);
                 }
 
@@ -98,8 +96,7 @@ public class TagSettings extends Activity {
         builder.setView(addNewTagView);
         EditText tagName = addNewTagView.findViewById(R.id.setTagName);
         builder.setPositiveButton("Set", (dialog, which) -> {
-            JsonFactory jsonFactory = new JsonFactory();
-            String msg = jsonFactory.makeJsonForCreateTagRequest(tagName.getText().toString());
+            String msg = JsonFactory.makeJsonForCreateTagRequest(tagName.getText().toString());
             StringEntity stringEntity;
             try {
                 stringEntity = new StringEntity(msg);
@@ -110,8 +107,7 @@ public class TagSettings extends Activity {
             asyncHttpClient.post(this, url, stringEntity, msg, new TextHttpResponseHandler() {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                    BadStatusCodeProcess badStatusCodeProcess = new BadStatusCodeProcess();
-                    badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, TagSettings.this);
+                    BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, TagSettings.this);
                     Log.e("ADDNEWTAG", "Status code: " + statusCode + " response: " + responseString);
                 }
 
@@ -135,8 +131,7 @@ public class TagSettings extends Activity {
         builder.setView(sendTagView);
         EditText login = sendTagView.findViewById(R.id.loginToSend);
         builder.setPositiveButton("Send", (dialog, which) -> {
-            JsonFactory jsonFactory = new JsonFactory();
-            String msg = jsonFactory.makeJsonForSendTagRequest(login.getText().toString());
+            String msg = JsonFactory.makeJsonForSendTagRequest(login.getText().toString());
             StringEntity stringEntity;
             try {
                 stringEntity = new StringEntity(msg);
@@ -147,8 +142,7 @@ public class TagSettings extends Activity {
             asyncHttpClient.post(this, url, stringEntity, msg, new TextHttpResponseHandler() {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                    BadStatusCodeProcess badStatusCodeProcess = new BadStatusCodeProcess();
-                    badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, TagSettings.this);
+                    BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, TagSettings.this);
                     Log.e("SENDTAG", "Error: " + statusCode + " response: " + responseString);
                 }
 
@@ -172,8 +166,7 @@ public class TagSettings extends Activity {
         asyncHttpClient.delete(url, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                BadStatusCodeProcess badStatusCodeProcess = new BadStatusCodeProcess();
-                badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, TagSettings.this);
+                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, TagSettings.this);
                 Log.e("DELETE", "Error: " + statusCode + " Response: " + responseString);
             }
 

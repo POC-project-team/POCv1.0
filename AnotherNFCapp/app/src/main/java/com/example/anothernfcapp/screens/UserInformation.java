@@ -21,10 +21,10 @@ import com.loopj.android.http.TextHttpResponseHandler;
 import cz.msebera.android.httpclient.Header;
 
 public class UserInformation extends AppCompatActivity {
-    TextView nickname;
-    TextView tags;
-    Button backButton;
-    AsyncHttpClient asyncHttpClient;
+    private TextView nickname;
+    private TextView tags;
+    private Button backButton;
+    private AsyncHttpClient asyncHttpClient;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,14 +45,12 @@ public class UserInformation extends AppCompatActivity {
         asyncHttpClient.get(url, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                BadStatusCodeProcess badStatusCodeProcess = new BadStatusCodeProcess();
-                badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, UserInformation.this);
+                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, UserInformation.this);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                JsonFactory jsonFactory = new JsonFactory();
-                JsonForGetTagsResponse[] json = jsonFactory.makeStringForGetTagsResponse(responseString);
+                JsonForGetTagsResponse[] json = JsonFactory.makeStringForGetTagsResponse(responseString);
                 if (json == null){
                     tags.append("No data found");
                     return;
