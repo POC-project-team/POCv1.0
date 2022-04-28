@@ -40,8 +40,9 @@ public class GetNotes extends Activity {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        textView.findViewById(R.id.valueFromServer);
-        goBackButton.findViewById(R.id.goBackButton).setOnClickListener(v -> backButton());
+        textView = findViewById(R.id.valueFromServer);
+        goBackButton = findViewById(R.id.goBackButton);
+        goBackButton.setOnClickListener(v -> backButton());
     }
 
     private void backButton() {

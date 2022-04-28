@@ -40,9 +40,10 @@ public class RegisterUser extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration_screen);
         badStatusCodeProcess = new BadStatusCodeProcess();
-        login.findViewById(R.id.loginReg);
-        password.findViewById(R.id.passwordReg);
-        register.findViewById(R.id.sendRegistration).setOnClickListener(v -> {
+        login = findViewById(R.id.loginReg);
+        password = findViewById(R.id.passwordReg);
+        register = findViewById(R.id.sendRegistration);
+        register.setOnClickListener(v -> {
             try {
                 sendRegistration();
             } catch (UnsupportedEncodingException e) {

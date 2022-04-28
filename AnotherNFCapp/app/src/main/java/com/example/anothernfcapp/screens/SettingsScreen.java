@@ -32,13 +32,19 @@ public class SettingsScreen extends AppCompatActivity {
         asyncHttpClient = new AsyncHttpClient();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_screen);
-        goBack.findViewById(R.id.goBackSettingsScreen).setOnClickListener(v -> goBack());
-        dungeonMasterButton.findViewById(R.id.iAmBossOfTheGym).setOnClickListener(v -> dungeonMaster());
-        clearTagId.findViewById(R.id.clearTagButton).setOnClickListener(v -> clearTagId());
         badStatusCodeProcess = new BadStatusCodeProcess();
-        testConnectionButton.findViewById(R.id.testConnectionButton).setOnClickListener(v -> testConnection());
-        getUserInfoButton.findViewById(R.id.userInfoButton).setOnClickListener(v -> userInfo());
-        logoutButton.findViewById(R.id.logoutButton).setOnClickListener(v -> logout());
+        goBack = findViewById(R.id.goBackSettingsScreen);
+        goBack.setOnClickListener(v -> goBack());
+        dungeonMasterButton = findViewById(R.id.iAmBossOfTheGym);
+        dungeonMasterButton.setOnClickListener(v -> dungeonMaster());
+        clearTagId = findViewById(R.id.clearTagButton);
+        clearTagId.setOnClickListener(v -> clearTagId());
+        testConnectionButton = findViewById(R.id.testConnectionButton);
+        testConnectionButton.setOnClickListener(v -> testConnection());
+        getUserInfoButton = findViewById(R.id.userInfoButton);
+        getUserInfoButton.setOnClickListener(v -> userInfo());
+        logoutButton = findViewById(R.id.logoutButton);
+        logoutButton.setOnClickListener(v -> logout());
     }
 
     private void goBack() {

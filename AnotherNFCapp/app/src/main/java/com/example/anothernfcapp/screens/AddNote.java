@@ -37,14 +37,16 @@ public class AddNote extends Activity {
         setContentView(R.layout.write_screen);
         badStatusCodeProcess = new BadStatusCodeProcess();
         asyncHttpClient = new AsyncHttpClient();
-        sendValue.findViewById(R.id.sendValue).setOnClickListener(v -> {
+        sendValue = findViewById(R.id.sendValue);
+        sendValue.setOnClickListener(v -> {
             try {
                 postMessage(value.getText().toString());
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         });
-        goBack.findViewById(R.id.goBackWriteScreen).setOnClickListener(v -> goBackButton());
+        goBack = findViewById(R.id.goBackWriteScreen);
+        goBack.setOnClickListener(v -> goBackButton());
         value = findViewById(R.id.getTextValue);
     }
 

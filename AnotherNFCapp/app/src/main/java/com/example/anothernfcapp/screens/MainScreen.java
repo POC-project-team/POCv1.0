@@ -37,8 +37,9 @@ public class MainScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tagIdTextView.findViewById(R.id.tagId);
-        writeScreen.findViewById(R.id.buttonwrite).setOnClickListener(v -> {
+        tagIdTextView = findViewById(R.id.tagId);
+        writeScreen = findViewById(R.id.buttonwrite);
+        writeScreen.setOnClickListener(v -> {
             if (StaticVariables.tagId != null){
                 writeScreenStart();
             }
@@ -46,7 +47,8 @@ public class MainScreen extends AppCompatActivity {
                 msgError();
             }
         });
-        getScreen.findViewById(R.id.buttonget).setOnClickListener(v -> {
+        getScreen = findViewById(R.id.buttonget);
+        getScreen.setOnClickListener(v -> {
             if (StaticVariables.tagId == null){
                 msgError();
             }
@@ -54,7 +56,8 @@ public class MainScreen extends AppCompatActivity {
                 getDataViaTag();
             }
         });
-        tagSettingsScreen.findViewById(R.id.tagSettingsButton).setOnClickListener(v ->{
+        tagSettingsScreen = findViewById(R.id.tagSettingsButton);
+        tagSettingsScreen.setOnClickListener(v ->{
             if (StaticVariables.tagId == null){
                 msgError();
             }
@@ -63,14 +66,16 @@ public class MainScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        setUpTagButton.findViewById(R.id.buttonSetUp).setOnClickListener(v -> {
+        setUpTagButton = findViewById(R.id.buttonSetUp);
+        setUpTagButton.setOnClickListener(v -> {
             nfcAdapter = NfcAdapter.getDefaultAdapter(MainScreen.this);
             nfcPendingIntent = PendingIntent.getActivity(MainScreen.this, 0,
                     new Intent(MainScreen.this, MainScreen.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
             enableTagWriteMode();
             new AlertDialog.Builder(MainScreen.this).setTitle("Touch tag to make a get request").setOnCancelListener(dialog -> disableTagWriteMode()).create().show();
         });
-        settingsScreen.findViewById(R.id.settings).setOnClickListener(v -> {
+        settingsScreen = findViewById(R.id.settings);
+        settingsScreen.setOnClickListener(v -> {
             Intent settingsIntent = new Intent(MainScreen.this, SettingsScreen.class);
             startActivity(settingsIntent);
         });

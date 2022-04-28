@@ -37,17 +37,19 @@ public class ChangeLogin extends Activity {
         setContentView(R.layout.change_login);
         asyncHttpClient = new AsyncHttpClient();
         jsonFactory = new JsonFactory();
-        login.findViewById(R.id.old_login);
-        confirmLogin.findViewById(R.id.new_login);
-        password.findViewById(R.id.passwordForChangeLogin);
-        changeLoginButton.findViewById(R.id.buttonForChangeLogin).setOnClickListener(v -> {
+        login = findViewById(R.id.old_login);
+        confirmLogin = findViewById(R.id.new_login);
+        password = findViewById(R.id.passwordForChangeLogin);
+        changeLoginButton = findViewById(R.id.buttonForChangeLogin);
+        changeLoginButton.setOnClickListener(v -> {
             try {
                 changeLogin();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         });
-        goBack.findViewById(R.id.goBackButtonChangeLogin).setOnClickListener(v -> goBack());
+        goBack = findViewById(R.id.goBackButtonChangeLogin);
+        goBack.setOnClickListener(v -> goBack());
     }
 
     private void changeLogin() throws UnsupportedEncodingException {

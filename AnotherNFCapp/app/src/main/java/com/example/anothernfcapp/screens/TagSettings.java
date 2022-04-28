@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -27,20 +28,30 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class TagSettings extends Activity {
     AsyncHttpClient asyncHttpClient;
+    Button addNewTag;
+    Button changeTagName;
+    Button deleteTag;
+    Button goBack;
+    Button sendTag;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tag_settings);
         asyncHttpClient = new AsyncHttpClient();
-        findViewById(R.id.startAddNewTag).setOnClickListener(v -> addNewTag());
-        findViewById(R.id.startChangeTagName).setOnClickListener(v -> change_tag_name());
-        findViewById(R.id.deleteTag).setOnClickListener(v -> deleteTag());
-        findViewById(R.id.goBackTagSettings).setOnClickListener(v -> {
+        addNewTag = findViewById(R.id.startAddNewTag);
+        addNewTag.setOnClickListener(v -> addNewTag());
+        changeTagName = findViewById(R.id.startChangeTagName);
+        changeTagName.setOnClickListener(v -> change_tag_name());
+        deleteTag = findViewById(R.id.deleteTag);
+        deleteTag.setOnClickListener(v -> deleteTag());
+        goBack = findViewById(R.id.goBackTagSettings);
+        goBack.setOnClickListener(v -> {
             Intent intent = new Intent(this, MainScreen.class);
             startActivity(intent);
         });
-        findViewById(R.id.sendTag).setOnClickListener(v -> sendTag());
+        sendTag = findViewById(R.id.sendTag);
+        sendTag.setOnClickListener(v -> sendTag());
     }
 
     private void change_tag_name() {

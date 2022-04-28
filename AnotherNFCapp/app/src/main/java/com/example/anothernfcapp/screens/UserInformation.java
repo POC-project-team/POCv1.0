@@ -31,9 +31,10 @@ public class UserInformation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_info_layout);
         asyncHttpClient = new AsyncHttpClient();
-        nickname.findViewById(R.id.user_name);
+        nickname = findViewById(R.id.user_name);
         tags = findViewById(R.id.available_tags);
-        backButton.findViewById(R.id.goBackButtonUserInf).setOnClickListener(v -> backButton());
+        backButton = findViewById(R.id.goBackButtonUserInf);
+        backButton.setOnClickListener(v -> backButton());
         setName();
         setTags();
     }

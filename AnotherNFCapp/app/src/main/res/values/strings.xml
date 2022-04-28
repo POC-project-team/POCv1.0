@@ -32,12 +32,10 @@
     <string name="write_to_the_database">Write to the database</string>
     <string name="get_data_about_this_tag">Get data about this tag</string>
     <string name="settings">settings</string>
-    <string name="set_up_tag">Set up tag</string>
     <string name="tag_settings">Tag settings</string>
     <string name="change_tag_name">Change tag name</string>
     <string name="delete_tag">Delete tag</string>
     <string name="enter_new_tag_name">Enter new tag name</string>
-    <string name="change_tag_name">Change tag name</string>
     <string name="send_tag">send tag</string>
     <string name="write_login">Write login</string>
 </resources>
