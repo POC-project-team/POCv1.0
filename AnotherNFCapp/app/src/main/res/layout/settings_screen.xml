@@ -36,11 +36,25 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/clearTagButton"
+        android:layout_below="@id/changePassword"
         android:text="@string/dungeon_master"
         android:id="@+id/iAmBossOfTheGym"
         />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/clearTagButton"
+        android:id="@+id/changeLogin"
+        android:text="@string/change_login"
+        />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/changePassword"
+        android:text="@string/change_password"
+        android:layout_below="@id/changeLogin"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -35,28 +35,18 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
         badStatusCodeProcess = new BadStatusCodeProcess();
-        login = (EditText) findViewById(R.id.login);
-        password = (EditText) findViewById(R.id.password);
-        buttonLogin = (Button) findViewById(R.id.loginButton);
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    loginApp();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+        login = findViewById(R.id.login);
+        password = findViewById(R.id.password);
+        buttonLogin = findViewById(R.id.loginButton);
+        buttonLogin.setOnClickListener(v -> {
+            try {
+                loginApp();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
             }
         });
-
-        buttonRegister = (Button) findViewById(R.id.registerButton);
-        buttonRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                register();
-            }
-        });
-
+        buttonRegister = findViewById(R.id.registerButton);
+        buttonRegister.setOnClickListener(v -> register());
     }
 
     private void loginApp() throws UnsupportedEncodingException {

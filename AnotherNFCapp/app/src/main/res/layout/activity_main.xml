@@ -14,23 +14,30 @@
         android:id="@+id/buttonSetUp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Set up tag" />
+        android:text="@string/set_up_tag" />
+
 
     <Button
         android:id="@+id/buttonwrite"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="WRITE" />
+        android:text="@string/write_to_the_database" />
 
     <Button
         android:id="@+id/buttonget"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Get" />
+        android:text="@string/get_data_about_this_tag" />
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/settings"
-        android:text="settings"/>
+        android:text="@string/settings"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tag_settings"
+        android:id="@+id/tagSettingsButton"
+        />
 </LinearLayout>

@@ -19,4 +19,24 @@
     <string name="logout">Logout</string>
     <string name="clear_tagid">Clear tagID</string>
     <string name="dungeon_master">DUNGEON MASTER</string>
+    <string name="change_password">Change password</string>
+    <string name="new_login">New login</string>
+    <string name="old_login">Old login</string>
+    <string name="change_login">Change login</string>
+    <string name="login">Login</string>
+    <string name="old_password">Old password</string>
+    <string name="new_password">New password</string>
+    <string name="set_tag_name">Set tag name</string>
+    <string name="set_up_tag">Set up tag</string>
+    <string name="add_new_tag">Add new tag</string>
+    <string name="write_to_the_database">Write to the database</string>
+    <string name="get_data_about_this_tag">Get data about this tag</string>
+    <string name="settings">settings</string>
+    <string name="tag_settings">Tag settings</string>
+    <string name="change_tag_name">Change tag name</string>
+    <string name="delete_tag">Delete tag</string>
+    <string name="enter_new_tag_name">Enter new tag name</string>
+    <string name="send_tag">send tag</string>
+    <string name="write_login">Write login</string>
+    <string name="confirm_password">Confirm password</string>
 </resources>

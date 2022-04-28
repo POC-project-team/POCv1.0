@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
@@ -14,7 +13,6 @@ import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,56 +24,58 @@ public class MainScreen extends AppCompatActivity {
     boolean mWriteMode = false;
     private NfcAdapter nfcAdapter;
     private PendingIntent nfcPendingIntent;
-    TextView tagIdTextView;
+    private Button getScreen;
+    private Button writeScreen;
+    private Button tagSettingsScreen;
+    private Button setUpTagButton;
+    private Button settingsScreen;
+    private TextView tagIdTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tagIdTextView = (TextView)findViewById(R.id.tagId);
-        ((Button) findViewById(R.id.buttonwrite)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (StaticVariables.tagId != null){
-                    writeScreenStart();
-                }
-                else{
-                    msgError();
-                }
+        tagIdTextView = findViewById(R.id.tagId);
+        writeScreen = findViewById(R.id.buttonwrite);
+        writeScreen.setOnClickListener(v -> {
+            if (StaticVariables.tagId != null){
+                writeScreenStart();
+            }
+            else{
+                msgError();
             }
         });
-        ((Button) findViewById(R.id.buttonget)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (StaticVariables.tagId == null){
-                    msgError();
-                }
-                else {
-                    getDataViaTag();
-                }
+        getScreen = findViewById(R.id.buttonget);
+        getScreen.setOnClickListener(v -> {
+            if (StaticVariables.tagId == null){
+                msgError();
+            }
+            else {
+                getDataViaTag();
             }
         });
-        ((Button) findViewById(R.id.buttonSetUp)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nfcAdapter = NfcAdapter.getDefaultAdapter(MainScreen.this);
-                nfcPendingIntent = PendingIntent.getActivity(MainScreen.this, 0,
-                        new Intent(MainScreen.this, MainScreen.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-                enableTagWriteMode();
-                new AlertDialog.Builder(MainScreen.this).setTitle("Touch tag to make a get request").setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        disableTagWriteMode();
-                    }
-                }).create().show();
+        tagSettingsScreen = findViewById(R.id.tagSettingsButton);
+        tagSettingsScreen.setOnClickListener(v ->{
+            if (StaticVariables.tagId == null){
+                msgError();
+            }
+            else{
+                Intent intent = new Intent(this, TagSettings.class);
+                startActivity(intent);
             }
         });
-        ((Button)findViewById(R.id.settings)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent settingsIntent = new Intent(MainScreen.this, SettingsScreen.class);
-                startActivity(settingsIntent);
-            }
+        setUpTagButton = findViewById(R.id.buttonSetUp);
+        setUpTagButton.setOnClickListener(v -> {
+            nfcAdapter = NfcAdapter.getDefaultAdapter(MainScreen.this);
+            nfcPendingIntent = PendingIntent.getActivity(MainScreen.this, 0,
+                    new Intent(MainScreen.this, MainScreen.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+            enableTagWriteMode();
+            new AlertDialog.Builder(MainScreen.this).setTitle("Touch tag to make a get request").setOnCancelListener(dialog -> disableTagWriteMode()).create().show();
+        });
+        settingsScreen = findViewById(R.id.settings);
+        settingsScreen.setOnClickListener(v -> {
+            Intent settingsIntent = new Intent(MainScreen.this, Settings.class);
+            startActivity(settingsIntent);
         });
 
     }
@@ -97,7 +97,7 @@ public class MainScreen extends AppCompatActivity {
     }
 
     @SuppressLint("SetTextI18n")
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     @Override
 
     protected void onNewIntent(Intent intent) {
