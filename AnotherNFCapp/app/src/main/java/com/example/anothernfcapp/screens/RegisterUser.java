@@ -50,7 +50,8 @@ public class RegisterUser extends Activity {
                 e.printStackTrace();
             }
         });
-        goBack.findViewById(R.id.backToLogin).setOnClickListener(v -> setGoBack());
+        goBack = findViewById(R.id.backToLogin);
+        goBack.setOnClickListener(v -> setGoBack());
     }
 
     private void sendRegistration() throws UnsupportedEncodingException {
