@@ -18,22 +18,20 @@ import com.loopj.android.http.TextHttpResponseHandler;
 import cz.msebera.android.httpclient.Header;
 
 public class Settings extends AppCompatActivity {
-    Button testConnectionButton;
-    Button getUserInfoButton;
-    Button logoutButton;
-    Button clearTagId;
-    Button goBack;
-    Button dungeonMasterButton;
-    Button changeLogin;
-    Button changePassword;
-    AsyncHttpClient asyncHttpClient;
-    BadStatusCodeProcess badStatusCodeProcess;
+    private Button testConnectionButton;
+    private Button getUserInfoButton;
+    private Button logoutButton;
+    private Button clearTagId;
+    private Button goBack;
+    private Button dungeonMasterButton;
+    private Button changeLogin;
+    private Button changePassword;
+    private AsyncHttpClient asyncHttpClient;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         asyncHttpClient = new AsyncHttpClient();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_screen);
-        badStatusCodeProcess = new BadStatusCodeProcess();
         goBack = findViewById(R.id.goBackSettingsScreen);
         goBack.setOnClickListener(v -> goBack());
         dungeonMasterButton = findViewById(R.id.iAmBossOfTheGym);
@@ -98,7 +96,7 @@ public class Settings extends AppCompatActivity {
         asyncHttpClient.get(url, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, Settings.this);
+                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, Settings.this);
             }
 
             @Override

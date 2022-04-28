@@ -23,18 +23,16 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class Login extends AppCompatActivity {
-    EditText login;
-    EditText password;
-    Button buttonLogin;
-    Button buttonRegister;
-    AsyncHttpClient asyncHttpClient;
-    BadStatusCodeProcess badStatusCodeProcess;
+    private EditText login;
+    private EditText password;
+    private Button buttonLogin;
+    private Button buttonRegister;
+    private AsyncHttpClient asyncHttpClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
-        badStatusCodeProcess = new BadStatusCodeProcess();
         login = findViewById(R.id.login);
         password = findViewById(R.id.password);
         buttonLogin = findViewById(R.id.loginButton);
@@ -52,14 +50,13 @@ public class Login extends AppCompatActivity {
     private void loginApp() throws UnsupportedEncodingException {
         asyncHttpClient = new AsyncHttpClient();
         String url = StaticVariables.ipServerUrl + "auth";
-        JsonFactory jsonFactory = new JsonFactory();
-        String msg = jsonFactory.makeJsonForAuthUserRequest(login.getText().toString(), password.getText().toString());
+        String msg = JsonFactory.makeJsonForAuthUserRequest(login.getText().toString(), password.getText().toString());
         StringEntity stringEntity = new StringEntity(msg);
         asyncHttpClient.post(this, url, stringEntity, msg, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.e("LOGIN", "Failed to connect to the server " + statusCode + " Response: " + responseString);
-                badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, Login.this);
+                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, Login.this);
             }
 
             @Override

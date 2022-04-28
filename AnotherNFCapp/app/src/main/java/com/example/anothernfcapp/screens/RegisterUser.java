@@ -25,21 +25,17 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class RegisterUser extends Activity {
-    EditText login;
-    EditText password;
-    Button register;
-    Button goBack;
-    String urlToRegister;
-    AsyncHttpClient asyncHttpClient;
-    JsonFactory jsonFactory;
-    BadStatusCodeProcess badStatusCodeProcess;
+    private EditText login;
+    private EditText password;
+    private Button register;
+    private Button goBack;
+    private String urlToRegister;
+    private AsyncHttpClient asyncHttpClient;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        jsonFactory = new JsonFactory();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration_screen);
-        badStatusCodeProcess = new BadStatusCodeProcess();
         login = findViewById(R.id.loginReg);
         password = findViewById(R.id.passwordReg);
         register = findViewById(R.id.sendRegistration);
@@ -57,13 +53,13 @@ public class RegisterUser extends Activity {
     private void sendRegistration() throws UnsupportedEncodingException {
         asyncHttpClient = new AsyncHttpClient();
         urlToRegister = StaticVariables.ipServerUrl + "signup";
-        String msg = jsonFactory.makeJsonForRegisterUserRequest(login.getText().toString(), password.getText().toString());
+        String msg = JsonFactory.makeJsonForRegisterUserRequest(login.getText().toString(), password.getText().toString());
         StringEntity stringEntity = new StringEntity(msg);
         asyncHttpClient.post(this, urlToRegister, stringEntity, msg, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.e("REGISTER", "Failed to connect to the server " + statusCode + " Response: " + responseString);
-                badStatusCodeProcess.parseBadStatusCode(statusCode, responseString, RegisterUser.this);
+                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, RegisterUser.this);
             }
 
             @Override
