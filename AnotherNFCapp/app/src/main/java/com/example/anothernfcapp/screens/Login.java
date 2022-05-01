@@ -57,6 +57,8 @@ public class Login extends AppCompatActivity {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.e("LOGIN", "Failed to connect to the server " + statusCode + " Response: " + responseString);
                 BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, Login.this);
+                //todo
+                login();
             }
 
             @Override
