@@ -65,6 +65,7 @@ public class Login extends AppCompatActivity {
                 Log.d("LOGIN", responseString);
                 parseJWT(responseString);
                 StaticVariables.setLogin(login.getText().toString());
+                StaticVariables.setPassword(password.getText().toString());
                 login();
             }
         });
@@ -82,8 +83,7 @@ public class Login extends AppCompatActivity {
     }
 
     private void parseJWT(String response){
-        JsonFactory jsonFactory = new JsonFactory();
-        StaticVariables.setJWT(jsonFactory.makeStringForAuthUserResponse(response).toString());
+        StaticVariables.setJWT(JsonFactory.makeStringForAuthUserResponse(response).toString());
         Log.d("LOGIN", StaticVariables.JWT);
     }
 }
