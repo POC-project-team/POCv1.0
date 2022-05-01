@@ -33,12 +33,15 @@ public class MainScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         if (NfcAdapter.getDefaultAdapter(this) == null){
             Toast.makeText(this, "NFC module is switched off. " +
                     "Some features of the app will not work", Toast.LENGTH_SHORT).show();
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        else{
+            setUpTag();
+        }
         tagIdTextView = findViewById(R.id.tagId);
         writeScreen = findViewById(R.id.buttonwrite);
         writeScreen.setOnClickListener(v -> {
