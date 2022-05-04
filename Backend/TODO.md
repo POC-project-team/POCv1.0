@@ -1,5 +1,4 @@
-# Working with data
-    - Need to provide the methods to share items with users
+# OpenAPIs
 
 # Testing
   - Implement UNIT tests for code
