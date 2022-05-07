@@ -30,11 +30,14 @@ public class AddNote extends Activity {
     private String urlToPost;
     private Button sendValue;
     private Button goBack;
+    private CacheForSendingNotes cacheForSendingNotes;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.write_screen);
+        cacheForSendingNotes = new CacheForSendingNotes(AddNote.this);
         asyncHttpClient = new AsyncHttpClient();
         sendValue = findViewById(R.id.sendValue);
         sendValue.setOnClickListener(v -> {
@@ -65,7 +68,6 @@ public class AddNote extends Activity {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.e("POST", "Failed to connect to server. " + statusCode + " Response: " + responseString);
                 if (statusCode == 0){
-                    CacheForSendingNotes cacheForSendingNotes = new CacheForSendingNotes(AddNote.this);
                     cacheForSendingNotes.writeToTheCache(msg);
                 }
                 BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, AddNote.this);
@@ -73,10 +75,20 @@ public class AddNote extends Activity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                sendCache();
                 Log.d("POST", "onSuccess");
                 makeToast();
             }
         });
+
+    }
+
+    private void sendCache() {
+        if (cacheForSendingNotes.isEmptyCache()){
+            return;
+        }
+
+
 
     }
 
