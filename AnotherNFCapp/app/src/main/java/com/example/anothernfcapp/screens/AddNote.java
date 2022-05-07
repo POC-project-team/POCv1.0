@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.example.anothernfcapp.caching.CacheForSendingNotes;
 import com.example.anothernfcapp.json.JsonFactory;
 import com.example.anothernfcapp.R;
 import com.example.anothernfcapp.utility.BadStatusCodeProcess;
@@ -63,6 +64,10 @@ public class AddNote extends Activity {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.e("POST", "Failed to connect to server. " + statusCode + " Response: " + responseString);
+                if (statusCode == 0){
+                    CacheForSendingNotes cacheForSendingNotes = new CacheForSendingNotes(AddNote.this);
+                    cacheForSendingNotes.writeToTheCache(msg);
+                }
                 BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, AddNote.this);
             }
 
