@@ -35,6 +35,13 @@ public class MainScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (NfcAdapter.getDefaultAdapter(this) == null){
+            Toast.makeText(this, "NFC module is switched off. " +
+                    "Some features of the app will not work", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            setUpTag();
+        }
         tagIdTextView = findViewById(R.id.tagId);
         writeScreen = findViewById(R.id.buttonwrite);
         writeScreen.setOnClickListener(v -> {
@@ -65,19 +72,28 @@ public class MainScreen extends AppCompatActivity {
             }
         });
         setUpTagButton = findViewById(R.id.buttonSetUp);
-        setUpTagButton.setOnClickListener(v -> {
-            nfcAdapter = NfcAdapter.getDefaultAdapter(MainScreen.this);
-            nfcPendingIntent = PendingIntent.getActivity(MainScreen.this, 0,
-                    new Intent(MainScreen.this, MainScreen.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-            enableTagWriteMode();
-            new AlertDialog.Builder(MainScreen.this).setTitle("Touch tag to make a get request").setOnCancelListener(dialog -> disableTagWriteMode()).create().show();
-        });
+        setUpTagButton.setOnClickListener(v -> setUpTag());
         settingsScreen = findViewById(R.id.settings);
         settingsScreen.setOnClickListener(v -> {
             Intent settingsIntent = new Intent(MainScreen.this, Settings.class);
             startActivity(settingsIntent);
         });
+    }
 
+    private void setUpTag(){
+        if (NfcAdapter.getDefaultAdapter(this) == null){
+            Toast.makeText(this, "Sorry you can't set up a tag, as NFC module is switched off", Toast.LENGTH_SHORT).show();
+            new AlertDialog.Builder(this).setTitle("Sorry you can't set up a tag, as NFC module is switched off").create().show();
+            return;
+        }
+        nfcAdapter = NfcAdapter.getDefaultAdapter(MainScreen.this);
+        nfcPendingIntent = PendingIntent.getActivity(MainScreen.this, 0,
+                new Intent(MainScreen.this, MainScreen.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+        enableTagWriteMode();
+        new AlertDialog.Builder(MainScreen.this)
+                .setTitle("Touch tag to set it as default for current session")
+                .setOnCancelListener(dialog -> disableTagWriteMode())
+                .create().show();
     }
 
     private void disableTagWriteMode() {
