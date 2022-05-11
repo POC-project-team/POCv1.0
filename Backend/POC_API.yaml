@@ -73,6 +73,10 @@ paths:
                 '200':
                     content:
                         application/json:
+                            $ref: '#/components/schemas/Tag'
+                '400':
+                    description: 'Provided information is wrong'
+                    message: clarifies what went wrong
                 '406':
                     description: 'Provided token is not valid'
                 '500':
@@ -83,11 +87,13 @@ paths:
             summary: 'Return the info about the tags user has'
             responses:
                 '200':
-                    description: ''
+                    description: 'Update information about existing tag'
                     content:
-
+                        application/json:
+                            $ref: '#/components/schemas/Tag'
                 '400':
-                    description: ''
+                    description: 'Provided information is wrong'
+                    message: clarifies what went wrong
                 '406':
                     description: 'Provided token is not valid'
                 '500':
@@ -97,9 +103,13 @@ paths:
             summary: 'Create a new tag for user'
             responses:
                 '200':
-                    description: ''
+                    description: 'Update information about existing tag'
+                    content:
+                        application/json:
+                            $ref: '#/components/schemas/Tag'
                 '400':
-                    description: ''
+                    description: 'Provided information is wrong'
+                    message: clarifies what went wrong
                 '406':
                     description: 'Provided token is not valid'
                 '500':
@@ -109,21 +119,26 @@ paths:
             summary: 'update information about existing tag'
             responses:
                 '200':
-                    description: ''
+                    description: 'Update information about existing tag'
+                    content:
+                        application/json:
+                            $ref: '#/components/schemas/Tag'
                 '400':
-                    description: ''
+                    description: 'Information provided is wrong'
+                    message: clarifies what went wrong
                 '406':
                     description: 'Provided token is not valid'
                 '500':
                     description: 'Error occurred while processing request'
                     message: clarifies what went wrong
         delete:
-            summary: ''
+            summary: 'Delete tag from the system'
             responses:
                 '200':
-                    description: ''
+                    description: 'The tag was successfully deleted'
                 '400':
-                    description: ''
+                    description: 'Information provided is wrong'
+                    message: clarifies what went wrong
                 '406':
                     description: 'Provided token is not valid'
                 '500':
@@ -131,12 +146,13 @@ paths:
                     message: clarifies what went wrong
     /{token}/{tag_id}/send:
         post:
-            summary: ''
+            summary: 'Send the tag to another user'
             responses:
                 '200':
-                    description: ''
+                    description: 'The tag was sent successfully'
                 '400':
-                    description: ''
+                    description: 'Provided information is wrong'
+                    message: clarifies what went wrong
                 '406':
                     description: 'Provided token is not valid'
                 '500':
