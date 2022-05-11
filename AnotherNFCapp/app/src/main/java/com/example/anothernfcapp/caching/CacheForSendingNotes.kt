@@ -20,10 +20,9 @@ class CacheForSendingNotes(val context: Context) {
 
     fun getCachedNotes() : String{
         return try {
-            val cachedNotes = StringBuilder()
+            val cachedNotes = ArrayList<String>()
             cacheFileSentNotes.forEachLine {
-                cachedNotes.append(it)
-                cachedNotes.append("\n")
+                cachedNotes.add(it)
             }
             cachedNotes.toString()
         } catch (e: Exception){

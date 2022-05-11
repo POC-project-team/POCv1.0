@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.example.anothernfcapp.R;
+import com.example.anothernfcapp.caching.CacheForReceivedNotes;
 import com.example.anothernfcapp.json.JsonFactory;
 import com.example.anothernfcapp.json.get_notes.JsonForGetNotesResponse;
 import com.example.anothernfcapp.utility.BadStatusCodeProcess;
@@ -26,11 +27,13 @@ public class GetNotes extends Activity {
     private AsyncHttpClient asyncHttpClient;
     private TextView textView;
     private Button goBackButton;
+    private CacheForReceivedNotes cacheForReceivedNotes;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.get_screen);
+        cacheForReceivedNotes = new CacheForReceivedNotes(this);
         try {
             getJsonMessageFromServer();
         } catch (UnsupportedEncodingException e) {
@@ -53,12 +56,23 @@ public class GetNotes extends Activity {
         asyncHttpClient.get(urlToGet, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.e("GET", "Failed to connect to the server "  + statusCode + " Response: " + responseString);
-                BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, GetNotes.this);
+                if (statusCode > 0) {
+                    Log.e("GET", "Failed to connect to the server " + statusCode + " Response: " + responseString);
+                    BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, GetNotes.this);
+                }
+                else {
+                    JsonForGetNotesResponse[] message;
+                    message = JsonFactory.makeStringForGetNotesResponse(cacheForReceivedNotes.getCachedNotes());
+                    for (JsonForGetNotesResponse msg:message) {
+                        textView.append(msg.toString());
+                    }
+                }
             }
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                cacheForReceivedNotes.clearCache();
                 Log.d("GET", "Successfully connected to the server");
+                cacheForReceivedNotes.writeToTheCache(responseString);
                 JsonForGetNotesResponse[] message;
                 message = JsonFactory.makeStringForGetNotesResponse(responseString);
                 for (JsonForGetNotesResponse msg:message) {

@@ -75,7 +75,6 @@ public class AddNote extends Activity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                sendCache();
                 Log.d("POST", "onSuccess");
                 makeToast();
             }
@@ -83,14 +82,6 @@ public class AddNote extends Activity {
 
     }
 
-    private void sendCache() {
-        if (cacheForSendingNotes.isEmptyCache()){
-            return;
-        }
-
-
-
-    }
 
     private void makeToast() {
         Toast.makeText(this, "Successfully wrote your message", Toast.LENGTH_SHORT).show();
