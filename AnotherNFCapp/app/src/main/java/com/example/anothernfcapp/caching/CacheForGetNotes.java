@@ -27,7 +27,7 @@ public class CacheForGetNotes {
         bufferedWriter = new BufferedWriter(new FileWriter(file));
         Log.d("CACHEGET", data);
         try {
-            bufferedWriter.append(data).append("\n");
+            bufferedWriter.write(data);
             Log.d("CACHEGET", "Added your notes to the cache");
             bufferedWriter.close();
         } catch (IOException e) {

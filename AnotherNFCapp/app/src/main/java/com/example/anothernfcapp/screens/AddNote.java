@@ -68,7 +68,7 @@ public class AddNote extends Activity {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.e("POST", "Failed to connect to server. " + statusCode + " Response: " + responseString);
                 if (statusCode == 0){
-                    //cacheForSendingNotes.writeToTheCache(msg);
+
                 }
                 BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, AddNote.this);
             }
