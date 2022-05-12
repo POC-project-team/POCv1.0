@@ -2,7 +2,6 @@ package com.example.anothernfcapp.caching
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import java.io.File
 import java.lang.Exception
 import java.lang.StringBuilder

@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.example.anothernfcapp.caching.CacheForSendingNotes;
+//import com.example.anothernfcapp.caching.CacheForSendingNotes;
 import com.example.anothernfcapp.json.JsonFactory;
 import com.example.anothernfcapp.R;
 import com.example.anothernfcapp.utility.BadStatusCodeProcess;
@@ -30,14 +30,14 @@ public class AddNote extends Activity {
     private String urlToPost;
     private Button sendValue;
     private Button goBack;
-    private CacheForSendingNotes cacheForSendingNotes;
+    //private CacheForSendingNotes cacheForSendingNotes;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.write_screen);
-        cacheForSendingNotes = new CacheForSendingNotes(AddNote.this);
+        //cacheForSendingNotes = new CacheForSendingNotes(AddNote.this);
         asyncHttpClient = new AsyncHttpClient();
         sendValue = findViewById(R.id.sendValue);
         sendValue.setOnClickListener(v -> {
@@ -68,7 +68,7 @@ public class AddNote extends Activity {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.e("POST", "Failed to connect to server. " + statusCode + " Response: " + responseString);
                 if (statusCode == 0){
-                    cacheForSendingNotes.writeToTheCache(msg);
+                    //cacheForSendingNotes.writeToTheCache(msg);
                 }
                 BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, AddNote.this);
             }
