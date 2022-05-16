@@ -1,43 +1,49 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#D3D3D3"
     android:orientation="vertical"
-    tools:context=".screens.Login" >
+    tools:context=".screens.Login">
 
     <TextView
+        android:id="@+id/tagId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageButton
+        android:id="@+id/settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tagId"/>
+        android:src="@drawable/ic_settings" />
 
     <Button
         android:id="@+id/buttonSetUp"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/set_up_tag" />
-
+        android:layout_height="55dp"
+        android:text="Set up tag"
+        app:icon="@android:drawable/ic_input_add" />
 
     <Button
         android:id="@+id/buttonwrite"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/write_to_the_database" />
+        android:layout_height="55dp"
+        android:text="WRITE INFO"
+        app:icon="@android:drawable/ic_menu_edit" />
 
     <Button
         android:id="@+id/buttonget"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/get_data_about_this_tag" />
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/settings"
-        android:text="@string/settings"/>
+        android:layout_height="55dp"
+        android:text="Get Info"
+        app:icon="@android:drawable/ic_input_get" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tag_settings"
         android:id="@+id/tagSettingsButton"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="Tag Settings"
+        app:icon="@android:drawable/btn_radio" />
+
 </LinearLayout>

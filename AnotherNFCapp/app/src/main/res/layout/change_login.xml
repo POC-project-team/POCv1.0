@@ -1,46 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#D3D3D3"
     android:orientation="vertical">
-    <EditText
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/old_login"
-        android:id="@+id/old_login"
-        />
+        android:orientation="vertical"
+        android:background="@drawable/frame">
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Please, enter your login:"
+            android:textColor="@color/black"
+            />
+
+        <EditText
+            android:id="@+id/old_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Login"
+            />
+    </LinearLayout>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="8dp"
+    android:background="@drawable/frame">
+
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/new_login"
+        android:text="Please, enter your new login:"
+        android:textColor="@color/black" />
+
+    <EditText
         android:id="@+id/new_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Login"
         />
+</LinearLayout>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="8dp"
+    android:background="@drawable/frame">
+
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/password"
+        android:text="Please, enter your password:"
+        android:textColor="@color/black" />
+
+    <EditText
         android:id="@+id/passwordForChangeLogin"
-        android:inputType="textPassword"
-        android:ems="10"
-        />
-    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/change_login"
-        android:id="@+id/buttonForChangeLogin"/>
+        android:hint="Password"
+        android:ems="10"
+        android:inputType="textPassword" />
+</LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/buttonForChangeLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CHANGE LOGIN" />
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom">
+
         <Button
+            android:id="@+id/goBackButtonChangeLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:text="@string/go_back"
-            android:id="@+id/goBackButtonChangeLogin"/>
+            app:icon="?attr/homeAsUpIndicator" />
 
     </LinearLayout>
 </LinearLayout>
+
