@@ -4,7 +4,8 @@
     android:id="@+id/settings_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D3D3D3">
+    android:background="@drawable/poc_bg"
+    >
 
     <Button
         android:background="@drawable/frame"
@@ -63,6 +64,7 @@
             android:layout_height="74dp"
             android:layout_gravity="bottom"
             android:src="?attr/homeAsUpIndicator"
+            android:background="@color/white"
             android:text="@string/go_back" />
 
     </LinearLayout>

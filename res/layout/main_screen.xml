@@ -2,55 +2,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/poc_bg"
     android:orientation="vertical"
-    android:background="#D3D3D3"
-    tools:context=".screens.MainScreen"
-    >
+    tools:context=".screens.MainScreen">
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Please, enter your login:"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black" />
+
     <EditText
         android:id="@+id/login"
-        android:hint="Login"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-         />
+        android:hint="Login" />
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Please, enter your password:"
-        android:textColor="@color/black"
-        />
+        android:textColor="@color/black" />
+
     <EditText
+        android:id="@+id/password"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/password"
-        android:hint="@string/password" />
+        android:hint="@string/password"
+        android:inputType="textPassword" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/loginButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="107dp"
-                android:layout_marginRight="8dp"
-                android:text="Sign in" />
+        <Button
+            android:id="@+id/registerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/tmp"
+            android:text="Sign up" />
 
-            <Button
-                android:id="@+id/registerButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sign up" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tmp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/tmp"
+            android:text="Sign in" />
+
+
+    </RelativeLayout>
 
 </LinearLayout>

@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#D3D3D3"
+    android:background="@drawable/poc_bg"
     tools:context=".screens.GetNotes" >
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Info about tag:"
+        android:text="Notes about this device:"
         android:textColor="@color/black"
         android:textSize="30sp" />
 
@@ -28,12 +28,12 @@
         android:layout_height="match_parent"
         android:layout_gravity="bottom">
 
-        <Button
+        <ImageButton
             android:id="@+id/goBackButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="74dp"
+            android:layout_height="74dp"
+            android:background="@color/white"
             android:layout_gravity="bottom"
-            android:text="@string/go_back"
-            app:icon="?attr/homeAsUpIndicator" />
+            tools:src="?attr/homeAsUpIndicator" />
     </LinearLayout>
 </LinearLayout>

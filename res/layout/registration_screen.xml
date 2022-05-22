@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#D3D3D3"
+    android:background="@drawable/poc_bg"
     tools:context=".screens.RegisterUser" >
 
 
@@ -51,6 +51,7 @@
         android:id="@+id/sendRegistration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="Sign Up" />
 
     <LinearLayout
@@ -60,10 +61,10 @@
 
         <ImageButton
             android:id="@+id/backToLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="74dp"
+            android:layout_height="74dp"
             android:layout_gravity="bottom"
-
+            android:background="@color/white"
             android:src="?attr/homeAsUpIndicator"
             />
     </LinearLayout>
