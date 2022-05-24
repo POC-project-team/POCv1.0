@@ -3,15 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".screens.MainScreen" >
+    android:background="#D3D3D3"
+    tools:context=".screens.MainScreen"
+    >
 
-
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Please, enter your login:"
+        android:textColor="@color/black"/>
     <EditText
         android:id="@+id/login"
         android:hint="Login"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
          />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Please, enter your password:"
+        android:textColor="@color/black"
+        />
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -20,15 +33,24 @@
         android:id="@+id/password"
         android:hint="@string/password" />
 
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Login" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Register" />
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="107dp"
+                android:layout_marginRight="8dp"
+                android:text="Sign in" />
+
+            <Button
+                android:id="@+id/registerButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign up" />
+        </LinearLayout>
+
 </LinearLayout>

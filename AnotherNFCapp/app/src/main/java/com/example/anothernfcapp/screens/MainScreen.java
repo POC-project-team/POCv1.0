@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ public class MainScreen extends AppCompatActivity {
     private Button writeScreen;
     private Button tagSettingsScreen;
     private Button setUpTagButton;
-    private Button settingsScreen;
+    private ImageButton settingsScreen;
     private TextView tagIdTextView;
 
     @Override
