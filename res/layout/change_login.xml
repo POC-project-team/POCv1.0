@@ -10,14 +10,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#D3D3D3"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
             android:text="Please, enter your login:"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="20dp" />
 
         <EditText
             android:id="@+id/old_login"
@@ -26,13 +27,22 @@
             android:hint="Login" />
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="1dp"
+        android:background="@color/black"/>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="0dp"
+        android:background="#D3D3D3"
         android:orientation="vertical">
 
         <TextView
+            android:layout_marginTop="8dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
@@ -46,14 +56,22 @@
             android:hint="Login" />
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="1dp"
+        android:background="@color/black"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="0dp"
+        android:background="#D3D3D3"
         android:orientation="vertical">
 
         <TextView
+            android:layout_marginTop="8dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
@@ -69,11 +87,18 @@
             android:inputType="textPassword" />
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="1dp"
+        android:background="@color/black"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
 
         <Button
             android:id="@+id/buttonForChangeLogin"
