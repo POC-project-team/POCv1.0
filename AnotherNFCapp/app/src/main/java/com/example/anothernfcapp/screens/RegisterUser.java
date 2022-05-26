@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -28,7 +29,7 @@ public class RegisterUser extends Activity {
     private EditText login;
     private EditText password;
     private Button register;
-    private Button goBack;
+    private ImageButton goBack;
     private String urlToRegister;
     private AsyncHttpClient asyncHttpClient;
 

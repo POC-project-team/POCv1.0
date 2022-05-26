@@ -25,29 +25,15 @@ public class CacheForGetNotes {
     
     public void writeToCache(String data) throws IOException {
         bufferedWriter = new BufferedWriter(new FileWriter(file));
-        Log.d("CACHEGET", data);
+        bufferedWriter.write("");
+        Log.d("CACHEGET", "Write to cache: " + data);
         try {
-            bufferedWriter.write(data);
+            bufferedWriter.append(data);
             Log.d("CACHEGET", "Added your notes to the cache");
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
             Log.e("CACHEGET", "IOEXCEPTION");
-        }
-    }
-    
-    public void clearCache(){
-        try {
-            bufferedWriter = new BufferedWriter(new FileWriter(file));
-        } catch (IOException e) {
-            Log.e("CACHEGET", e.toString());
-        }
-        try {
-            bufferedWriter.write("");
-            Log.d("CACHEGET", "Cache was cleared");
-            bufferedWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
     
@@ -57,7 +43,10 @@ public class CacheForGetNotes {
         String line;
         while ((line = bufferedReader.readLine()) != null){
             stringBuilder.append(line);
+            stringBuilder.append("\n");
+            Log.d("CACHEGET", line);
         }
+        bufferedReader.close();
         return stringBuilder.toString();
     }
 

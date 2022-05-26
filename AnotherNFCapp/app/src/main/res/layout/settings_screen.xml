@@ -1,70 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/settings_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/poc_bg"
+    >
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/testConnectionButton"
-        android:text="@string/test_connection"/>
-
-    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/frame"
+        android:text="Send cached notes"
+        app:icon="@drawable/ic_connect" />
+
+    <Button
         android:id="@+id/userInfoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/testConnectionButton"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/frame"
         android:text="@string/get_user_info"
-        android:layout_below="@+id/testConnectionButton"/>
+        app:icon="@drawable/ic_get" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/logoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iAmBossOfTheGym"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/frame"
         android:text="@string/logout"
-        android:layout_below="@+id/userInfoButton"/>
+        app:icon="@drawable/ic_logout" />
 
     <Button
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/logoutButton"
         android:id="@+id/clearTagButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userInfoButton"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/frame"
         android:text="@string/clear_tagid"
-        />
+        app:icon="@android:drawable/ic_menu_close_clear_cancel" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/changePassword"
-        android:text="@string/dungeon_master"
         android:id="@+id/iAmBossOfTheGym"
-        />
-    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/clearTagButton"
-        android:id="@+id/changeLogin"
-        android:text="@string/change_login"
-        />
+        android:layout_below="@id/clearTagButton"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/frame"
+        android:text="@string/dungeon_master"
+        app:icon="@drawable/ic_gym2" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/changePassword"
-        android:text="@string/change_password"
-        android:layout_below="@id/changeLogin"
-        />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom">
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/go_back"
+
+        <ImageButton
+            android:id="@+id/goBackSettingsScreen"
+            android:layout_width="74dp"
+            android:layout_height="74dp"
             android:layout_gravity="bottom"
-            android:id="@+id/goBackSettingsScreen"/>
+            android:background="@color/white"
+            android:src="?attr/homeAsUpIndicator"
+            android:text="@string/go_back" />
 
     </LinearLayout>
 

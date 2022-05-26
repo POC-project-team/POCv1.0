@@ -14,6 +14,13 @@ import com.example.anothernfcapp.json.send.JsonForSendTagRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.Arrays;
+import java.util.List;
+
 public class JsonFactory {
     public static String makeJsonForAddNoteRequest(String value){
         JsonForAddNoteRequest jsonForAddNoteRequest = new JsonForAddNoteRequest(value);
@@ -92,4 +99,12 @@ public class JsonFactory {
         Gson gson = gsonBuilder.create();
         return gson.toJson(json);
     }
+
+    public static List<JsonForAddNoteRequest> makeJsonForAddNoteCache(FileReader fileReader){
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+        return Arrays.asList(gson.fromJson(fileReader, JsonForAddNoteRequest[].class));
+    }
+
+
 }

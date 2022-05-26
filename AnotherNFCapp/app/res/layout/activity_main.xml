@@ -1,0 +1,66 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/poc_bg"
+    tools:context=".screens.Login">
+
+    <TextView
+        android:id="@+id/tagId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+        android:id="@+id/buttonSetUp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Set up tag"
+        android:background="@drawable/frame"
+        app:icon="@android:drawable/ic_input_add" />
+
+    <Button
+        android:id="@+id/buttonwrite"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/frame"
+        android:text="WRITE INFO"
+        app:icon="@android:drawable/ic_menu_edit" />
+
+    <Button
+        android:id="@+id/buttonget"
+        android:background="@drawable/frame"
+        android:layout_marginTop="8dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Get Info"
+        app:icon="@android:drawable/ic_input_get" />
+
+    <Button
+        android:id="@+id/tagSettingsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/frame"
+        android:text="Tag Settings"
+        app:icon="@android:drawable/ic_menu_compass" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+            <ImageButton
+                android:id="@+id/settings"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_width="74dp"
+                android:layout_height="74dp"
+                android:background="@color/white"
+                tools:src="@drawable/ic_settings" />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -27,7 +28,7 @@ public class ChangePassword extends Activity {
     private EditText newPassword;
     private EditText confirmPassword;
     private Button changePasswordButton;
-    private Button goBackButton;
+    private ImageButton goBackButton;
     private AsyncHttpClient asyncHttpClient;
 
     @Override

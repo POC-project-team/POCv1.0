@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -28,8 +29,9 @@ import cz.msebera.android.httpclient.Header;
 public class GetNotes extends Activity {
     private AsyncHttpClient asyncHttpClient;
     private TextView textView;
-    private Button goBackButton;
+    private ImageButton goBackButton;
     private CacheForGetNotes cacheForGetNotes;
+    private StringBuilder stringToCache;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class GetNotes extends Activity {
         textView = findViewById(R.id.valueFromServer);
         goBackButton = findViewById(R.id.goBackButton);
         goBackButton.setOnClickListener(v -> backButton());
+        stringToCache = new StringBuilder();
         Log.d("CACHEGET", "Starting caching");
         String message;
         try {
@@ -54,7 +57,7 @@ public class GetNotes extends Activity {
             e.printStackTrace();
             return;
         }
-        textView.setText(message);
+        textView.append(message);
     }
 
     private void backButton() {
@@ -74,21 +77,28 @@ public class GetNotes extends Activity {
             }
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                cacheForGetNotes.clearCache();
                 Log.d("GET", "Successfully connected to the server");
                 JsonForGetNotesResponse[] message;
                 message = JsonFactory.makeStringForGetNotesResponse(responseString);
+                Log.d("CACHEGET", "onSuccess: " + message);
+                textView.setText("");
                 for (JsonForGetNotesResponse msg:message) {
-                    textView.setText(msg.toString());
-                    try {
-                        cacheForGetNotes.writeToCache(msg.toString());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    textView.append(msg.toString());
+                    stringToCache.append(msg);
+
+                }
+                try {
+                    setCachedText();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         });
+    }
 
+    private void setCachedText() throws IOException {
+        Log.d("CACHEGET", stringToCache.toString());
+        cacheForGetNotes.writeToCache(stringToCache.toString());
     }
 
 }

@@ -1,44 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/poc_bg"
     android:orientation="vertical">
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/startAddNewTag"
-        android:text="@string/add_new_tag"
-        />
-
-    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/change_tag_name"
-        android:id="@+id/startChangeTagName"/>
+        android:background="@drawable/frame"
+        android:layout_marginTop="1dp"
+        android:text="ADD NEW TAG" />
 
     <Button
+        android:id="@+id/startChangeTagName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/send_tag"
-        android:id="@+id/sendTag"/>
+        android:background="@drawable/frame"
+        android:layout_marginTop="8dp"
+        android:text="CHANGE TAG NAME" />
 
     <Button
+        android:id="@+id/sendTag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/delete_tag"
-        android:id="@+id/deleteTag"/>
+        android:background="@drawable/frame"
+        android:layout_marginTop="8dp"
+        android:text="SEND TAG" />
+
+    <Button
+        android:id="@+id/deleteTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/frame"
+        android:layout_marginTop="8dp"
+        android:text="DELETE TAG" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom">
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+
+        <ImageButton
+            android:id="@+id/goBackTagSettings"
+            android:layout_width="74dp"
+            android:layout_height="74dp"
             android:layout_gravity="bottom"
-            android:text="@string/go_back"
-            android:id="@+id/goBackTagSettings"/>
+            android:background="@color/white"
+            tools:src="?attr/homeAsUpIndicator" />
     </LinearLayout>
 
 

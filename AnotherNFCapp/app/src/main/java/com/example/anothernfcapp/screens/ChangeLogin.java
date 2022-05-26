@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -27,7 +28,7 @@ public class ChangeLogin extends Activity {
     private EditText login;
     private EditText newLogin;
     private EditText password;
-    private Button goBack;
+    private ImageButton goBack;
     private AsyncHttpClient asyncHttpClient;
 
     @Override

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -31,7 +32,7 @@ public class TagSettings extends Activity {
     private Button addNewTag;
     private Button changeTagName;
     private Button deleteTag;
-    private Button goBack;
+    private ImageButton goBack;
     private Button sendTag;
 
     @Override
