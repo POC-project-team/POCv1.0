@@ -10,7 +10,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#D3D3D3"
         android:orientation="vertical">
 
         <TextView
@@ -27,18 +26,10 @@
             android:hint="Login" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="1dp"
-        android:background="@color/black"/>
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
-        android:background="#D3D3D3"
         android:orientation="vertical">
 
         <TextView
@@ -56,18 +47,10 @@
             android:hint="Login" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="1dp"
-        android:background="@color/black"
-        />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
-        android:background="#D3D3D3"
         android:orientation="vertical">
 
         <TextView
@@ -86,13 +69,6 @@
             android:hint="Password"
             android:inputType="textPassword" />
     </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="1dp"
-        android:background="@color/black"
-        />
 
     <LinearLayout
         android:layout_width="match_parent"
