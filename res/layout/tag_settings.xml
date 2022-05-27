@@ -54,7 +54,7 @@
             android:layout_height="74dp"
             android:layout_gravity="bottom"
             android:background="@color/white"
-            tools:src="?attr/homeAsUpIndicator" />
+            android:src="?attr/homeAsUpIndicator" />
     </LinearLayout>
 
 

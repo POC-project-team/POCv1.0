@@ -9,6 +9,26 @@
     >
 
     <Button
+        android:id="@+id/changeLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/testConnectionButton"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/frame"
+        android:text="Change Login"
+        app:icon="@drawable/ic_change" />
+
+    <Button
+        android:id="@+id/changePassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/changeLogin"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/frame"
+        android:text="Change Password"
+        app:icon="@drawable/ic_change2" />
+
+    <Button
         android:id="@+id/testConnectionButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +41,7 @@
         android:id="@+id/userInfoButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/testConnectionButton"
+        android:layout_below="@id/changePassword"
         android:layout_marginTop="8dp"
         android:background="@drawable/frame"
         android:text="@string/get_user_info"

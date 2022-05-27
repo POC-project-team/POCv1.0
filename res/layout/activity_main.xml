@@ -7,16 +7,12 @@
     android:background="@drawable/poc_bg"
     tools:context=".screens.Login">
 
-    <TextView
-        android:id="@+id/tagId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
 
     <Button
         android:id="@+id/buttonSetUp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
         android:text="Set up tag"
         android:background="@drawable/frame"
         app:icon="@android:drawable/ic_input_add" />
@@ -59,7 +55,7 @@
                 android:layout_width="74dp"
                 android:layout_height="74dp"
                 android:background="@color/white"
-                tools:src="@drawable/ic_settings" />
+                android:src="@drawable/ic_settings" />
 
     </RelativeLayout>
 

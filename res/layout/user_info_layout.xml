@@ -78,7 +78,7 @@
             android:layout_alignParentLeft="true"
             android:background="@color/white"
             tools:ignore="NotSibling"
-            tools:src="?attr/homeAsUpIndicator" />
+            android:src="?attr/homeAsUpIndicator" />
 
     </RelativeLayout>
 </RelativeLayout>
