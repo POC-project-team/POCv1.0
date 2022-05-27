@@ -12,7 +12,7 @@ public class JsonForGetTagsResponse {
     @Override
     public String toString() {
         return "Tag:\n" +
-                "tagId = '" + tagId + '\n' +
-                "tagName='" + tagName;
+                "tagId = " + tagId + '\n' +
+                "tagName = " + tagName;
     }
 }
