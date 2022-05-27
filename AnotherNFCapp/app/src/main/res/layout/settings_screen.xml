@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/settings_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/poc_bg"
-    >
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/testConnectionButton"
@@ -14,14 +14,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:background="@drawable/frame"
-        android:text="Send cached notes"
+        android:text="@string/test_connection"
         app:icon="@drawable/ic_connect" />
 
     <Button
         android:id="@+id/userInfoButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/testConnectionButton"
         android:layout_marginTop="8dp"
         android:background="@drawable/frame"
         android:text="@string/get_user_info"
@@ -31,7 +30,6 @@
         android:id="@+id/logoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/iAmBossOfTheGym"
         android:layout_marginTop="8dp"
         android:background="@drawable/frame"
         android:text="@string/logout"
@@ -41,7 +39,6 @@
         android:id="@+id/clearTagButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/userInfoButton"
         android:layout_marginTop="8dp"
         android:background="@drawable/frame"
         android:text="@string/clear_tagid"
@@ -51,7 +48,6 @@
         android:id="@+id/iAmBossOfTheGym"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/clearTagButton"
         android:layout_marginTop="8dp"
         android:background="@drawable/frame"
         android:text="@string/dungeon_master"
@@ -75,4 +71,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

@@ -54,21 +54,7 @@ public class Settings extends AppCompatActivity {
         clearTagId = findViewById(R.id.clearTagButton);
         clearTagId.setOnClickListener(v -> clearTagId());
         testConnectionButton = findViewById(R.id.testConnectionButton);
-        testConnectionButton.setOnClickListener(v -> {
-            if (StaticVariables.tagId == null){
-                msgError();
-            }
-            else if(cacheForPostNotes.getCacheFilePostNotes().length() == 0){
-                msgEmptyCache();
-            } else {
-                Log.d("POST", "onCreate: ");
-                try {
-                    testConnection();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        testConnectionButton.setOnClickListener(v -> testConnection());
         getUserInfoButton = findViewById(R.id.userInfoButton);
         getUserInfoButton.setOnClickListener(v -> userInfo());
         logoutButton = findViewById(R.id.logoutButton);
@@ -119,51 +105,29 @@ public class Settings extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void testConnection() throws IOException {
-        CacheForPostNotes cacheForPostNotes = new CacheForPostNotes(this);
-        String urlToPost = StaticVariables.ipServerUrl + StaticVariables.JWT + "/" + StaticVariables.tagId + "/note";
-        Log.d("POST", urlToPost);
-        List<JsonForAddNoteRequest> json = cacheForPostNotes.getCache();
-        Log.d("POST", "" + json.size());
-        for (int i = 0; i < json.size(); i++){
-            String message = JsonFactory.makeJsonForAddNoteRequest(json.get(i).note);
-            Log.d("POST", message);
-            StringEntity stringEntity = new StringEntity(message);
-            int finalI = i;
-            asyncHttpClient.post(this, urlToPost, stringEntity, message, new TextHttpResponseHandler() {
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                    Log.e("POST", "Failed to connect to server. " + statusCode + " Response: " + responseString);
-                    BadStatusCodeProcess.parseBadStatusCode(statusCode, responseString, Settings.this);
-                }
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                    Log.d("POST", "onSuccess");
-                    makeToastMsg();
-                    if (finalI == json.size() - 1){
-                        try {
-                            cacheForPostNotes.clearCache();
-                            Log.d("POST", "CACHE WAS CLEARED");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            });
+    private void testConnection() {
+        String urlToPost = StaticVariables.ipServerUrl + "test";
+        asyncHttpClient.get(urlToPost, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                showConnection(responseString, statusCode);
+
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                showConnection(responseString, statusCode);
+            }
+        });
+
+    }
+
+    private void showConnection(String responseString, int statusCode) {
+        if (statusCode == 0){
+            Toast.makeText(this, "No Internet connection", Toast.LENGTH_SHORT).show();
         }
-
-    }
-
-    private void msgError(){
-        Toast.makeText(this, "Tag isn't set up", Toast.LENGTH_SHORT).show();
-    }
-
-    private void msgEmptyCache() {
-        Toast.makeText(this, "Cache is empty", Toast.LENGTH_SHORT).show();
-    }
-
-
-    private void makeToastMsg(){
-        Toast.makeText(this, "Everything was sent", Toast.LENGTH_SHORT).show();
+        else {
+            Toast.makeText(this, responseString, Toast.LENGTH_SHORT).show();
+        }
     }
 }

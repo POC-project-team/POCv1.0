@@ -3,6 +3,7 @@ package com.example.anothernfcapp.screens;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -58,6 +59,7 @@ public class GetNotes extends Activity {
             return;
         }
         textView.append(message);
+        textView.setMovementMethod(new ScrollingMovementMethod());
     }
 
     private void backButton() {
@@ -84,7 +86,9 @@ public class GetNotes extends Activity {
                 textView.setText("");
                 for (JsonForGetNotesResponse msg:message) {
                     textView.append(msg.toString());
+                    textView.append("\n");
                     stringToCache.append(msg);
+                    stringToCache.append("\n");
 
                 }
                 try {
