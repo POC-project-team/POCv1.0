@@ -73,6 +73,9 @@ public class ChangePassword extends Activity {
         else if (newPassword.getText().toString().equals("") || confirmPassword.getText().toString().equals("")){
             Toast.makeText(this, "Enter new password", Toast.LENGTH_SHORT).show();
         }
+        else if (!newPassword.getText().toString().equals(confirmPassword.getText().toString())){
+            Toast.makeText(this, "Passwords don't match", Toast.LENGTH_SHORT).show();
+        }
         else{
             Toast.makeText(this, "You can't change password of another user", Toast.LENGTH_SHORT).show();
         }
