@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/settings_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/poc_bg"
+    >
+
+    <Button
+        android:id="@+id/changeLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/testConnectionButton"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/frame"
+        android:text="Change Login"
+        app:icon="@drawable/ic_change" />
+
+    <Button
+        android:id="@+id/changePassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/changeLogin"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/frame"
+        android:text="Change Password"
+        app:icon="@drawable/ic_change2" />
+
+    <Button
+        android:id="@+id/testConnectionButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/frame"
+        android:text="@string/test_connection"
+        app:icon="@drawable/ic_connect" />
+
+    <Button
+        android:id="@+id/userInfoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/changePassword"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/frame"
+        android:text="@string/get_user_info"
+        app:icon="@drawable/ic_get" />
+
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iAmBossOfTheGym"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/frame"
+        android:text="@string/logout"
+        app:icon="@drawable/ic_logout" />
+
+    <Button
+        android:id="@+id/clearTagButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userInfoButton"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/frame"
+        android:text="@string/clear_tagid"
+        app:icon="@android:drawable/ic_menu_close_clear_cancel" />
+
+    <Button
+        android:id="@+id/iAmBossOfTheGym"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/clearTagButton"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/frame"
+        android:text="@string/dungeon_master"
+        app:icon="@drawable/ic_gym2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom">
+
+        <ImageButton
+            android:id="@+id/goBackSettingsScreen"
+            android:layout_width="74dp"
+            android:layout_height="74dp"
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            android:src="?attr/homeAsUpIndicator"
+            android:text="@string/go_back" />
+
+    </LinearLayout>
+
+</RelativeLayout>

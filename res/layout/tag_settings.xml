@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/poc_bg"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/startAddNewTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/frame"
+        android:text="ADD NEW TAG"
+        app:icon="@android:drawable/ic_input_add" />
+
+    <Button
+        android:id="@+id/startChangeTagName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/frame"
+        android:text="CHANGE TAG NAME"
+        app:icon="@android:drawable/ic_menu_edit" />
+
+    <Button
+        android:id="@+id/sendTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/frame"
+        android:text="SEND TAG"
+        app:icon="@android:drawable/ic_menu_send" />
+
+    <Button
+        android:id="@+id/deleteTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/frame"
+        android:text="DELETE TAG"
+        app:icon="@drawable/ic_delete" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom">
+
+        <ImageButton
+            android:id="@+id/goBackTagSettings"
+            android:layout_width="74dp"
+            android:layout_height="74dp"
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            android:src="?attr/homeAsUpIndicator" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

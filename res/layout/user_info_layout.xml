@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/poc_bg"
+    tools:context=".screens.UserInformation"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="30dp"
+        tools:ignore="MissingConstraints"
+        android:layout_below="@id/textViewUserName"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/textViewUserName"
+        android:layout_height="wrap_content"
+        android:text="@string/user_name"
+        android:textSize="21dp"
+        android:textColor="@color/black"
+        android:visibility="visible"
+        tools:ignore="MissingConstraints"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/textView2"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/available_tags"
+        android:textSize="21dp"
+        android:textColor="@color/black"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="57dp"
+        android:layout_below="@id/user_name"/>
+
+    <TextView
+        android:id="@+id/available_tags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:layout_below="@+id/textView2"
+        android:text=""
+        tools:layout_editor_absoluteY="84dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/available_tags"
+        android:background="@android:color/darker_gray"/>
+    <RelativeLayout
+        android:id="@+id/relativeLayoutInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom">
+
+        <ImageButton
+            android:id="@+id/goBackButtonUserInf"
+            android:layout_width="74dp"
+            android:layout_height="74dp"
+            android:layout_below="@id/available_tags"
+            android:layout_alignParentLeft="true"
+            android:background="@color/white"
+            tools:ignore="NotSibling"
+            android:src="?attr/homeAsUpIndicator" />
+
+    </RelativeLayout>
+</RelativeLayout>
