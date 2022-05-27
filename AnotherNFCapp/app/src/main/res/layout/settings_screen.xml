@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     android:background="@drawable/poc_bg"
     >
+    <Button
+        android:id="@+id/testConnectionButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/frame"
+        android:text="@string/test_connection"
+        app:icon="@drawable/ic_connect" />
 
     <Button
         android:id="@+id/changeLogin"
@@ -27,15 +35,6 @@
         android:background="@drawable/frame"
         android:text="Change Password"
         app:icon="@drawable/ic_change2" />
-
-    <Button
-        android:id="@+id/testConnectionButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:background="@drawable/frame"
-        android:text="@string/test_connection"
-        app:icon="@drawable/ic_connect" />
 
     <Button
         android:id="@+id/userInfoButton"

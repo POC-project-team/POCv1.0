@@ -67,11 +67,6 @@ public class ChangeLogin extends Activity {
                 public void onSuccess(int statusCode, Header[] headers, String responseString) {
                     Log.d("CHANGELOGIN", "Successfully change login");
                     printOnSuccess();
-                    try {
-                        wait(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
                     logout();
                 }
             });

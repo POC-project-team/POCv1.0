@@ -59,10 +59,10 @@ public class Settings extends AppCompatActivity {
         getUserInfoButton.setOnClickListener(v -> userInfo());
         logoutButton = findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(v -> logout());
-        //changeLogin = findViewById(R.id.changeLogin);
-        //        changeLogin.setOnClickListener(v -> changeLogin());
-        //changePassword = findViewById(R.id.changePassword);
-        //changePassword.setOnClickListener(v -> changePassword());
+        changeLogin = findViewById(R.id.changeLogin);
+        changeLogin.setOnClickListener(v -> changeLogin());
+        changePassword = findViewById(R.id.changePassword);
+        changePassword.setOnClickListener(v -> changePassword());
     }
 
     private void changePassword() {

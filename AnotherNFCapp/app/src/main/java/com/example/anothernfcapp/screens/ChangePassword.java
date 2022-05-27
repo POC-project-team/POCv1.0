@@ -66,11 +66,6 @@ public class ChangePassword extends Activity {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, String responseString) {
                     printSuccess();
-                    try {
-                        wait(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
                     logout();
                 }
             });

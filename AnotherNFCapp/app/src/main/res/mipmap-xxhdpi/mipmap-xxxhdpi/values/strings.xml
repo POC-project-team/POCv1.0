@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">POC APP</string>
+    <string name="password">Password</string>
+    <string name="place_tag_to_poc">PLACE TAG TO POC</string>
+    <string name="connection_key">connection_key</string>
+    <string-array name="connectionType">
+        <item>localhost</item>
+        <item>wi-fi</item>
+    </string-array>
+    <string name="change_user">Press to change user</string>
+    <string name="user_info">Press to get the information about user</string>
+    <string name="user_name">User name:</string>
+    <string name="available_tags">Available tags:</string>
+    <string name="go_back">Back</string>
+    <string name="value_from_server">Value from server</string>
+    <string name="user_information">User information</string>
+    <string name="test_connection">Test connection</string>
+    <string name="get_user_info">Get user info</string>
+    <string name="logout">Logout</string>
+    <string name="clear_tagid">Clear tagID</string>
+    <string name="dungeon_master">DUNGEON MASTER</string>
+</resources>
