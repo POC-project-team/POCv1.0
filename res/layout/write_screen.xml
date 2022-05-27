@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/poc_bg"
+    android:orientation="vertical"
+    tools:context=".screens.AddNote">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:text="Write what you want to add to the tag:" />
+
+    <EditText
+        android:id="@+id/getTextValue"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Value" />
+
+    <Button
+        android:id="@+id/sendValue"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="WRITE"
+        android:background="@drawable/frame"
+        android:layout_marginTop="8dp"
+        app:icon="@android:drawable/ic_menu_edit" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom">
+
+        <ImageButton
+            android:id="@+id/goBackWriteScreen"
+            android:layout_width="74dp"
+            android:layout_height="74dp"
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            android:src="?attr/homeAsUpIndicator" />
+
+    </LinearLayout>
+
+</LinearLayout>
