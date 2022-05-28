@@ -1,0 +1,225 @@
+openapi: 3.0.0
+info:
+    version: '1.0.0'
+    title: 'POC'
+    license:
+        name: MIT
+servers:
+  - url: '217.25.88.71:60494'
+paths:
+    /test:
+        get:
+            summary: 'Testing the server for working'
+    /users:
+        get:
+            summary: 'Returns the list of all users'
+            operationId: listUser
+            responses:
+                '200':
+                    description: 'List of users'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/User'
+    /signup:
+        post:
+            summary: 'Create a new user'
+            responses:
+                '200':
+                    description: 'New user has been crated'
+                '400':
+                    description: 'No login or password provided'
+                '500':
+                    description: 'Unavle to create a new user'
+                    message: clarifies the error message
+    /auth:
+        post:
+            summary: 'Login a user to get token'
+            responses:
+                '200':
+                    description: 'User has been logged in'
+                    content: jwt-token
+                '400':
+                    description: 'Login or password are incorrect or not provided'
+                '500':
+                    description: 'Iternal error occurred'
+                    message: clarifies the error message
+    /{token}/changeLogin:
+        post:
+            summary: 'Change login of user'
+            responses:
+                '200':
+                    description: 'User login has been successfuly changed'
+                '406':
+                    description: 'Provided token is not valid'
+                '500':
+                    description: 'Error occurred while processing request'
+                    message: clarifies what went wrong
+    /{token}/changePassword:
+        post:
+            summary: 'Change password of user'
+            responses:
+                '200':
+                    description: 'User password has been changed'
+                '406':
+                    description: 'Provided token is not valid'
+                '500':
+                    description: 'Error occurred while processing request'
+                    message: clarifies what went wrong
+    /{token}/tags:
+        get:
+            summary: 'Get all the tags user has'
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            $ref: '#/components/schemas/Tag'
+                '400':
+                    description: 'Provided information is wrong'
+                    message: clarifies what went wrong
+                '406':
+                    description: 'Provided token is not valid'
+                '500':
+                    description: 'Error occurred while processing request'
+                    message: clarifies what went wrong
+    /{token}/{tag_id}/tag:
+        get:
+            summary: 'Return the info about the tags user has'
+            responses:
+                '200':
+                    description: 'Update information about existing tag'
+                    content:
+                        application/json:
+                            $ref: '#/components/schemas/Tag'
+                '400':
+                    description: 'Provided information is wrong'
+                    message: clarifies what went wrong
+                '406':
+                    description: 'Provided token is not valid'
+                '500':
+                    description: 'Error occurred while processing request'
+                    message: clarifies what went wrong
+        post:
+            summary: 'Create a new tag for user'
+            responses:
+                '200':
+                    description: 'Update information about existing tag'
+                    content:
+                        application/json:
+                            $ref: '#/components/schemas/Tag'
+                '400':
+                    description: 'Provided information is wrong'
+                    message: clarifies what went wrong
+                '406':
+                    description: 'Provided token is not valid'
+                '500':
+                    description: 'Error occurred while processing request'
+                    message: clarifies what went wrong
+        put:
+            summary: 'update information about existing tag'
+            responses:
+                '200':
+                    description: 'Update information about existing tag'
+                    content:
+                        application/json:
+                            $ref: '#/components/schemas/Tag'
+                '400':
+                    description: 'Information provided is wrong'
+                    message: clarifies what went wrong
+                '406':
+                    description: 'Provided token is not valid'
+                '500':
+                    description: 'Error occurred while processing request'
+                    message: clarifies what went wrong
+        delete:
+            summary: 'Delete tag from the system'
+            responses:
+                '200':
+                    description: 'The tag was successfully deleted'
+                '400':
+                    description: 'Information provided is wrong'
+                    message: clarifies what went wrong
+                '406':
+                    description: 'Provided token is not valid'
+                '500':
+                    description: 'Error occurred while processing request'
+                    message: clarifies what went wrong
+    /{token}/{tag_id}/send:
+        post:
+            summary: 'Send the tag to another user'
+            responses:
+                '200':
+                    description: 'The tag was sent successfully'
+                '400':
+                    description: 'Provided information is wrong'
+                    message: clarifies what went wrong
+                '406':
+                    description: 'Provided token is not valid'
+                '500':
+                    description: 'Error occurred while processing request'
+                    message: clarifies what went wrong
+    /{token}/{tag_id}/notes:
+        get:
+            summary: 'Get the list of all notes associated with the given tag'
+            responses:
+                '200':
+                    description: 'A list of notes is returned'
+                    content:
+                        application/json:
+                            $ref: '#/components/schemas/Note'
+                '400':
+                    description: 'Provided information is wrong'
+                '406':
+                    description: 'Provided token is not valid'
+                '500':
+                    description: 'Error occurred while processing request'
+                    message: clarifies what went wrong
+    /{token}/{tag_id}/note:
+        post:
+            summary: 'Create a note for the specified tag'
+            responses:
+                '200':
+                    description: 'A new note was created'
+                    content:
+                        application/json:
+                            $ref: '#/components/schemas/Note'
+                '400':
+                    description: 'Provided information is wrong'
+                '406':
+                    description: 'Provided token is not valid'
+                '500':
+                    description: 'Error occurred while processing request'
+                    message: clarifies what went wrong
+
+components:
+    schemas:
+        User:
+            type: object
+            properties:
+                UserID:
+                    type: int
+                Tags:
+                    type: list of object Tag
+
+        Tag:
+            type: object
+            properties:
+                TagID:
+                    type: string
+                TagName:
+                    type: string
+                Notes:
+                    type: list of objects Note
+        Note:
+            type: object
+            properties:
+                Note:
+                    type: string
+                Time:
+                    type: time
+        securitySchemes:
+            BasicAuth:
+                type: http
+                scheme: basic
+security:
+  - BasicAuth: JSONWebTokens

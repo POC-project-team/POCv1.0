@@ -27,11 +27,6 @@ func _() string {
 	return hex.EncodeToString(h.Sum([]byte(strconv.Itoa(int(time.Now().UnixNano())))))
 }
 
-func NewUser(userID int) *User {
-	//return &User{NewHashUser(), nil}
-	return &User{userID, nil}
-}
-
 func (u *User) NewTag(id string) {
 	if u.Tags == nil {
 		u.Tags = make(map[string]*Tag)

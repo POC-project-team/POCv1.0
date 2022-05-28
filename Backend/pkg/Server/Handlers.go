@@ -3,6 +3,7 @@ package server
 
 import (
 	"backend/pkg/APIerror"
+	au "backend/pkg/Auth"
 	service "backend/pkg/Service"
 	"github.com/gorilla/mux"
 	"net/http"
@@ -13,14 +14,27 @@ func MyHandler() *mux.Router {
 	srv := service.NewService()
 	router := mux.NewRouter()
 
-	userRouter := router.PathPrefix("/getUsers").Subrouter()
-	userRouter.HandleFunc("", srv.GetAllUsers).Methods("GET")
+	// routers for users and auth
+	router.HandleFunc("/users", srv.GetAllUsers).Methods("GET")
+	router.HandleFunc("/signup", srv.CreateUser).Methods("POST")
+	router.HandleFunc("/auth", au.Auth).Methods("POST")
 
-	//router.HandleFunc("/getUsers", srv.GetAllUsers).Methods("GET")
-	router.HandleFunc("/createUser", srv.CreateUser).Methods("GET")
-	router.HandleFunc("/{user_id:[0-9]+}/getTags", srv.GetAllTags).Methods("GET")
-	router.HandleFunc("/{user_id:[0-9]+}/getNotes", srv.GetNotes).Methods("POST")
-	router.HandleFunc("/{user_id:[0-9]+}/addNote", srv.AddNote).Methods("POST")
+	// routers for users settings and profile
+	router.HandleFunc("/{token}/changeLogin", au.ChangeLogin).Methods("POST")
+	router.HandleFunc("/{token}/changePassword", au.ChangePassword).Methods("POST")
+
+	// routers for tag handling
+	router.HandleFunc("/{token}/tags", srv.GetAllUsersTags).Methods("GET")
+	router.HandleFunc("/{token}/{tag_id}/tag", srv.CreateTag).Methods("POST")
+	router.HandleFunc("/{token}/{tag_id}/tag", srv.GetTag).Methods("GET")
+	router.HandleFunc("/{token}/{tag_id}/tag", srv.UpdateTag).Methods("PUT")
+	router.HandleFunc("/{token}/{tag_id}/tag", srv.DeleteTag).Methods("DELETE")
+	router.HandleFunc("/{token}/{tag_id}/send", srv.TransferTag).Methods("POST")
+
+	// routers for notes handling
+	router.HandleFunc("/{token}/{tag_id}/notes", srv.GetNotes).Methods("GET")
+	router.HandleFunc("/{token}/{tag_id}/note", srv.AddNote).Methods("POST")
+
 	router.HandleFunc("/test", func(writer http.ResponseWriter, request *http.Request) {
 		writer.WriteHeader(http.StatusCreated)
 		if _, err := writer.Write([]byte("Hello, I'm working\n")); err != nil {
@@ -29,8 +43,7 @@ func MyHandler() *mux.Router {
 				Description: "I don't know…",
 			})
 		}
-		return
-	})
+	}).Methods("GET")
 	router.Handle("/", router)
 	return router
 }

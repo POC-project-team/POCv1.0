@@ -11,8 +11,6 @@ import (
 	"time"
 )
 
-// todo: auth
-
 type myServer struct {
 	http.Server
 	shutdownReq chan bool
