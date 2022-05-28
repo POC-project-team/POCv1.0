@@ -99,8 +99,8 @@ func (req *Request) ParseToken(w http.ResponseWriter, r *http.Request) error {
 
 	if err != nil {
 		APIerror.HTTPErrorHandle(w, APIerror.HTTPErrorHandler{
-			ErrorCode:   http.StatusInternalServerError,
-			Description: err.Error(),
+			ErrorCode:   406,
+			Description: "The token has expired",
 		})
 		return err
 	}

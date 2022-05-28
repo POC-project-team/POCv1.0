@@ -23,10 +23,22 @@ func openDataBase() *sql.DB {
 	return db
 }
 
+func (database *SQL) Close() error {
+	err := database.Store.Close()
+	if err != nil {
+		log.Error(err.Error())
+		return errors.New("error closing database")
+	}
+	return nil
+}
+
+func (database *SQL) Open() {
+	database.Store = openDataBase()
+}
+
 // NewSQLDataBase creates the database and connects to it
 func NewSQLDataBase() *SQL {
 	var database SQL
-	database.Store = openDataBase()
 	return &database
 }
 
@@ -110,6 +122,13 @@ func (database *SQL) containsTagByLogin(login string, tagID string) bool {
 
 // GetUserID return UserID, if user with such login and password exist
 func (database *SQL) GetUserID(login, password string) (int, error) {
+	database.Open()
+	defer func(database *SQL) {
+		err := database.Close()
+		if err != nil {
+			log.Error(err.Error())
+		}
+	}(database)
 	// get login
 	rows, err := database.Store.Query(`
 	select count(UserID) from Users where Login = ?;
@@ -151,6 +170,13 @@ func (database *SQL) GetUserID(login, password string) (int, error) {
 // GetAllUsers for getting all users from database
 // Return []string for answering the request and error status
 func (database *SQL) GetAllUsers() ([]string, error) {
+	database.Open()
+	defer func(database *SQL) {
+		err := database.Close()
+		if err != nil {
+			log.Error(err.Error())
+		}
+	}(database)
 	rows, err := database.Store.Query(`select UserID from "Users"`)
 	if err != nil {
 		return nil, err
@@ -180,6 +206,13 @@ func (database *SQL) GetAllUsers() ([]string, error) {
 // CreateUser creates a user in db
 // Returns created user and error status
 func (database *SQL) CreateUser(login, password string) (u.User, error) {
+	database.Open()
+	defer func(database *SQL) {
+		err := database.Close()
+		if err != nil {
+			log.Error(err.Error())
+		}
+	}(database)
 	rows, err := database.Store.Query(`select count(UserID) from Users`)
 	if err != nil {
 		return u.User{}, err
@@ -229,6 +262,13 @@ func (database *SQL) CreateUser(login, password string) (u.User, error) {
 
 // ChangeLogin change login of user
 func (database *SQL) ChangeLogin(userId int, login string) error {
+	database.Open()
+	defer func(database *SQL) {
+		err := database.Close()
+		if err != nil {
+			log.Error(err.Error())
+		}
+	}(database)
 	stmt, err := database.Store.Prepare(`update Users set Login = ? where UserID = ?`)
 	if err != nil {
 		return err
@@ -242,6 +282,13 @@ func (database *SQL) ChangeLogin(userId int, login string) error {
 
 // ChangePassword change password of user
 func (database *SQL) ChangePassword(userId int, password string) error {
+	database.Open()
+	defer func(database *SQL) {
+		err := database.Close()
+		if err != nil {
+			log.Error(err.Error())
+		}
+	}(database)
 	stmt, err := database.Store.Prepare(`update Users set Password = ? where UserID = ?`)
 	if err != nil {
 		return err
@@ -261,6 +308,13 @@ type TagNoUserNotes struct {
 // GetUserTags get all tags from specific user
 // Return []string for answering the request and error status
 func (database *SQL) GetUserTags(userId int) ([]TagNoUserNotes, error) {
+	database.Open()
+	defer func(database *SQL) {
+		err := database.Close()
+		if err != nil {
+			log.Error(err.Error())
+		}
+	}(database)
 	if !database.containsUser(userId) {
 		return nil, errors.New("no such user")
 	}
@@ -287,6 +341,13 @@ func (database *SQL) GetUserTags(userId int) ([]TagNoUserNotes, error) {
 }
 
 func (database *SQL) GetTag(userId int, tagId string) (TagNoUserNotes, error) {
+	database.Open()
+	defer func(database *SQL) {
+		err := database.Close()
+		if err != nil {
+			log.Error(err.Error())
+		}
+	}(database)
 	if !database.containsUser(userId) {
 		return TagNoUserNotes{}, errors.New("no such user")
 	}
@@ -305,6 +366,13 @@ func (database *SQL) GetTag(userId int, tagId string) (TagNoUserNotes, error) {
 }
 
 func (database *SQL) UpdateTag(userId int, tagId string, tagName string) (TagNoUserNotes, error) {
+	database.Open()
+	defer func(database *SQL) {
+		err := database.Close()
+		if err != nil {
+			log.Error(err.Error())
+		}
+	}(database)
 	if !database.containsUser(userId) {
 		return TagNoUserNotes{}, errors.New("no such user")
 	}
@@ -330,6 +398,13 @@ func (database *SQL) UpdateTag(userId int, tagId string, tagName string) (TagNoU
 }
 
 func (database *SQL) CreateTag(userId int, tagId, tagName string) (TagNoUserNotes, error) {
+	database.Open()
+	defer func(database *SQL) {
+		err := database.Close()
+		if err != nil {
+			log.Error(err.Error())
+		}
+	}(database)
 	if !database.containsUser(userId) {
 		return TagNoUserNotes{}, errors.New("no such user")
 	}
@@ -355,6 +430,13 @@ func (database *SQL) CreateTag(userId int, tagId, tagName string) (TagNoUserNote
 }
 
 func (database *SQL) DeleteTag(userId int, tagId string) error {
+	database.Open()
+	defer func(database *SQL) {
+		err := database.Close()
+		if err != nil {
+			log.Error(err.Error())
+		}
+	}(database)
 	if !database.containsUser(userId) {
 		return errors.New("no such user")
 	}
@@ -383,6 +465,13 @@ func (database *SQL) DeleteTag(userId int, tagId string) error {
 }
 
 func (database *SQL) TransferTag(userId int, tagId, login string) error {
+	database.Open()
+	defer func(database *SQL) {
+		err := database.Close()
+		if err != nil {
+			log.Error(err.Error())
+		}
+	}(database)
 	if !database.containsUser(userId) {
 		return errors.New("no such user")
 	}
@@ -414,6 +503,13 @@ func (database *SQL) TransferTag(userId int, tagId, login string) error {
 // GetUserNotes get user notes from tag
 // Return []string for answering the request and error status
 func (database *SQL) GetUserNotes(userId int, tagId string) ([]u.Note, error) {
+	database.Open()
+	defer func(database *SQL) {
+		err := database.Close()
+		if err != nil {
+			log.Error(err.Error())
+		}
+	}(database)
 	if !database.containsUser(userId) {
 		return nil, errors.New("no such user")
 	}
@@ -448,6 +544,13 @@ func (database *SQL) GetUserNotes(userId int, tagId string) ([]u.Note, error) {
 // Creates tag if not exist
 // Return TagNoUserNotes object and error status
 func (database *SQL) AddNote(userId int, tagId, noteInfo string) (u.Tag, error) {
+	database.Open()
+	defer func(database *SQL) {
+		err := database.Close()
+		if err != nil {
+			log.Error(err.Error())
+		}
+	}(database)
 	if !database.containsUser(userId) {
 		return u.Tag{}, errors.New("no such user")
 	}

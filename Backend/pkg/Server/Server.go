@@ -22,8 +22,8 @@ func NewServer() *myServer {
 	myRouter := &myServer{
 		Server: http.Server{
 			Addr:         "0.0.0.0:60494", //it's going to be redone
-			ReadTimeout:  10 * time.Second,
-			WriteTimeout: 10 * time.Second,
+			ReadTimeout:  15 * time.Second,
+			WriteTimeout: 15 * time.Second,
 		},
 	}
 
