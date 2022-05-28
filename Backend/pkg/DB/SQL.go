@@ -41,6 +41,7 @@ func (database *SQL) closeDataBase() {
 // NewSQLDataBase creates the database and connects to it
 func NewSQLDataBase() *SQL {
 	var database SQL
+	database.openDataBase()
 	//database.Store = openDataBase()
 	return &database
 }
