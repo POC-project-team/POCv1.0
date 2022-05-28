@@ -126,6 +126,7 @@ func (database *SQL) containsTagByLogin(login string, tagID string) bool {
 
 // GetUserID return UserID, if user with such login and password exist
 func (database *SQL) GetUserID(login, password string) (int, error) {
+	database.closeDataBase()
 	database.openDataBase()
 	// get login
 	rows, err := database.Store.Query(`
