@@ -11,6 +11,6 @@ public class JsonForGetNotesResponse {
 
     @Override
     public String toString() {
-        return "Note: '" + note + ", time: '" + time + "\n";
+        return "Note: " + note + ", time: " + time + "\n";
     }
 }
