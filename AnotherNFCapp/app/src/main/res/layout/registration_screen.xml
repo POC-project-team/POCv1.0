@@ -52,7 +52,12 @@
             android:layout_height="wrap_content"
             android:text="Show password"
             android:id="@+id/show_password_register1"/>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

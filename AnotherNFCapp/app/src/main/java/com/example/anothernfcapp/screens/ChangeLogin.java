@@ -3,8 +3,11 @@ package com.example.anothernfcapp.screens;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -28,6 +31,7 @@ public class ChangeLogin extends Activity {
     private EditText login;
     private EditText newLogin;
     private EditText password;
+    private CheckBox showPassword;
     private ImageButton goBack;
     private AsyncHttpClient asyncHttpClient;
 
@@ -45,6 +49,15 @@ public class ChangeLogin extends Activity {
                 changeLogin();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
+            }
+        });
+        showPassword = findViewById(R.id.show_password_change_login);
+        showPassword.setOnClickListener(v -> {
+            if (showPassword.isChecked()){
+                password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }
+            else {
+                password.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
         });
         goBack = findViewById(R.id.goBackButtonChangeLogin);

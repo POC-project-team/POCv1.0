@@ -3,8 +3,11 @@ package com.example.anothernfcapp.screens;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -26,6 +29,8 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 public class ChangePassword extends Activity {
     private EditText login;
     private EditText newPassword;
+    private CheckBox changePassword1;
+    private CheckBox changePassword2;
     private EditText confirmPassword;
     private Button changePasswordButton;
     private ImageButton goBackButton;
@@ -45,6 +50,24 @@ public class ChangePassword extends Activity {
                 changePassword();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
+            }
+        });
+        changePassword1 = findViewById(R.id.show_password_change_password1);
+        changePassword1.setOnClickListener(v -> {
+            if (changePassword1.isChecked()){
+                newPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }
+            else {
+                newPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+        });
+        changePassword2 = findViewById(R.id.show_password_change_password2);
+        changePassword2.setOnClickListener(v -> {
+            if (changePassword2.isChecked()){
+                confirmPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }
+            else {
+                confirmPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
         });
         goBackButton = findViewById(R.id.goBackButtonChangePassword);
