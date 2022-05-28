@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <EditText
+        <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Please, enter your password:"
@@ -46,6 +46,33 @@
             android:ems="10"
             android:id="@+id/passwordReg"
             android:hint="@string/password" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show password"
+            android:id="@+id/show_password_register1"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Please, confirm your password:"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            />
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/passwordReg2"
+            android:hint="@string/password" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show password"
+            android:id="@+id/show_password_register2"/>
     </LinearLayout>
 
 

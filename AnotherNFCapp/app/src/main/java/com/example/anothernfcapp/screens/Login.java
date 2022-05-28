@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.example.anothernfcapp.R;
@@ -28,7 +30,9 @@ public class Login extends AppCompatActivity {
     private EditText password;
     private Button buttonLogin;
     private Button buttonRegister;
+    private CheckBox showPassword;
     private AsyncHttpClient asyncHttpClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,15 @@ public class Login extends AppCompatActivity {
         });
         buttonRegister = findViewById(R.id.registerButton);
         buttonRegister.setOnClickListener(v -> register());
+        showPassword = findViewById(R.id.show_password_login);
+        showPassword.setOnClickListener(v -> {
+            if (showPassword.isChecked()){
+                password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }
+            else {
+                password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+        });
     }
 
     private void loginApp() throws UnsupportedEncodingException {
