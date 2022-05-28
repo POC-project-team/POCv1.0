@@ -20,7 +20,7 @@ public class BadStatusCodeProcess {
             Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
         }
         else if (statusCode >= 400){
-            if (statusCode == 406) {
+            if (statusCode == 500) {
                 try {
                     reLogin(context);
                 } catch (UnsupportedEncodingException e) {
