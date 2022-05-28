@@ -84,6 +84,8 @@ public class GetNotes extends Activity {
                 message = JsonFactory.makeStringForGetNotesResponse(responseString);
                 Log.d("CACHEGET", "onSuccess: " + message);
                 textView.setText("");
+                stringToCache.append("Cached notes:");
+                stringToCache.append("\n");
                 for (JsonForGetNotesResponse msg:message) {
                     textView.append(msg.toString());
                     textView.append("\n");
