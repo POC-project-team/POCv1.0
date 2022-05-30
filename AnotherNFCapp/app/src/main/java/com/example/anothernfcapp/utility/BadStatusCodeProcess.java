@@ -20,7 +20,7 @@ public class BadStatusCodeProcess {
             Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
         }
         else if (statusCode >= 400){
-            if (statusCode == 500) {
+            if (statusCode == 406 && response.equals("The token has expired")) {
                 try {
                     reLogin(context);
                 } catch (UnsupportedEncodingException e) {
@@ -31,7 +31,7 @@ public class BadStatusCodeProcess {
                 Toast.makeText(context, "Error " + statusCode, Toast.LENGTH_SHORT).show();
             }
             else{
-                Toast.makeText(context, "Error " + statusCode + ": " + response, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Error: " + response, Toast.LENGTH_SHORT).show();
             }
         }
     }
