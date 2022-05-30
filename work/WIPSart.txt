@@ -42,3 +42,20 @@
 
 27.04.2022:
     Check commits, I forgot to paste the work here =)
+
+1.05.2022:
+    Debugging
+
+6.05.2022:
+    Debugging and writting docs
+
+12.05.2022:
+    Debugging docs
+
+24.05.2022:
+    Just the same, 
+    working on debugging and testing the server-side code and debuggin docs, 
+    moreover working on the final presentation
+
+28.05.2022:
+    Relaxing and making presentation
