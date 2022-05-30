@@ -46,7 +46,7 @@ func Auth(w http.ResponseWriter, r *http.Request) {
 	claims := Claims{
 		UserId: UserID,
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Hour).Unix(),
+			ExpiresAt: time.Now().Add(time.Hour * 48).Unix(),
 		},
 	}
 
