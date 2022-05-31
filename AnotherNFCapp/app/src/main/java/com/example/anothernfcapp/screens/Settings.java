@@ -3,6 +3,7 @@ package com.example.anothernfcapp.screens;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -63,6 +64,9 @@ public class Settings extends AppCompatActivity {
         changeLogin.setOnClickListener(v -> changeLogin());
         changePassword = findViewById(R.id.changePassword);
         changePassword.setOnClickListener(v -> changePassword());
+        if (StaticVariables.login.equals(StaticVariables.superUser)) {
+            dungeonMasterButton.setVisibility(View.VISIBLE);
+        }
     }
 
     private void changePassword() {
