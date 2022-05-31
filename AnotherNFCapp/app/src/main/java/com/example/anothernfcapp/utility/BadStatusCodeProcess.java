@@ -5,7 +5,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.anothernfcapp.json.JsonFactory;
-import com.example.anothernfcapp.screens.Login;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.TextHttpResponseHandler;
 
