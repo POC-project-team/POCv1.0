@@ -20,8 +20,6 @@ func NewService() *Service {
 	}
 }
 
-// todo: add naming for the tags
-
 // GetAllUsers func to return all users in the map
 func (s *Service) GetAllUsers(w http.ResponseWriter, _ *http.Request) {
 	type response struct {
