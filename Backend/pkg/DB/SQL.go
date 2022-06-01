@@ -496,7 +496,14 @@ func (database *SQL) TransferTag(userId int, tagId, login string) error {
 	if _, err = stmt.Exec(login, userId, tagId); err != nil {
 		return err
 	}
-
+	// update usedid in notes
+	stmt, err = database.Store.Prepare(`update Notes set UserID = (select UserID from users where Login = ?) where UserID = ? and TagID = ?`)
+	if err != nil {
+		return err
+	}
+	if _, err = stmt.Exec(login, userId, tagId); err != nil {
+		return err
+	}
 	return nil
 }
 
